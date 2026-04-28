@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Combo Bar + Line (SVG capture)</title>
+<!--
+  USAGE:
+  시계열 (10~12 시점) — 막대(주) + 라인(보조) 콤보. 마지막 시점 예측 라벨.
+  ③ 분석 슬롯 "장기 추세 + 보조 지표" 메시지에 사용.
+
+  RENDER MODE:
+  차트 통째 SVG → <div data-pptx-image="true"> 로 감싸 PNG 캡처.
+
+  USE MODE:
+  reference. deck.cjs 의 `{ html: '<...>' }` 자유 모드:
+    1) <body> 통째 복사
+    2) Y축 라벨 (4단) 데이터 max 에 맞게 수정
+    3) <rect> y/height — 막대값 / max * 200, y = 228 - height
+    4) <polyline points="x1,y1 x2,y2 ..."> 좌표 — 라인 시리즈 데이터 매핑
+    5) <circle> 마커 cx/cy — polyline 점과 동일
+    6) 시점이 12 미만이면 사용 안 하는 <rect>/<text>/<circle> 요소 자체 삭제
+    7) 마지막 시점 강조 라벨 (forecast) 직접 수정
+
+  TOKENS (텍스트만):
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}     헤더
+  - {{LABEL}} {{TITLE}} {{LEDE}}           본문
+  - {{LEGEND_BAR}} {{LEGEND_LINE}}         범례 (막대·라인)
+  - {{FORECAST_LABEL}}                     예측 마커 텍스트
+  - {{SOURCE_NOTE}}                        하단 출처
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+  .source { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0; }
+  .legend { display: flex; gap: 14px; margin-top: 14px; justify-content: flex-end; }
+  .legend .item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--label-gray); font-weight: 500; }
+  .legend .item p { margin: 0; }
+  .swatch-blue { width: 14px; height: 10px; background: #FF7E5F; }
+  .swatch-line { width: 14px; height: 2px; background: #000; }
+
+  .chart-box { background: #fff; height: 260px; margin-top: 8px; }
+  .chart-box svg { display: block; width: 100%; height: 100%; }
+  .forecast-tag { display: inline-block; margin-top: 8px; padding: 4px 10px; background: #FFF1EC; border-left: 3px solid var(--brand-blue); font-size: 11px; color: var(--brand-blue); font-weight: 700; }
+  .forecast-tag p { margin: 0; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="legend">
+      <div class="item"><div class="swatch-blue"></div><p>{{LEGEND_BAR}}</p></div>
+      <div class="item"><div class="swatch-line"></div><p>{{LEGEND_LINE}}</p></div>
+    </div>
+
+    <!-- 콤보 차트 SVG (PNG 캡처). viewBox 880×260.
+         X 시작 55, 끝 870 (= 815px / 12 = 67.9 col 폭). bar width 24, x = 55 + i*67.92 + 21.96
+         Y: 라벨 max 15000 (y=32), 0 baseline (y=228). height ratio = val/15000*200
+         라인 max 5000 → cy = 228 - (val/5000)*200 -->
+    <div class="chart-box" data-pptx-image="true">
+      <svg viewBox="0 0 880 260" preserveAspectRatio="xMidYMid meet">
+        <g font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+          <text x="46" y="32" text-anchor="end">15,000</text>
+          <text x="46" y="92" text-anchor="end">10,000</text>
+          <text x="46" y="152" text-anchor="end">5,000</text>
+          <text x="46" y="232" text-anchor="end">0</text>
+        </g>
+        <g stroke="#F0F0F0" stroke-width="1">
+          <line x1="55" y1="28"  x2="870" y2="28"/>
+          <line x1="55" y1="88"  x2="870" y2="88"/>
+          <line x1="55" y1="148" x2="870" y2="148"/>
+        </g>
+        <line x1="55" y1="228" x2="870" y2="228" stroke="#000" stroke-width="1"/>
+        <text x="55" y="14" font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">단위 · 명</text>
+
+        <!-- 12 막대 (예시: 5200,11000,4400,2300,3300,5100,6100,3500,1900,1200,3100,6800) -->
+        <g fill="#FF7E5F">
+          <rect x="77"  y="158.7" width="24" height="69.3"/>
+          <rect x="145" y="81.3"  width="24" height="146.7"/>
+          <rect x="213" y="169.3" width="24" height="58.7"/>
+          <rect x="280" y="197.3" width="24" height="30.7"/>
+          <rect x="348" y="184.0" width="24" height="44.0"/>
+          <rect x="416" y="160.0" width="24" height="68.0"/>
+          <rect x="484" y="146.7" width="24" height="81.3"/>
+          <rect x="552" y="181.3" width="24" height="46.7"/>
+          <rect x="619" y="202.7" width="24" height="25.3"/>
+          <rect x="687" y="212.0" width="24" height="16.0"/>
+          <rect x="755" y="186.7" width="24" height="41.3"/>
+          <rect x="823" y="137.3" width="24" height="90.7"/>
+        </g>
+
+        <!-- 라인 시리즈 (이탈자, 예시: 1500,2200,1800,2400,3100,2700,2300,2900,3500,4200,3800,4600) -->
+        <polyline points="89,168 157,140 225,156 292,132 360,104 428,120 496,136 564,112 631,88 699,60 767,76 835,44"
+                  fill="none" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
+        <g fill="#000">
+          <circle cx="89"  cy="168" r="3"/>
+          <circle cx="157" cy="140" r="3"/>
+          <circle cx="225" cy="156" r="3"/>
+          <circle cx="292" cy="132" r="3"/>
+          <circle cx="360" cy="104" r="3"/>
+          <circle cx="428" cy="120" r="3"/>
+          <circle cx="496" cy="136" r="3"/>
+          <circle cx="564" cy="112" r="3"/>
+          <circle cx="631" cy="88"  r="3"/>
+          <circle cx="699" cy="60"  r="3"/>
+          <circle cx="767" cy="76"  r="3"/>
+          <circle cx="835" cy="44"  r="3"/>
+        </g>
+
+        <!-- X 라벨 (12 시점) -->
+        <g font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+          <text x="89"  y="248">'15</text>
+          <text x="157" y="248">'16</text>
+          <text x="225" y="248">'17</text>
+          <text x="292" y="248">'18</text>
+          <text x="360" y="248">'19</text>
+          <text x="428" y="248">'20</text>
+          <text x="496" y="248">'21</text>
+          <text x="564" y="248">'22</text>
+          <text x="631" y="248">'23</text>
+          <text x="699" y="248">'24</text>
+          <text x="767" y="248">'25</text>
+          <text x="835" y="248" fill="#FF7E5F" font-weight="800">'26F</text>
+        </g>
+      </svg>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px">
+      <div class="forecast-tag"><p>{{FORECAST_LABEL}}</p></div>
+      <p class="source">{{SOURCE_NOTE}}</p>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

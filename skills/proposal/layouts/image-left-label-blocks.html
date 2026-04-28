@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Image Left + Label Blocks Right Slide</title>
+<!--
+  USAGE:
+  좌측에 큰 이미지(캐릭터·다이어그램·프로필 등) + 우측에 타이틀 + 3개 "블루 라벨 박스".
+  각 라벨 박스는 블루 라벨(제목) + 본문 설명으로 구성.
+  개념 설명, 특징 정리, 요소 분해 등에 사용.
+
+  구조:
+  - 좌측: 이미지 placeholder (320x380)
+  - 우측: 메인 타이틀 + 3개 라벨 블록
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}} : 헤더
+  - {{IMG_DESC}} : 좌측 이미지 설명
+  - {{MAIN_TITLE}} : 우측 대제목 (줄바꿈 <br> 사용 가능)
+  - {{BLOCK_N_LABEL}} : 라벨 (블루 볼드)
+  - {{BLOCK_N_BODY}} : 본문 설명
+-->
+<style>
+  :root {
+    --brand-blue: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+    --light-border: #E0E0E0;
+    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-family);
+    color: var(--dark-gray);
+    background: var(--white);
+    width: 960px;
+    height: 540px;
+    position: relative;
+  }
+
+  /* 헤더 */
+  .slide-header { padding: 32px 60px 0 60px; }
+  .slide-header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .slide-header p { font-size: 13px; font-weight: 500; color: var(--dark-gray); line-height: 1.4; }
+  .header-line { height: 2px; background: var(--brand-blue); margin-top: 14px; }
+
+  /* 메인 */
+  .main {
+    padding: 24px 60px 0 60px;
+    display: flex;
+    gap: 36px;
+  }
+
+  /* 좌측 이미지 */
+  .left-image {
+    flex: 0 0 320px;
+    height: 380px;
+    background: var(--light-bg);
+    border: 2px dashed var(--light-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .left-image p {
+    font-size: 13px;
+    color: #bbb;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  /* 우측 블록 */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .main-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .label-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 0 10px 0;
+    border-top: 2px solid var(--brand-blue);
+  }
+  .label-block .label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand-blue);
+  }
+  .label-block p.body {
+    font-size: 13px;
+    color: var(--dark-gray);
+    line-height: 1.6;
+  }
+
+  /* 로고 */
+  .logo-area { position: absolute; bottom: 20px; right: 60px; height: 12px; }
+  .logo-area img { height: 100%; width: auto; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <div class="left-image">
+      <p>IMAGE<br>{{IMG_DESC}}</p>
+    </div>
+
+    <div class="right">
+      <h1 class="main-title">{{MAIN_TITLE}}</h1>
+
+      <div class="label-block">
+        <p class="label">{{BLOCK_1_LABEL}}</p>
+        <p class="body">{{BLOCK_1_BODY}}</p>
+      </div>
+      <div class="label-block">
+        <p class="label">{{BLOCK_2_LABEL}}</p>
+        <p class="body">{{BLOCK_2_BODY}}</p>
+      </div>
+      <div class="label-block">
+        <p class="label">{{BLOCK_3_LABEL}}</p>
+        <p class="body">{{BLOCK_3_BODY}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

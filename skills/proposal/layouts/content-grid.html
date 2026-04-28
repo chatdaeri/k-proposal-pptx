@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Content Grid Slide</title>
+<style>
+  :root {
+    --brand-blue: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    width: 960px;
+    height: 540px;
+    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--white);
+    overflow: hidden;
+    position: relative;
+  }
+  .slide-header { padding: 32px 60px 0 60px; }
+  .slide-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .slide-header-inner p {
+    font-size: 13px;
+    color: var(--dark-gray);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .header-line {
+    margin: 14px 60px 0 60px;
+    height: 2px;
+    background: var(--brand-blue);
+  }
+  .slide-body {
+    padding: 20px 60px 50px 60px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 66px);
+  }
+  .title-area {
+    margin-bottom: 14px;
+  }
+  .title-area .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--brand-blue);
+    letter-spacing: 0.06em;
+    margin: 0 0 4px 0;
+  }
+  .title-area h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--black);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px 0;
+  }
+  .title-area h2 .a { color: var(--brand-blue); }
+  .title-area .lede {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--label-gray, #4A4A48);
+    line-height: 1.45;
+    margin: 0;
+  }
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
+  }
+  .grid-item {
+    width: calc(50% - 7px);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background-color: var(--light-bg);
+    border-radius: 0;
+  }
+  .grid-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    background-color: var(--brand-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .grid-badge p {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .grid-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .grid-item-text h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.3;
+  }
+  .grid-item-text p {
+    font-size: 14px;
+    color: var(--dark-gray);
+    line-height: 1.5;
+  }
+  .bottom-logo {
+    position: absolute;
+    bottom: 20px;
+    right: 60px;
+    height: 14px;
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+  </div>
+  <div class="header-line"></div>
+  <div class="slide-body">
+    <div class="title-area">
+      <p class="eyebrow">{{GRID_EYEBROW}}</p>
+      <h2>{{GRID_TITLE}}</h2>
+      <p class="lede">{{GRID_LEDE}}</p>
+    </div>
+    <div class="grid-container">
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>1</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>{{ITEM_1_TITLE}}</h4>
+          <p>{{ITEM_1_DESC}}</p>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>2</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>{{ITEM_2_TITLE}}</h4>
+          <p>{{ITEM_2_DESC}}</p>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>3</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>{{ITEM_3_TITLE}}</h4>
+          <p>{{ITEM_3_DESC}}</p>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>4</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>{{ITEM_4_TITLE}}</h4>
+          <p>{{ITEM_4_DESC}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-logo">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

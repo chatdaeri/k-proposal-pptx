@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Icon Grid — 4 Concept Cards</title>
+<!--
+  USAGE:
+  4개 개념을 큰 아이콘 + 짧은 설명으로 정리.
+  ⑤ 핵심 인사이트 / ⑨ 정당화 슬롯 — "서비스가 만드는 4가지 변화" 같은 메시지.
+
+  TOKENS:
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}     헤더
+  - {{LABEL}} {{TITLE}} {{LEDE}}           본문 라벨/타이틀/부제
+  - {{ICON_1}} {{ITEM_1_TITLE}} {{ITEM_1_DESC}}  ~  {{ICON_4_*}}
+                                            아이콘 (이모지 또는 단일 문자) + 제목 + 설명
+
+  ABSOLUTE RULES:
+  - 4개 카드 균등 1:1:1:1, 카드 1px 회색 보더 직각
+  - 아이콘 박스 64×64px, 2px 브랜드 블루 보더
+  - 이모지는 절대 규칙 위반 — 텍스트 심볼만 권장 (예: ⏱→"T", $→"$", ↻→"R", ★→"★")
+    실제 아이콘이 필요하면 이미지 슬롯으로 교체
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; height: 290px; }
+  .card { background: var(--light-bg); border: 1px solid var(--light-border); padding: 24px 16px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
+  .card .glyph { width: 64px; height: 64px; border: 2px solid var(--brand-blue); display: flex; align-items: center; justify-content: center; }
+  .card .glyph p { margin: 0; color: var(--brand-blue); font-weight: 800; font-family: ui-monospace, Menlo, monospace; font-size: 26px; line-height: 1; }
+  .card-title { margin: 0; font-size: 14px; font-weight: 700; color: var(--black); }
+  .card-desc { margin: 0; font-size: 11px; color: var(--mid-gray); line-height: 1.5; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="glyph"><p>{{ICON_1}}</p></div>
+        <p class="card-title">{{ITEM_1_TITLE}}</p>
+        <p class="card-desc">{{ITEM_1_DESC}}</p>
+      </div>
+      <div class="card">
+        <div class="glyph"><p>{{ICON_2}}</p></div>
+        <p class="card-title">{{ITEM_2_TITLE}}</p>
+        <p class="card-desc">{{ITEM_2_DESC}}</p>
+      </div>
+      <div class="card">
+        <div class="glyph"><p>{{ICON_3}}</p></div>
+        <p class="card-title">{{ITEM_3_TITLE}}</p>
+        <p class="card-desc">{{ITEM_3_DESC}}</p>
+      </div>
+      <div class="card">
+        <div class="glyph"><p>{{ICON_4}}</p></div>
+        <p class="card-title">{{ITEM_4_TITLE}}</p>
+        <p class="card-desc">{{ITEM_4_DESC}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

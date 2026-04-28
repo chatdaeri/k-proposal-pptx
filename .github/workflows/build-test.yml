@@ -1,0 +1,65 @@
+name: Build Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libreoffice poppler-utils
+
+      - name: Install npm dependencies (skip postinstall)
+        run: npm install --ignore-scripts
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Verify system tools
+        run: |
+          soffice --version
+          pdftoppm -v 2>&1 | head -1
+
+      - name: Run doctor
+        run: node scripts/doctor.cjs
+
+      - name: Build example 01 (real-estate)
+        run: node skills/proposal/scripts/build.cjs examples/01-real-estate-proposal/deck.cjs --no-lint
+
+      - name: Build example 02 (DX proposal)
+        run: node skills/proposal/scripts/build.cjs examples/02-dx-proposal/deck.cjs --no-lint
+
+      - name: Build example 03 (conference branding)
+        run: node skills/proposal/scripts/build.cjs examples/03-conference-branding/deck.cjs --no-lint
+
+      - name: Verify PPTX files generated
+        run: |
+          PPTX_COUNT=$(find examples/ -name "*.pptx" | wc -l | tr -d ' ')
+          echo "Generated PPTX files: $PPTX_COUNT"
+          if [ "$PPTX_COUNT" -lt 3 ]; then
+            echo "ERROR: Expected 3+ PPTX files, found $PPTX_COUNT"
+            exit 1
+          fi
+          echo "OK: $PPTX_COUNT PPTX files generated"
+
+      - name: Upload PPTX artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: pptx-outputs
+          path: examples/**/*.pptx
+          retention-days: 7

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Tool Card Grid Slide</title>
+<!--
+  USAGE:
+  여러 개의 도구/항목을 로고와 함께 카드 그리드로 한눈에 보여주는 레이아웃.
+  4+3 구성(최대 7개) 또는 4+4(최대 8개)로 확장 가능.
+
+  각 카드 구조:
+  - 상단: 로고 이미지 (40x40 placeholder, 실제 로고로 교체)
+  - 도구명 (Bold, 13px)
+  - 한줄 요약 (9px, 2줄 권장)
+  - 블루 구분선 (너비 24px)
+  - 역할 태그 (블루, 9px Bold)
+
+  REPLACE:
+  - {{SECTION_TITLE}} : 헤더 왼쪽 섹션명
+  - {{PAGE_NUMBER}} : 헤더 오른쪽 페이지 번호
+  - {{MAIN_TITLE}} : 슬라이드 대제목
+  - 각 .card 내용을 실제 도구 데이터로 교체
+-->
+<style>
+  :root {
+    --brand-blue: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+    --light-border: #E0E0E0;
+    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-family);
+    color: var(--dark-gray);
+    background: var(--white);
+    width: 960px;
+    height: 540px;
+    position: relative;
+  }
+
+  /* 헤더 */
+  .slide-header { padding: 32px 60px 0 60px; }
+  .slide-header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .slide-header p { font-size: 13px; font-weight: 500; color: var(--dark-gray); line-height: 1.4; }
+  .header-line { height: 2px; background: var(--brand-blue); margin-top: 14px; }
+
+  /* 메인 */
+  .main { padding: 18px 60px 0 60px; }
+  .main-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 14px;
+  }
+
+  /* 그리드 */
+  .grid-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .grid-row.center { justify-content: center; }
+
+  /* 카드 */
+  .card {
+    width: 198px;
+    height: 160px;
+    border-top: 3px solid var(--brand-blue);
+    background: var(--light-bg);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border-left: 1px solid var(--light-border);
+    border-right: 1px solid var(--light-border);
+    border-bottom: 1px solid var(--light-border);
+  }
+  .card .logo-box {
+    width: 38px;
+    height: 38px;
+    background: var(--white);
+    border: 1.5px dashed var(--light-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .card .logo-box p { font-size: 7px; color: #bbb; letter-spacing: 1px; }
+  .card .tool-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--black);
+    text-align: center;
+    margin-top: 4px;
+  }
+  .card .tool-desc {
+    font-size: 9px;
+    color: var(--dark-gray);
+    text-align: center;
+    line-height: 1.4;
+    flex: 1;
+    margin-top: 2px;
+    padding: 0 2px;
+  }
+  .card .role-line {
+    width: 24px;
+    height: 1px;
+    background: var(--brand-blue);
+    margin: 4px 0 3px 0;
+  }
+  .card .tool-role {
+    font-size: 9px;
+    color: var(--brand-blue);
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  /* 로고 */
+  .logo-area { position: absolute; bottom: 20px; right: 60px; height: 12px; }
+  .logo-area img { height: 100%; width: auto; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <h1 class="main-title">{{MAIN_TITLE}}</h1>
+
+    <!-- Row 1: 4 cards -->
+    <div class="grid-row">
+      <div class="card">
+        <div class="logo-box"><p>LOGO</p></div>
+        <p class="tool-name">도구명 1</p>
+        <p class="tool-desc">한줄 요약<br>(2줄 권장)</p>
+        <div class="role-line"></div>
+        <p class="tool-role">역할 태그</p>
+      </div>
+      <div class="card">
+        <div class="logo-box"><p>LOGO</p></div>
+        <p class="tool-name">도구명 2</p>
+        <p class="tool-desc">한줄 요약<br>(2줄 권장)</p>
+        <div class="role-line"></div>
+        <p class="tool-role">역할 태그</p>
+      </div>
+      <div class="card">
+        <div class="logo-box"><p>LOGO</p></div>
+        <p class="tool-name">도구명 3</p>
+        <p class="tool-desc">한줄 요약<br>(2줄 권장)</p>
+        <div class="role-line"></div>
+        <p class="tool-role">역할 태그</p>
+      </div>
+      <div class="card">
+        <div class="logo-box"><p>LOGO</p></div>
+        <p class="tool-name">도구명 4</p>
+        <p class="tool-desc">한줄 요약<br>(2줄 권장)</p>
+        <div class="role-line"></div>
+        <p class="tool-role">역할 태그</p>
+      </div>
+    </div>
+
+    <!-- Row 2: 3 cards (centered) -->
+    <div class="grid-row center">
+      <div class="card">
+        <div class="logo-box"><p>LOGO</p></div>
+        <p class="tool-name">도구명 5</p>
+        <p class="tool-desc">한줄 요약<br>(2줄 권장)</p>
+        <div class="role-line"></div>
+        <p class="tool-role">역할 태그</p>
+      </div>
+      <div class="card">
+        <div class="logo-box"><p>LOGO</p></div>
+        <p class="tool-name">도구명 6</p>
+        <p class="tool-desc">한줄 요약<br>(2줄 권장)</p>
+        <div class="role-line"></div>
+        <p class="tool-role">역할 태그</p>
+      </div>
+      <div class="card">
+        <div class="logo-box"><p>LOGO</p></div>
+        <p class="tool-name">도구명 7</p>
+        <p class="tool-desc">한줄 요약<br>(2줄 권장)</p>
+        <div class="role-line"></div>
+        <p class="tool-role">역할 태그</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

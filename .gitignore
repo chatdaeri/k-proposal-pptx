@@ -1,0 +1,8 @@
+node_modules/
+*.pptx
+*.pdf
+*.ppm
+output/
+preview/
+.DS_Store
+*.log

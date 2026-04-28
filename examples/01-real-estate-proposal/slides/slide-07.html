@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Budget Table — 예산 / 미디어믹스</title>
+<!--
+  USAGE:
+  ⑧ 예산안 슬롯 전용 — 풀폭 예산 표(매체·채널·예산·KPI 등 최대 8 컬럼) +
+  합계(총합) 행 + 출처 + 운영안 카드 2개(A안 보수 / B안 확장).
+  한국 제안서에서 거의 표준인 "표 + 합계 강조" 형식.
+
+  TOKENS:
+  - Part 5. 분양가 산정 및 사업비 07     헤더
+  - 사업비 구조                              본문 작은 라벨 (브랜드 블루)
+  - 총 사업비 <span class="a">96.5억</span> — 공사비 60% + 금융비용 15%                         본문 메인 메시지 (≤ 50자)
+                                           강조어 <span class="a">…</span> 사용 가능
+  - 
+          <div class="th"><p>항목</p></div>
+          <div class="th"><p>세부 내용</p></div>
+          <div class="th num"><p>금액 (억원)</p></div>
+          <div class="th num"><p>비중</p></div>
+                         표 헤더 — div grid 셀.
+                                           예: <div class="th"><p>매체</p></div>
+                                               <div class="th num"><p>예산</p></div>
+                                           컬럼 4~8개. .num 은 숫자 우정렬.
+  - 
+          <div class="tr hi">
+            <div class="td"><p><strong>토지비</strong></p></div>
+            <div class="td"><p>취득세·등기비 포함</p></div>
+            <div class="td num"><p>22.0</p></div>
+            <div class="td num"><p>22.8%</p></div>
+          </div>
+          <div class="tr">
+            <div class="td"><p><strong>공사비</strong></p></div>
+            <div class="td"><p>건축 + 인테리어 (평당 600만원 기준)</p></div>
+            <div class="td num"><p>57.9</p></div>
+            <div class="td num"><p>60.0%</p></div>
+          </div>
+          <div class="tr">
+            <div class="td"><p><strong>금융비용</strong></p></div>
+            <div class="td"><p>PF 대출 이자 + 수수료 (연 6.5%)</p></div>
+            <div class="td num"><p>14.5</p></div>
+            <div class="td num"><p>15.0%</p></div>
+          </div>
+          <div class="tr">
+            <div class="td"><p><strong>기타 비용</strong></p></div>
+            <div class="td"><p>설계·인허가·분양 대행·광고</p></div>
+            <div class="td num"><p>2.1</p></div>
+            <div class="td num"><p>2.2%</p></div>
+          </div>
+                            표 본문 — <div class="tr">(.hi 강조) N행.
+                                           각 셀: <div class="td"><p>...</p></div> /
+                                                  <div class="td num"><p>123M</p></div>
+  - 
+          <div class="tr total">
+            <div class="td"><p>합계</p></div>
+            <div class="td"><p>총 사업비</p></div>
+            <div class="td num"><p>96.5</p></div>
+            <div class="td num"><p>100%</p></div>
+          </div>
+                           합계 행 — <div class="tr total">
+                                           <div class="td span2"><p>합계</p></div>
+                                           <div class="td num"><p>...</p></div></div>
+  - [ 자료 : 자체 추정 · 동종 사업 사례 종합 ]                        출처 — "[ 자료 : 자체 추정 ... ]"
+  - 분양안 A · 표준가                       A안 카드 헤더 — "A안 · 보수"
+  - <strong>평균 1.50억/세대</strong> — 인근 C단지 -5.3% 수준. 조기 완판 목표. 분양률 95% 시 세전이익 38.5억.                   A안 본문 — <strong>318M</strong> ...
+  - 분양안 B · 프리미엄가                       B안 카드 헤더 — "B안 · 확장"
+  - <strong>평균 1.60억/세대</strong> — 입지 프리미엄 반영. 분양률 85% 확보 시 동일 이익. 미분양 리스크 소폭 상승.                   B안 본문
+  - S시 K동 오피스텔 분양성 검토 · 2026.04                       하단 좌측 푸터
+
+  NOTES:
+  - 표 상하단 2px 브랜드 블루 보더 · 좌우 보더 없음 (절대 규칙 준수)
+  - .hi 행은 배경 #FFF1EC + 숫자 브랜드 블루 강조
+  - .total 행은 배경 #EAEAE8 + 검정 800 굵기 (합계만 강조)
+  - 운영안 카드 2개는 1px 회색 보더, 직각, 그림자 없음
+  - 원본 데이터 1:1 보존 — 축약·반올림 금지(절대 규칙 #10)
+-->
+<link rel="stylesheet" href="../_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; padding: 90px 56px 56px; }
+  .h-top { position: absolute; top: 30px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; font-family: ui-monospace, Menlo, monospace; color: var(--mid-gray); letter-spacing: 0.04em; }
+  .h-top p { margin: 0; }
+  .h-top .ch { color: var(--brand-blue); font-weight: 700; }
+  .h-rule { position: absolute; top: 60px; left: 56px; right: 56px; height: 2px; background: var(--brand-blue); }
+
+  .lbl { margin: 0 0 4px; font-size: 11px; font-family: ui-monospace, Menlo, monospace; color: var(--brand-blue); letter-spacing: 0.08em; font-weight: 700; }
+  .top-msg { margin: 6px 0 16px; font-size: 26px; font-weight: 800; color: #E5573A; line-height: 1.22; letter-spacing: -0.02em; }
+  .top-msg .a { color: var(--brand-blue); }
+
+  /* table 미지원 → div grid 로 표 구현 (html2pptx 호환) */
+  .t { display: flex; flex-direction: column; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); font-size: 12px; }
+  .tr { display: grid; grid-template-columns: var(--tr-cols, 2fr 1fr 1fr 1fr 1fr 1fr); border-bottom: 1px solid #F0F0F0; }
+  .tr:last-child { border-bottom: none; }
+  .thead .tr { background: #F6F8FB; border-bottom: 1px solid var(--light-border); }
+  .th, .td { padding: 7px 10px; }
+  .thead .th { padding: 8px 10px; }
+  .th p { margin: 0; font-size: 11px; font-weight: 700; color: var(--black); letter-spacing: 0.02em; }
+  .td p { margin: 0; font-size: 12px; color: var(--label-gray); }
+  .num { text-align: right; }
+  .num p { font-family: ui-monospace, Menlo, monospace; color: var(--black); font-weight: 600; }
+  .tr.hi { background: #FFF1EC; }
+  .tr.hi .num p { color: var(--brand-blue); font-weight: 700; }
+  .tr.total { background: #EAEAE8; }
+  .tr.total .td p { color: var(--black); font-weight: 800; }
+  .tr.total .num p { color: var(--black); }
+  .span2 { grid-column: span 2; }
+
+  .src { margin: 8px 0 14px; font-size: 10px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; text-align: right; }
+
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .plan { border: 1px solid var(--light-border); padding: 12px 14px; border-radius: 0; }
+  .plan h4 { margin: 0 0 4px; font-size: 11px; font-weight: 700; color: var(--brand-blue); letter-spacing: 0.06em; font-family: ui-monospace, Menlo, monospace; }
+  .plan p { margin: 0; font-size: 12px; color: var(--label-gray); line-height: 1.55; }
+  .plan strong { color: var(--black); }
+
+  .footer { position: absolute; bottom: 22px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace; color: #B7B7B5; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+  <div class="h-top"><p class="ch">Part 5. 분양가 산정 및 사업비</p><p>07</p></div>
+  <div class="h-rule"></div>
+
+  <p class="lbl">사업비 구조</p>
+  <p class="top-msg">총 사업비 <span class="a">96.5억</span> — 공사비 60% + 금융비용 15%</p>
+
+  <!-- 표는 div grid 로 구현 (html2pptx 호환). 컬럼 수 변경 시 `.t` 의 style 에서 --tr-cols 수정.
+       헤더/행 셀 패턴: <div class="th"><p>제목</p></div>  /  <div class="th num"><p>예산</p></div>
+                    <div class="td"><p>내용</p></div>  /  <div class="td num"><p>123M</p></div>
+       강조 행: <div class="tr hi">...</div>     합계 행: <div class="tr total">...</div>
+       2칸 합치기: <div class="td span2"><p>합계</p></div> -->
+  <div class="t" style="--tr-cols: var(--cols, 2fr 1fr 1fr 1fr 1fr 1fr);">
+    <div class="thead">
+      <div class="tr">
+          <div class="th"><p>항목</p></div>
+          <div class="th"><p>세부 내용</p></div>
+          <div class="th num"><p>금액 (억원)</p></div>
+          <div class="th num"><p>비중</p></div>
+        </div>
+    </div>
+    <div class="tbody">
+      
+          <div class="tr hi">
+            <div class="td"><p><strong>토지비</strong></p></div>
+            <div class="td"><p>취득세·등기비 포함</p></div>
+            <div class="td num"><p>22.0</p></div>
+            <div class="td num"><p>22.8%</p></div>
+          </div>
+          <div class="tr">
+            <div class="td"><p><strong>공사비</strong></p></div>
+            <div class="td"><p>건축 + 인테리어 (평당 600만원 기준)</p></div>
+            <div class="td num"><p>57.9</p></div>
+            <div class="td num"><p>60.0%</p></div>
+          </div>
+          <div class="tr">
+            <div class="td"><p><strong>금융비용</strong></p></div>
+            <div class="td"><p>PF 대출 이자 + 수수료 (연 6.5%)</p></div>
+            <div class="td num"><p>14.5</p></div>
+            <div class="td num"><p>15.0%</p></div>
+          </div>
+          <div class="tr">
+            <div class="td"><p><strong>기타 비용</strong></p></div>
+            <div class="td"><p>설계·인허가·분양 대행·광고</p></div>
+            <div class="td num"><p>2.1</p></div>
+            <div class="td num"><p>2.2%</p></div>
+          </div>
+        
+      
+          <div class="tr total">
+            <div class="td"><p>합계</p></div>
+            <div class="td"><p>총 사업비</p></div>
+            <div class="td num"><p>96.5</p></div>
+            <div class="td num"><p>100%</p></div>
+          </div>
+        
+    </div>
+  </div>
+  <p class="src">[ 자료 : 자체 추정 · 동종 사업 사례 종합 ]</p>
+
+  <div class="plans">
+    <div class="plan"><h4>분양안 A · 표준가</h4><p><strong>평균 1.50억/세대</strong> — 인근 C단지 -5.3% 수준. 조기 완판 목표. 분양률 95% 시 세전이익 38.5억.</p></div>
+    <div class="plan"><h4>분양안 B · 프리미엄가</h4><p><strong>평균 1.60억/세대</strong> — 입지 프리미엄 반영. 분양률 85% 확보 시 동일 이익. 미분양 리스크 소폭 상승.</p></div>
+  </div>
+
+  <div class="footer">
+    <p>S시 K동 오피스텔 분양성 검토 · 2026.04</p>
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

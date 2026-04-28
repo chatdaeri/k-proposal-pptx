@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>KPI 목표</title>
+<link rel="stylesheet" href="../_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+  .axis-cap { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0 0 8px 0; }
+  .source { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0; }
+
+  .chart-box { width: 100%; height: 268px; }
+  .chart-box svg { width: 100%; height: 100%; display: block; }
+  .legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0 0 6px 0; }
+  .legend .sw { display: inline-block; width: 10px; height: 10px; margin-right: 5px; vertical-align: middle; }
+
+  .t { display: flex; flex-direction: column; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); font-size: 11.5px; }
+  .tr { display: grid; grid-template-columns: 1.4fr 0.9fr 0.9fr 0.7fr; border-bottom: 1px solid var(--light-border); }
+  .tr:last-child { border-bottom: none; }
+  .thead .tr { background: var(--light-bg); }
+  .th, .td { padding: 7px 10px; }
+  .th p { margin: 0; font-size: 11px; font-weight: 700; color: var(--dark-gray); letter-spacing: 0.02em; }
+  .td p { margin: 0; color: var(--label-gray); font-size: 11px; }
+  .num { text-align: right; }
+  .num p { font-family: ui-monospace, Menlo, monospace; color: var(--black); font-weight: 600; }
+  .tr.hi { background: #FFF1EC; }
+  .tr.hi .num p { color: var(--brand-blue); font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner"><p>Part 4. 기대 효과 및 성과 관리</p><p>07</p></div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">정량적 목표 성과 (KPI)</p>
+    <h1 class="ph1">4 개 KPI <span class="a">평균 +37.5% 개선</span> — 도입 1년 내 달성 목표</h1>
+    <p class="lede">현재(AS-IS) 100 지수 기준, 도입 후(TO-BE) 효율·비용·만족도·속도 4 지표 모두 25%+ 상승. 속도(Speed) 지표가 +50% 로 가장 큰 폭 개선 예상.</p>
+
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start;margin-top:14px">
+      <div>
+        <div class="legend">
+          <span><span class="sw" style="background:#C8C8C8"></span>현행 (AS-IS)</span>
+          <span><span class="sw" style="background:#FF7E5F"></span>도입 후 (TO-BE)</span>
+        </div>
+        <div class="chart-box" data-pptx-image="true">
+          <svg viewBox="0 0 460 290" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- Y axis labels: 160 / 120 / 80 / 40 / 0 -->
+            <g font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#7A7A78" text-anchor="end">
+              <text x="50" y="18">160</text>
+              <text x="50" y="76">120</text>
+              <text x="50" y="134">80</text>
+              <text x="50" y="192">40</text>
+              <text x="50" y="250">0</text>
+            </g>
+            <!-- Gridlines -->
+            <g stroke="#F0F0F0" stroke-width="1">
+              <line x1="55" y1="14" x2="450" y2="14"/>
+              <line x1="55" y1="72" x2="450" y2="72"/>
+              <line x1="55" y1="130" x2="450" y2="130"/>
+              <line x1="55" y1="188" x2="450" y2="188"/>
+            </g>
+            <!-- Baseline -->
+            <line x1="55" y1="246" x2="450" y2="246" stroke="#000" stroke-width="1"/>
+            <!-- Bars: 4 categories, paired (AS-IS gray + TO-BE blue) -->
+            <!-- Y mapping: val=100 → y=246-(100/160)*232 = 246-145 = 101 -->
+            <!-- val=135 → y=246-(135/160)*232 = 246-195.75 = 50.25 -->
+            <!-- val=125 → y=246-(125/160)*232 = 246-181.25 = 64.75 -->
+            <!-- val=140 → y=246-(140/160)*232 = 246-203 = 43 -->
+            <!-- val=150 → y=246-(150/160)*232 = 246-217.5 = 28.5 -->
+            <!-- Group centers: 130, 230, 330, 430 -->
+            <!-- AS-IS bars (left of group center) x = center-30, w = 26 -->
+            <!-- TO-BE bars (right) x = center+4, w = 26 -->
+
+            <!-- Group 1: Efficiency 100→135 -->
+            <rect x="100" y="101" width="26" height="145" fill="#C8C8C8"/>
+            <rect x="134" y="50" width="26" height="196" fill="#FF7E5F"/>
+            <!-- Group 2: Cost Saving 100→125 -->
+            <rect x="200" y="101" width="26" height="145" fill="#C8C8C8"/>
+            <rect x="234" y="65" width="26" height="181" fill="#FF7E5F"/>
+            <!-- Group 3: User Satisfaction 100→140 -->
+            <rect x="300" y="101" width="26" height="145" fill="#C8C8C8"/>
+            <rect x="334" y="43" width="26" height="203" fill="#FF7E5F"/>
+            <!-- Group 4: Speed 100→150 -->
+            <rect x="400" y="101" width="26" height="145" fill="#C8C8C8"/>
+            <rect x="434" y="29" width="26" height="217" fill="#FF7E5F"/>
+
+            <!-- Value labels on TO-BE bars -->
+            <g font-family="ui-monospace, Menlo, monospace" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FF7E5F">
+              <text x="147" y="44">135</text>
+              <text x="247" y="59">125</text>
+              <text x="347" y="37">140</text>
+              <text x="447" y="23">150</text>
+            </g>
+            <!-- AS-IS labels (small, above gray bars) -->
+            <g font-family="ui-monospace, Menlo, monospace" font-size="10" text-anchor="middle" fill="#676765">
+              <text x="113" y="95">100</text>
+              <text x="213" y="95">100</text>
+              <text x="313" y="95">100</text>
+              <text x="413" y="95">100</text>
+            </g>
+            <!-- X labels -->
+            <g font-size="11" text-anchor="middle" fill="#676765">
+              <text x="130" y="266">효율성</text>
+              <text x="230" y="266">비용 절감</text>
+              <text x="330" y="266">사용자 만족도</text>
+              <text x="430" y="266">처리 속도</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div>
+        <div class="t">
+          <div class="thead"><div class="tr"><div class="th"><p>지표명</p></div><div class="th num"><p>AS-IS</p></div><div class="th num"><p>TO-BE</p></div><div class="th num"><p>개선율</p></div></div></div>
+          <div class="tbody">
+            <div class="tr hi"><div class="td"><p>업무 리드타임</p></div><div class="td num"><p>24시간</p></div><div class="td num"><p>8시간</p></div><div class="td num"><p>△66%</p></div></div>
+            <div class="tr"><div class="td"><p>연간 운영 비용</p></div><div class="td num"><p>12.5억</p></div><div class="td num"><p>10.2억</p></div><div class="td num"><p>△18%</p></div></div>
+            <div class="tr"><div class="td"><p>사용자 만족도</p></div><div class="td num"><p>3.2 / 5</p></div><div class="td num"><p>4.5 / 5</p></div><div class="td num"><p>+40.6%</p></div></div>
+            <div class="tr"><div class="td"><p>처리 속도 지수</p></div><div class="td num"><p>100</p></div><div class="td num"><p>150</p></div><div class="td num"><p>+50%</p></div></div>
+          </div>
+        </div>
+        <p class="source" style="text-align:right;margin-top:8px">[ 자료 : 자체 추정 · 동종업계 도입 사례 ]</p>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

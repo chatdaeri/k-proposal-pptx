@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Emphasis — Hero</title>
+<!--
+  USAGE:
+  강조 장표 (선택적, 전체 덱에서 0~2장 권장).
+  핵심 한 줄 메시지나 전환점을 크게 보여주는 임팩트 슬라이드.
+  헤더 없음. 중앙 포커스.
+  Reading flow: center-focal (정중앙 대형 타이포 → 하단 서브)
+
+  REPLACE:
+  - CONCLUSION & NEXT STEP : 상단 작은 라벨 (선택, 없으면 숨김)
+  - 분양 적기,, 2026년 4분기 착공 권장 : 대형 타이포 (2줄)
+  - 역세권 입지 + 경쟁력 있는 분양가(15,000천원/㎡)로 조기 완판 가능. IRR 14.2%, 사업기간 2년, 세전이익 38.5억. 2주 내 착수 미팅을 제안 드립니다. : 하단 서브 한 줄
+  - S시 K동 오피스텔 분양성 검토 · 2026.04 : 좌측 하단 섹션 레이블
+  - 09 : 우측 하단 페이지 번호
+-->
+<link rel="stylesheet" href="../_shared.css">
+<style>
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 50px var(--pad-x) 40px var(--pad-x);
+}
+.eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand-blue);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.accent-bar {
+  width: 48px;
+  height: 4px;
+  background: var(--brand-blue);
+  margin-top: 18px;
+  margin-bottom: 26px;
+}
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero h1 {
+  font-size: 58px;
+  font-weight: 800;
+  color: var(--black);
+  line-height: 1.08;
+  letter-spacing: -1px;
+}
+.hero h1 .accent { color: var(--brand-blue); }
+.hero .subtitle {
+  font-size: 16px;
+  color: var(--dark-gray);
+  line-height: 1.5;
+  margin-top: 24px;
+  max-width: 640px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--light-border);
+}
+.footer p {
+  font-size: 13px;
+  color: var(--dark-gray);
+  font-weight: 500;
+}
+.footer .page-num {
+  font-size: 13px;
+  color: var(--brand-blue);
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+  <p class="eyebrow">CONCLUSION & NEXT STEP</p>
+  <div class="accent-bar"></div>
+
+  <div class="hero">
+    <h1>분양 적기,</h1>
+    <h1><p class="accent" style="margin:0;display:inline-block">2026년 4분기 착공 권장</p></h1>
+    <p class="subtitle">역세권 입지 + 경쟁력 있는 분양가(15,000천원/㎡)로 조기 완판 가능. IRR 14.2%, 사업기간 2년, 세전이익 38.5억. 2주 내 착수 미팅을 제안 드립니다.</p>
+  </div>
+
+  <div class="footer">
+    <p>S시 K동 오피스텔 분양성 검토 · 2026.04</p>
+    <p class="page-num">09</p>
+  </div>
+</body>
+</html>

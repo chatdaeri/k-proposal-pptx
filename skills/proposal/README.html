@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CHATdaeri Design System — README</title>
+<link rel="stylesheet" href="tokens/colors_and_type.css">
+<style>
+  body { max-width: 860px; margin: 0 auto; padding: 56px 48px 80px; color: #333; line-height: 1.65; font-size: 15px; }
+  h1 { font-size: 40px; font-weight: 800; color: #FF7E5F; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .lede { font-size: 16px; color: #676765; margin: 0 0 32px; }
+  h2 { font-size: 24px; font-weight: 700; color: #000; margin: 48px 0 14px; padding-top: 24px; border-top: 2px solid #FF7E5F; }
+  h3 { font-size: 17px; font-weight: 700; color: #000; margin: 28px 0 10px; }
+  h4 { font-size: 14px; font-weight: 700; color: #FF7E5F; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+  p { margin: 0 0 12px; color: #4A4A48; }
+  ul { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; color: #4A4A48; }
+  li strong { color: #000; }
+  code { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; background: #F8F8F8; border: 1px solid #E0E0E0; padding: 1px 6px; color: #FF7E5F; }
+  pre { background: #F8F8F8; border: 1px solid #E0E0E0; padding: 14px 16px; overflow-x: auto; font-size: 12.5px; line-height: 1.55; color: #333; margin: 12px 0; }
+  pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; border-top: 3px solid #FF7E5F; border-bottom: 2px solid #FF7E5F; }
+  th { text-align: left; padding: 8px 10px; font-size: 12px; color: #333; font-weight: 700; border-bottom: 1px solid #E0E0E0; background: #F8F8F8; }
+  td { padding: 8px 10px; font-size: 13px; color: #4A4A48; border-bottom: 1px solid #E0E0E0; vertical-align: top; }
+  blockquote { margin: 0 0 24px; padding: 12px 16px; border-left: 3px solid #FF7E5F; background: #F8F8F8; font-size: 14px; color: #4A4A48; }
+  hr { border: 0; border-top: 1px solid #E0E0E0; margin: 36px 0; }
+  .callout { background: #F8F8F8; border: 1px solid #E0E0E0; border-left: 3px solid #FF7E5F; padding: 12px 16px; font-size: 13px; color: #4A4A48; margin: 12px 0 18px; }
+  .callout strong { color: #FF7E5F; }
+</style>
+</head>
+<body>
+
+<h1>CHATdaeri Design System</h1>
+<p class="lede"><strong>B2B SaaS 워크플로우 자동화 플랫폼</strong> — 제품 UI, 마케팅 사이트, 세일즈 제안서, 고객 자료를 위한 디자인 시스템</p>
+
+<h2>브랜드 개요</h2>
+<p><strong>CHATdaeri</strong> 는 팀의 반복 업무를 자동화하는 B2B SaaS 워크플로우 플랫폼입니다. 엔터프라이즈 세일즈를 위한 제안서, 제품 마케팅 페이지, 고객 온보딩 자료, 사내 교육까지 같은 비주얼 시스템으로 운용해야 하기 때문에, 디자인 시스템은 <strong>엔터프라이즈 SaaS 의 정제된 미감 + 한국 시장의 비즈니스 덱 규범</strong>을 동시에 만족시키는 방향으로 짜여 있습니다.</p>
+
+<h4>핵심 감각</h4>
+<ul>
+  <li><strong>플랫 미니멀</strong> — box-shadow, linear-gradient, border-radius(5px+), 애니메이션 전면 금지</li>
+  <li><strong>화이트 스페이스 중심</strong> — 95% 화이트, 5% 포인트 블루</li>
+  <li><strong>단일 포인트 컬러</strong> — <code>#FF7E5F</code> 하나로 시선 유도</li>
+  <li><strong>회색 외곽선 기반 구조</strong> — 모든 카드/박스/표는 <code>#E0E0E0</code> 1px 테두리로 영역 구분</li>
+  <li><strong>직각</strong> — 모든 모서리 <code>border-radius: 0</code></li>
+</ul>
+
+<h3>소스</h3>
+<ul>
+  <li><strong>GitHub:</strong> <code>proposal/brand-system</code> (private) — 브랜드 가이드라인 PPT/HTML 자동 생성 스킬. 이 레포의 <code>references/</code> 폴더(<code>brand-guidelines.md</code>, <code>WEB-GUIDELINE.md</code>, <code>layout-principles.md</code>, <code>image-placement-rules.md</code>)가 디자인 시스템의 원본 소스입니다.</li>
+  <li><strong>관련 레포 (같은 조직):</strong> <code>proposal/proposal-skill</code>, <code>proposal/pptx-skill</code>, <code>proposal/onboarding-materials</code></li>
+  <li><strong>로고:</strong> Pretendard 800 + 브랜드 블루 텍스트 워드마크 <code>CHATdaeri</code>. PNG/SVG 자산 없이 인라인 텍스트로 직접 렌더.</li>
+</ul>
+
+<h2>Content Fundamentals</h2>
+
+<h3>Voice &amp; Tone</h3>
+<p>CHATdaeri 의 콘텐츠는 <strong>한국어 전용</strong>(UI 레이블·기술 용어만 영문)이며, 다음 세 가지 레지스터를 상황에 따라 섞어 씁니다.</p>
+<ol>
+  <li><strong>제품 / 마케팅 톤</strong> — 단정한 해요체. 기능을 풀어서 설명하되 과장 없는 정중체. 제품 사이트·고객 온보딩에 사용.
+    <ul>
+      <li>예: "엑셀을 던지면 한국식 분양 제안서 PPT 가 자동으로 만들어집니다."</li>
+      <li>예: "본인이 평소 쓰던 엑셀에 몇 가지 약속만 지켜서 작성하면 됩니다."</li>
+    </ul>
+  </li>
+  <li><strong>세일즈 / 제안서 톤</strong> — 명사형, 압축적. 한국식 비즈니스 덱 관례 따름. "~함", "~됨" 보다는 "~합니다" 정중체 유지.
+    <ul>
+      <li>예: "광주 주요 지역 시세 상승세"</li>
+      <li>예: "Q2 도입 효과: 평균 처리 시간 −38%"</li>
+    </ul>
+  </li>
+  <li><strong>시스템 / 체크리스트 톤</strong> — 기술 문서에서 사용. 규칙을 <code>✅ / ❌</code> 로 대비시키는 포맷을 선호. 이모지는 헤더의 <strong>구조 표시용</strong> 으로만 (🎨 🧭 📇 🚫 ⛔).
+    <ul>
+      <li>예: "❌ <code>sectionLabel</code> 에 <code>/</code> 없이 적기 → 네이비 박스 사라짐"</li>
+    </ul>
+  </li>
+</ol>
+
+<h3>카피 규칙</h3>
+<ul>
+  <li><strong>I / You 는 거의 안 씀.</strong> 주어 생략이 기본. 필요할 때 "사용자", "팀", "AI" 처럼 3인칭으로.</li>
+  <li><strong>축약 금지</strong> — 원본 데이터를 1:1 보존하는 것을 미덕으로 삼음. "엑셀 1행 그대로 복붙", "원본 1:1 보존" 이 반복 등장.</li>
+  <li><strong>케이싱</strong> — 브랜드명은 첫 글자 대문자만. 로고에서도 <strong>CHATdaeri</strong> (B 만 대문자). 한글 표기 없음 — 영문 유지.</li>
+  <li><strong>이모지 사용</strong> — 본문 UI 에서는 쓰지 않음. 내부 문서 헤더 불릿용으로 제한적 사용(🎨 🧭 📇 ⛔ 🚫). 프로덕션 슬라이드/웹에서는 아이콘 대신 사용하지 않음.</li>
+  <li><strong>유니코드 장식</strong> — <code>━━━</code>, <code>│</code>, <code>┌─┐</code>, <code>✓</code>, <code>●</code> 는 마크다운/스킬 문서에서만. 슬라이드에서는 실제 HTML/CSS 로 구현.</li>
+  <li><strong>숫자·날짜</strong> — 한국식. <code>2026.04</code>, <code>Part 1</code>, <code>01.</code> 2자리 zero-pad.</li>
+</ul>
+
+<h3>카피 예시 (실제 사용 문구)</h3>
+<table>
+  <thead><tr><th>상황</th><th>실제 문구</th></tr></thead>
+  <tbody>
+    <tr><td>회사 설명</td><td>"B2B SaaS 워크플로우 자동화 플랫폼"</td></tr>
+    <tr><td>표지 부제</td><td>"Marketing Proposal", "Quarterly Review"</td></tr>
+    <tr><td>체크포인트 강조</td><td>"도입 5분 — 첫 자동화 완성"</td></tr>
+    <tr><td>규칙 금지</td><td>"❌ 엑셀 데이터 임의 가공·축약·재구성 — 원본 1:1 보존"</td></tr>
+    <tr><td>기술 설명</td><td>"시트 한 장이 슬라이드 한 장이 됩니다"</td></tr>
+    <tr><td>과정 안내</td><td>"한 번에 완벽하게 맞기보다는 1~2번 추가 조정이 들어가는 게 보통입니다"</td></tr>
+  </tbody>
+</table>
+
+<h2>Visual Foundations</h2>
+
+<h3>컬러</h3>
+<p>브랜드 가이드는 <strong>의도적으로 제한적</strong>입니다. 8개 토큰이 전부.</p>
+<table>
+  <thead><tr><th>토큰</th><th>HEX</th><th>용도</th></tr></thead>
+  <tbody>
+    <tr><td><code>--brand-orange</code></td><td><code>#FF7E5F</code></td><td>모든 포인트 — 타이틀, 구분선, 넘버, 강조</td></tr>
+    <tr><td><code>--white</code></td><td><code>#FFFFFF</code></td><td>주 배경 (95%)</td></tr>
+    <tr><td><code>--light-bg</code></td><td><code>#F8F8F8</code></td><td>보조 배경 (태그, 라벨 셀)</td></tr>
+    <tr><td><code>--light-border</code></td><td><code>#E0E0E0</code></td><td>모든 외곽선, 구분선, 내부선</td></tr>
+    <tr><td><code>--black</code></td><td><code>#000000</code></td><td>대제목, 카드 메인 텍스트</td></tr>
+    <tr><td><code>--dark-gray</code></td><td><code>#333333</code></td><td>헤더 텍스트, 서브타이틀, 본문</td></tr>
+    <tr><td><code>--mid-gray</code></td><td><code>#676765</code></td><td>서브 텍스트, 불릿, 캡션</td></tr>
+    <tr><td><code>--label-gray</code></td><td><code>#4A4A48</code></td><td>테이블 좌측 라벨, 프로필 본문</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>금지 컬러</strong>: 오프-팔레트 블루(<code>#3B82F6</code>, <code>#0EA5E9</code>, <code>#6366F1</code>, <code>#60A5FA</code>), 웜 크림(<code>#fff9f5</code>), 핑크 보더(<code>#ffe0d6</code>), 웜 그레이(<code>#78716C</code>).</div>
+<p><strong>색상 비율</strong>: 화이트 ~92% : 블루(딥+비비드+소프트) ~8%. 한 슬라이드에 3가지 이상 컬러 금지.</p>
+
+<h3>타이포그래피</h3>
+<ul>
+  <li><strong>폰트 패밀리</strong>: <strong>Pretendard Variable</strong> — <code>fonts/PretendardVariable.ttf</code> (이 프로젝트에 포함). Inter 금지, 시스템 폰트 fallback 허용.</li>
+  <li><strong>웹 사이즈 체계</strong> (1440px 기준):
+    <ul>
+      <li>Cover hero: 64px / ExtraBold 800 / 블루</li>
+      <li>Section divider: 48px / ExtraBold 800 / 블루</li>
+      <li>페이지 대제목: 32px / Bold 700 / 블랙</li>
+      <li>카드 제목: 22px / Bold 700 / 블랙</li>
+      <li>박스 타이틀: 18px / Bold 700 / 블루</li>
+      <li>본문: 13~14px / Regular 400 / <code>--label-gray</code> or <code>--mid-gray</code></li>
+      <li>캡션: 11~12px / Medium 500 / <code>--dark-gray</code></li>
+    </ul>
+  </li>
+  <li><strong>PPTX 슬라이드 사이즈 체계</strong> (960×540 HTML→PPTX):
+    <ul>
+      <li>메인 타이틀 28px · 블록 h3 14~15px · 본문 <strong>최소 13px</strong> · 캡션 <strong>최소 12px</strong></li>
+      <li>이유: 프로젝터/원거리 뷰어 가독성 (청중 피드백 표준)</li>
+    </ul>
+  </li>
+  <li><strong>PPT Print 사이즈</strong> (실제 프리젠테이션): 제목 54~60pt · 부제목 36~44pt · 본문 24~28pt</li>
+</ul>
+
+<h3>배경 · 이미지</h3>
+<ul>
+  <li><strong>배경</strong>: 거의 항상 순백 <code>#FFFFFF</code>. 예외로 <code>--light-bg</code> (<code>#F8F8F8</code>) 가 라벨 셀/태그 배경으로만.</li>
+  <li><strong>이미지 스타일</strong>: <code>object-fit: cover</code>, <code>border: 1px solid #E0E0E0</code>, <code>border-radius: 0</code>. 풀-블리드 이미지 <strong>절대 금지</strong>, 웜톤/세피아/그레인 같은 컬러 그레이딩 금지.</li>
+  <li><strong>이미지 aspect ratio</strong> 는 슬라이드 유형에 따라 <code>16-9</code>, <code>3-2</code>, <code>4-3</code>, <code>1-1</code>, <code>2-3</code> 중 하나로 고정. 한 슬라이드에서 비율 혼합 금지.</li>
+  <li><strong>일러스트레이션</strong>: 브랜드에 사용자 정의 일러스트 없음. 스크린샷 + 다이어그램만 사용.</li>
+</ul>
+
+<h3>애니메이션 · 인터랙션</h3>
+<ul>
+  <li><strong>애니메이션 전면 금지</strong> — keyframes, transition, hover 효과 없음. 정적인 프린트 덱 미감.</li>
+  <li><strong>호버 상태</strong> — 웹 컴포넌트에서도 색상 변화 없음. CTA 버튼은 정적 단색.</li>
+  <li><strong>프레스 상태</strong> — 정의 없음 (프레젠테이션·제안서 중심이라 부차적).</li>
+</ul>
+
+<h3>테두리 · 그림자</h3>
+<ul>
+  <li><strong>box-shadow 전면 금지.</strong></li>
+  <li><strong>border-radius</strong>: 0. 태그 · 배지 · 버튼 · 카드 전부 직각.</li>
+  <li><strong>보더 시스템</strong>:
+    <ul>
+      <li>기본 외곽선: <code>1px solid #E0E0E0</code></li>
+      <li>카드 상단 액센트: <code>3px solid #FF7E5F</code></li>
+      <li>테이블 상단: <code>3px solid #FF7E5F</code></li>
+      <li>테이블 하단: <code>2px solid #FF7E5F</code></li>
+      <li>테이블 좌우: <strong>없음</strong> (가로선만)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>헤더 · 로고</h3>
+<p><strong>한국식 고정 헤더</strong> — cover/divider 제외 모든 슬라이드에 적용:</p>
+<pre>[섹션명 (좌)]                    [페이지번호 (우)]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ← 2px 블루 구분선</pre>
+<ul>
+  <li>섹션명 / 페이지번호: 13px Medium <code>#333</code></li>
+  <li>구분선: 2px solid <code>#FF7E5F</code></li>
+  <li>로고: 우측 하단 (<code>bottom: 20px; right: 60px</code>), Pretendard 800 텍스트 <code>CHATdaeri</code> (높이 ≈ 12px, 색 <code>--brand-orange</code>)</li>
+  <li>페이지번호는 <code>01, 02, ...</code> 2자리 zero-pad</li>
+</ul>
+
+<h3>레이아웃</h3>
+<ul>
+  <li><strong>기본 슬라이드 사이즈</strong>: 960×540 (HTML), 720pt×405pt (PPTX), 16:9</li>
+  <li><strong>좌우 패딩</strong>: <strong>60px 고정</strong></li>
+  <li><strong>헤더 상단</strong>: 32px</li>
+  <li><strong>헤더 구분선 → 콘텐츠</strong>: 22~30px</li>
+  <li><strong>블록 간격</strong>: 14~18px</li>
+  <li><strong>하단 여백</strong>: 최소 30px</li>
+  <li><strong>그리드 갭</strong>: 대 40px / 소 32px</li>
+  <li><strong>박스 패딩</strong>: 20px 24px / 카드 패딩 32px</li>
+</ul>
+
+<h3>시선 흐름</h3>
+<p>Planner가 슬라이드마다 <code>reading_flow</code> 명시. 3가지 패턴만 사용:</p>
+<ol>
+  <li><strong>Z-패턴</strong> (content 기본) — 좌상 → 우상 → 좌하 → 우하</li>
+  <li><strong>F-패턴</strong> (리스트형) — 세로 스캔, TOC / FAQ / 체크리스트</li>
+  <li><strong>Center-focal</strong> (집중형) — Cover, Divider, Emphasis</li>
+</ol>
+
+<h3>블록 리듬 (AI 균일 방지)</h3>
+<p>모든 카드가 같은 크기로 나열되면 AI 냄새가 남. 2~4개 블록 중 <strong>1개는 hero, 나머지는 sub</strong>:</p>
+<ul>
+  <li>hero: <code>flex: 1.4</code>, h3 19px Bold 블루, body 14px <code>--dark-gray</code></li>
+  <li>sub: <code>flex: 1</code>, h3 17px SemiBold <code>--mid-gray</code>, body 13px <code>--mid-gray</code></li>
+</ul>
+
+<h3>투명도 · 블러</h3>
+<p>사용하지 않음.</p>
+
+<h3>카드 모양</h3>
+<pre>━━━━━━━━━━━━━━━━━  ← 3px solid #FF7E5F (상단)
+┌─────────────────┐
+│  01 (블루)     │  ← 넘버
+│  제목 (블랙)     │  ← 22px Bold
+│  [이미지]        │  ← 1px #E0E0E0
+│  설명 (그레이)   │  ← 14px #676765
+└─────────────────┘  ← 1px solid #E0E0E0 (좌·우·하)</pre>
+<ul>
+  <li>배경: 항상 흰색</li>
+  <li>코너: 직각</li>
+  <li>그림자: <strong>없음</strong></li>
+  <li>패딩: 32px</li>
+</ul>
+
+<h2>Iconography</h2>
+<p><strong>공식 브랜드 아이콘 시스템은 없음.</strong> CHATdaeri 브랜드 레포에 아이콘 폰트/스프라이트가 존재하지 않음. 웹 컴포넌트에서 연락처 아이콘은 <strong>인라인 SVG</strong> 를 <code>stroke="#FF7E5F"</code> 1.5~2px 로 최소한만 사용.</p>
+
+<h4>실무 가이드</h4>
+<ul>
+  <li>아이콘이 꼭 필요한 경우 <strong>Lucide</strong> (CDN: <code>https://unpkg.com/lucide@latest</code>) 를 권장. stroke-based, 이 디자인 시스템의 1.5~2px 선형 미감과 일치.</li>
+  <li><code>stroke="currentColor"</code> 로 두고 CSS <code>color: var(--brand-orange)</code> 또는 <code>color: var(--mid-gray)</code> 로 제어.</li>
+  <li><strong>이모지는 프로덕션 UI 에 쓰지 않음.</strong> 내부 마크다운 문서 헤더에만 제한적 (🎨 🧭 📇 ⛔ 🚫).</li>
+  <li><strong>유니코드 기호</strong>: <code>→</code> (28px 블루, 프로세스 슬라이드 화살표), <code>●</code> (불릿, 5~8px), <code>━</code> (구분선) — 이 세 개만 반복적으로 등장.</li>
+  <li><strong>커스텀 SVG 일러스트 금지</strong> — 브랜드 스타일에 없음. 제품 스크린샷 · 다이어그램 캡처 사용.</li>
+</ul>
+<div class="callout"><strong>플래그:</strong> Lucide 는 이 디자인 시스템에 공식 포함된 것이 아니라 "가장 가까운 매칭" 으로 제안하는 것입니다. 실제 프로젝트에서 아이콘이 필요해지면 사용자 확인이 필요합니다.</div>
+
+<h2>폰트 파일</h2>
+<p><strong>원본 Pretendard Variable</strong> (<code>PretendardVariable.ttf</code>) 가 <code>fonts/</code> 에 포함되어 있습니다. 사용자가 직접 업로드한 공식 파일 — Google Fonts 대체 없이 그대로 사용합니다.</p>
+<p><code>colors_and_type.css</code> 상단에서 <code>@font-face</code> 로 로드되므로 추가 link 태그 불필요.</p>
+<pre><code>@font-face {
+  font-family: 'Pretendard Variable';
+  src: url('fonts/PretendardVariable.ttf') format('truetype-variations'),
+       url('fonts/PretendardVariable.ttf') format('truetype');
+  font-weight: 45 920;
+}</code></pre>
+<p>Bold 700 / SemiBold 600 / Medium 500 / Regular 400 / ExtraBold 800 등 모든 weight 가변 지원.</p>
+
+<h2>Index — 이 디자인 시스템의 구성</h2>
+<pre>├── README.html                 (이 파일)
+├── README.md                   (동일 내용 · 마크다운)
+├── SKILL.md                    (Claude Code 스킬 호환)
+├── colors_and_type.css         CSS 토큰 + semantic 스타일
+├── fonts/
+│   └── PretendardVariable.ttf  공식 원본 폰트
+├── templates/                  원본 HTML 템플릿 25 개
+├── preview/                    디자인 시스템 탭 카드들
+├── slides/                     샘플 슬라이드 (마케팅 제안서, 차트)
+└── ui_kits/
+    └── web-proposal/           웹 기반 제안서 UI 키트</pre>
+<div class="callout"><strong>로고 자산 없음</strong> — CHATdaeri 워드마크는 PNG/SVG 파일이 아닌 <strong>Pretendard 800 + 브랜드 블루 인라인 텍스트</strong>로 렌더합니다.</div>
+
+<h2>렌더링 가이드 — 무엇을 언제 쓰는가</h2>
+<table>
+  <thead><tr><th>목적</th><th>쓸 것</th></tr></thead>
+  <tbody>
+    <tr><td>세일즈 / 마케팅 제안서 (16:9 슬라이드)</td><td><code>templates/</code> HTML 템플릿 + <code>_shared.css</code>, 또는 <code>slides/index.html</code> 스타일</td></tr>
+    <tr><td>제품 마케팅 페이지 · 랜딩 (<code>scroll-snap</code> 풀스크린)</td><td><code>ui_kits/web-proposal/</code> 참고, <code>WEB-GUIDELINE.md</code> 시스템</td></tr>
+    <tr><td>차트 슬라이드 (KPI, 시계열, 비율)</td><td><code>slides/charts.html</code> 7가지 패턴</td></tr>
+    <tr><td>데이터 자동화 (엑셀 → PPT)</td><td><code>proposal/pptx-skill</code> (별도 프로젝트)</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

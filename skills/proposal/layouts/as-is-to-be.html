@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>AS-IS / TO-BE Comparison</title>
+<!--
+  USAGE:
+  좌:현재(AS-IS) / 우:제안(TO-BE) 의 변환 비교 슬라이드. 가운데 화살표가
+  변화의 방향을 표시. 마케팅·운영 개선안, 시스템 리뉴얼, 프로세스
+  재설계 등 "Before → After" 가 핵심 메시지일 때 사용.
+
+  TOKENS:
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}     헤더 (헤더 chrome 이 .h-top·.h-rule 로 박혀있음)
+  - {{LABEL}}                              본문 작은 라벨 (브랜드 블루)
+  - {{TITLE_HTML}}                         본문 메인 메시지 (≤ 50자)
+                                           강조어 <span class="a">…</span> 사용 가능
+  - {{ASIS_TAG}}                           좌측 상단 태그 — "AS-IS · 현행 셋팅"
+  - {{ASIS_HEADLINE}}                      좌측 헤드라인 (≤ 25자)
+  - {{ASIS_BULLETS_HTML}}                  좌측 불릿 리스트 — <li>...</li> × 3~4
+  - {{ASIS_NOTE}}                          좌측 하단 메모 (≤ 40자, 폐해·문제점)
+                                           **반드시 <p> 로 wrap. 예: '<p style="margin:0">※ ...</p>'**
+  - {{TOBE_TAG}}                           우측 상단 태그 — "TO-BE · 제안 셋팅"
+  - {{TOBE_HEADLINE}}                      우측 헤드라인 (≤ 25자)
+  - {{TOBE_BULLETS_HTML}}                  우측 불릿 리스트 — <li>...</li> × 3~4
+  - {{TOBE_EFFECT}}                        우측 하단 효과 — "→ ROAS 240% 회복" (≤ 50자)
+                                           **반드시 <p> 로 wrap. 예: '<p style="margin:0">→ ...</p>'**
+  - {{FOOTER_LABEL}}                       하단 좌측 푸터 — "FLOWDESK · 2026 Q2"
+
+  NOTES:
+  - 좌(AS-IS) 박스 배경은 light-bg, 불릿은 dot(·)
+  - 우(TO-BE) 박스는 흰 배경 + 상단 3px 브랜드 블루 라인, 불릿은 ▸
+  - 가운데 화살표는 32×32 SVG, 브랜드 블루
+  - 절대 규칙 준수: border-radius 0, 그라디언트/그림자 없음
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; padding: 90px 56px 56px; }
+  .h-top { position: absolute; top: 30px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; font-family: ui-monospace, Menlo, monospace; color: var(--mid-gray); letter-spacing: 0.04em; }
+  .h-top .ch { color: var(--brand-blue); font-weight: 700; }
+  .h-rule { position: absolute; top: 60px; left: 56px; right: 56px; height: 2px; background: var(--brand-blue); }
+
+  .lbl { font-size: 11px; font-family: ui-monospace, Menlo, monospace; color: var(--brand-blue); letter-spacing: 0.08em; font-weight: 700; }
+  .top-msg { margin: 6px 0 18px; font-size: 26px; font-weight: 800; color: #E5573A; line-height: 1.22; letter-spacing: -0.02em; }
+  .top-msg .a { color: var(--brand-blue); }
+
+  .grid { display: grid; grid-template-columns: 1fr 40px 1fr; gap: 0; align-items: stretch; }
+  .col { padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 12px; min-height: 290px; border: 1px solid var(--light-border); border-radius: 0; }
+  .asis { background: #F6F8FB; }
+  .tobe { background: var(--white); border-top: 3px solid var(--brand-blue); }
+  .col h3 { margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; font-family: ui-monospace, Menlo, monospace; }
+  .asis h3 { color: #B7B7B5; }
+  .tobe h3 { color: var(--brand-blue); }
+  .col h4 { margin: 0; font-size: 16px; font-weight: 700; color: var(--black); line-height: 1.3; }
+  .col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .col li { font-size: 12.5px; color: var(--label-gray); line-height: 1.55; padding-left: 14px; position: relative; }
+  .col li:before { content: "·"; position: absolute; left: 4px; color: #B7B7B5; font-weight: 800; font-size: 16px; line-height: 1; }
+  .tobe li:before { content: "▸"; color: var(--brand-blue); font-size: 11px; top: 2px; }
+  .arrow { display: flex; align-items: center; justify-content: center; }
+  .arrow svg { width: 32px; height: 32px; }
+  .effect { margin-top: auto; font-size: 12px; color: var(--brand-blue); font-weight: 700; padding-top: 10px; border-top: 1px dashed var(--light-border); }
+  .note { font-size: 11px; color: #B7B7B5; font-family: ui-monospace, Menlo, monospace; margin-top: auto; }
+
+  .footer { position: absolute; bottom: 22px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace; color: #B7B7B5; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+  <div class="h-top"><p class="ch" style="margin:0;display:inline-block">{{SECTION_TITLE}}</p><p style="margin:0;display:inline-block">{{PAGE_NUMBER}}</p></div>
+  <div class="h-rule"></div>
+
+  <p class="lbl" style="margin:0;display:inline-block">{{LABEL}}</p>
+  <p class="top-msg">{{TITLE_HTML}}</p>
+
+  <div class="grid">
+    <div class="col asis">
+      <h3>{{ASIS_TAG}}</h3>
+      <h4>{{ASIS_HEADLINE}}</h4>
+      <ul>
+        {{ASIS_BULLETS_HTML}}
+      </ul>
+      <div class="note">{{ASIS_NOTE}}</div>
+    </div>
+    <div class="arrow" data-pptx-image="true">
+      <svg viewBox="0 0 32 32" fill="none" stroke="#FF7E5F" stroke-width="2" stroke-linecap="round">
+        <path d="M5 16 L27 16 M19 8 L27 16 L19 24"/>
+      </svg>
+    </div>
+    <div class="col tobe">
+      <h3>{{TOBE_TAG}}</h3>
+      <h4>{{TOBE_HEADLINE}}</h4>
+      <ul>
+        {{TOBE_BULLETS_HTML}}
+      </ul>
+      <div class="effect">{{TOBE_EFFECT}}</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p style="margin:0;display:inline-block">{{FOOTER_LABEL}}</p>
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

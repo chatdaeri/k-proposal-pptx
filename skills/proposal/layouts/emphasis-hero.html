@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Emphasis — Hero</title>
+<!--
+  USAGE:
+  강조 장표 (선택적, 전체 덱에서 0~2장 권장).
+  핵심 한 줄 메시지나 전환점을 크게 보여주는 임팩트 슬라이드.
+  헤더 없음. 중앙 포커스.
+  Reading flow: center-focal (정중앙 대형 타이포 → 하단 서브)
+
+  REPLACE:
+  - {{EYEBROW}} : 상단 작은 라벨 (선택, 없으면 숨김)
+  - {{HERO_LINE_1}}, {{HERO_LINE_2}} : 대형 타이포 (2줄)
+  - {{SUBTITLE}} : 하단 서브 한 줄
+  - {{FOOTER_LABEL}} : 좌측 하단 섹션 레이블
+  - {{PAGE_NUMBER}} : 우측 하단 페이지 번호
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 50px var(--pad-x) 40px var(--pad-x);
+}
+.eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand-blue);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.accent-bar {
+  width: 48px;
+  height: 4px;
+  background: var(--brand-blue);
+  margin-top: 18px;
+  margin-bottom: 26px;
+}
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero h1 {
+  font-size: 58px;
+  font-weight: 800;
+  color: var(--black);
+  line-height: 1.08;
+  letter-spacing: -1px;
+}
+.hero h1 .accent { color: var(--brand-blue); }
+.hero .subtitle {
+  font-size: 16px;
+  color: var(--dark-gray);
+  line-height: 1.5;
+  margin-top: 24px;
+  max-width: 640px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--light-border);
+}
+.footer p {
+  font-size: 13px;
+  color: var(--dark-gray);
+  font-weight: 500;
+}
+.footer .page-num {
+  font-size: 13px;
+  color: var(--brand-blue);
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+  <p class="eyebrow">{{EYEBROW}}</p>
+  <div class="accent-bar"></div>
+
+  <div class="hero">
+    <h1>{{HERO_LINE_1}}</h1>
+    <h1><p class="accent" style="margin:0;display:inline-block">{{HERO_LINE_2}}</p></h1>
+    <p class="subtitle">{{SUBTITLE}}</p>
+  </div>
+
+  <div class="footer">
+    <p>{{FOOTER_LABEL}}</p>
+    <p class="page-num">{{PAGE_NUMBER}}</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Instructor Profile Slide</title>
+<!--
+  USAGE:
+  강사 소개 페이지. 좌측 프로필 사진 + 우측 이름·소개·경력 bullet list + 저서 박스.
+
+  구조:
+  - 좌측(320x340): 프로필 사진 placeholder
+  - 우측: "강사소개" 타이틀 + 이름(블루) + bullet list + 저서 박스
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}} : 헤더
+  - {{INSTRUCTOR_NAME}} : 이름·소속 (블루)
+  - {{BULLET_N}} : 경력 bullet 아이템
+  - {{BOOK_LABEL}} : 저서 박스 라벨 (예: "저서")
+  - {{BOOK_TITLE}} : 저서 정보
+-->
+<style>
+  :root {
+    --brand-blue: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+    --light-border: #E0E0E0;
+    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-family);
+    color: var(--dark-gray);
+    background: var(--white);
+    width: 960px;
+    height: 540px;
+    position: relative;
+  }
+
+  /* 헤더 */
+  .slide-header { padding: 32px 60px 0 60px; }
+  .slide-header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .slide-header p { font-size: 13px; font-weight: 500; color: var(--dark-gray); line-height: 1.4; }
+  .header-line { height: 2px; background: var(--brand-blue); margin-top: 14px; }
+
+  /* 메인 */
+  .main {
+    padding: 30px 60px 0 60px;
+    display: flex;
+    gap: 40px;
+  }
+
+  /* 좌측 사진 */
+  .photo-area {
+    flex: 0 0 300px;
+    height: 360px;
+    background: var(--light-bg);
+    border: 2px dashed var(--light-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-area p {
+    font-size: 13px;
+    color: #bbb;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  /* 우측 내용 */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .title {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.1;
+  }
+  .instructor-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand-blue);
+    margin-top: -6px;
+  }
+
+  /* bullet list */
+  .bullet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .bullet-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .bullet-dot {
+    flex: 0 0 5px;
+    height: 5px;
+    background: var(--brand-blue);
+    border-radius: 50%;
+    margin-top: 6px;
+  }
+  .bullet-item p {
+    font-size: 14px;
+    color: var(--dark-gray);
+    line-height: 1.55;
+  }
+
+  /* 저서 박스 */
+  .book-box {
+    background: var(--light-bg);
+    border: 1px solid var(--light-border);
+    border-left: 3px solid var(--brand-blue);
+    padding: 10px 14px;
+    margin-top: 8px;
+  }
+  .book-box .book-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand-blue);
+    margin-bottom: 3px;
+  }
+  .book-box p.book-title {
+    font-size: 13px;
+    color: var(--dark-gray);
+    line-height: 1.55;
+  }
+
+  /* 로고 */
+  .logo-area { position: absolute; bottom: 20px; right: 60px; height: 12px; }
+  .logo-area img { height: 100%; width: auto; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <div class="photo-area">
+      <p>PHOTO<br>강사 프로필 사진</p>
+    </div>
+
+    <div class="right">
+      <h1 class="title">강사소개</h1>
+      <p class="instructor-name">{{INSTRUCTOR_NAME}}</p>
+
+      <div class="bullet-list">
+        <div class="bullet-item">
+          <div class="bullet-dot"></div>
+          <p>{{BULLET_1}}</p>
+        </div>
+        <div class="bullet-item">
+          <div class="bullet-dot"></div>
+          <p>{{BULLET_2}}</p>
+        </div>
+        <div class="bullet-item">
+          <div class="bullet-dot"></div>
+          <p>{{BULLET_3}}</p>
+        </div>
+        <div class="bullet-item">
+          <div class="bullet-dot"></div>
+          <p>{{BULLET_4}}</p>
+        </div>
+        <div class="bullet-item">
+          <div class="bullet-dot"></div>
+          <p>{{BULLET_5}}</p>
+        </div>
+      </div>
+
+      <div class="book-box">
+        <p class="book-label">{{BOOK_LABEL}}</p>
+        <p class="book-title">{{BOOK_TITLE}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

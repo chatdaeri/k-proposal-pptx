@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Concept Tree Slide</title>
+<!--
+  USAGE:
+  좌→우 3계층 개념 트리. ROOT → 3 CATEGORIES → 6 LEAVES 분해 다이어그램.
+  "전략 분해", "OKR 매핑", "MECE 분류" 등 위계적 분해 슬라이드에 사용.
+
+  구조:
+  - ROOT 박스 (네이비 배경, 흰 텍스트, body는 rgba(255,255,255,.85))
+  - 1차 커넥터: 세로 +가로 3갈래 (브랜드 블루)
+  - 3 CATEGORY 박스 (소프트 블루 배경, 브랜드 블루 보더)
+  - 2차 커넥터: 세로 + 가로 (그레이)
+  - 6 LEAF 박스 (white + light border)
+
+  REPLACE:
+  - {{ROOT_*}}, {{CAT_N_*}}, {{LEAF_N_*}}
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  .slide-body { padding: 18px 60px 0; }
+  .ttl-block { padding: 8px 0 6px; }
+  .section-label { font-size: 13px; font-weight: 600; color: var(--brand-blue); letter-spacing: .06em; margin: 0 0 4px; }
+  .main-title { font-size: 26px; font-weight: 800; color: var(--black); line-height: 1.2; margin: 0 0 4px; letter-spacing: -.01em; }
+  .lede { font-size: 13px; color: var(--label-gray); line-height: 1.5; margin: 0; }
+
+  .tree { margin-top: 10px; height: 280px; display: grid; grid-template-columns: 170px 28px 190px 28px 1fr; align-items: stretch; }
+  .col-root { display: flex; align-items: center; }
+  .root-box { width: 100%; padding: 14px 14px; background: #E5573A; color: #fff; }
+  .root-box .label { font-size: 10px; font-weight: 700; letter-spacing: .08em; color: rgba(255,255,255,.72); font-family: ui-monospace, Menlo, monospace; }
+  .root-box .name { font-size: 16px; font-weight: 800; line-height: 1.2; margin-top: 4px; letter-spacing: -.01em; }
+  .root-box .body { font-size: 11px; line-height: 1.45; margin: 5px 0 0; color: rgba(255,255,255,.85); }
+
+  .conn-1 { position: relative; }
+  .conn-1::before { content: ""; position: absolute; left: 50%; top: 16.66%; bottom: 16.66%; width: 1.6px; background: var(--brand-blue); transform: translateX(-50%); }
+  .conn-1 .branch { position: absolute; left: 50%; right: 0; height: 1.6px; background: var(--brand-blue); }
+  .conn-1 .branch.b1 { top: 16.66%; } .conn-1 .branch.b2 { top: 50%; } .conn-1 .branch.b3 { top: 83.33%; }
+
+  .col-cat { display: grid; grid-template-rows: repeat(6, 1fr); }
+  .cat { padding: 9px 11px; background: #FFF1EC; border: 1.5px solid var(--brand-blue); align-self: center; }
+  .cat:nth-child(1) { grid-row: 1 / span 2; } .cat:nth-child(2) { grid-row: 3 / span 2; } .cat:nth-child(3) { grid-row: 5 / span 2; }
+  .cat .label { font-size: 9.5px; font-weight: 700; color: var(--brand-blue); font-family: ui-monospace, Menlo, monospace; letter-spacing: .06em; }
+  .cat .name { font-size: 13px; font-weight: 800; color: var(--black); margin-top: 2px; line-height: 1.2; }
+  .cat .body { font-size: 10.5px; color: var(--label-gray); margin: 2px 0 0; line-height: 1.4; }
+
+  .conn-2 { display: grid; grid-template-rows: repeat(6, 1fr); }
+  .conn-2 .sub { position: relative; }
+  .conn-2 .sub:nth-child(1) { grid-row: 1 / span 2; } .conn-2 .sub:nth-child(2) { grid-row: 3 / span 2; } .conn-2 .sub:nth-child(3) { grid-row: 5 / span 2; }
+  .conn-2 .sub::before { content: ""; position: absolute; left: 0; top: 50%; width: 50%; height: 1px; background: #C8C8C8; transform: translateY(-50%); }
+  .conn-2 .sub::after { content: ""; position: absolute; left: 50%; top: 25%; bottom: 25%; width: 1px; background: #C8C8C8; transform: translateX(-50%); }
+  .conn-2 .sub .leaf-line { position: absolute; left: 50%; right: 0; height: 1px; background: #C8C8C8; }
+  .conn-2 .sub .leaf-line.up { top: 25%; } .conn-2 .sub .leaf-line.down { top: 75%; }
+
+  .col-leaves { display: grid; grid-template-rows: repeat(6, 1fr); }
+  .leaf { padding: 7px 11px; border: 1px solid var(--light-border); background: #fff; align-self: center; }
+  .leaf .name { font-size: 11.5px; font-weight: 700; color: var(--black); line-height: 1.2; }
+  .leaf .body { font-size: 10.5px; color: var(--mid-gray); margin-top: 2px; line-height: 1.4; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="slide-body">
+    <div class="ttl-block">
+      <p class="section-label">{{LABEL}}</p>
+      <h1 class="main-title">{{TITLE}}</h1>
+      <p class="lede">{{LEDE}}</p>
+    </div>
+    <div class="tree">
+      <div class="col-root">
+        <div class="root-box"><p class="label" style="margin:0;display:inline-block">ROOT</p><p class="name" style="margin:0">{{ROOT_NAME}}</p><p class="body">{{ROOT_BODY}}</p></div>
+      </div>
+      <div class="conn-1">
+        <div class="branch b1"></div><div class="branch b2"></div><div class="branch b3"></div>
+      </div>
+      <div class="col-cat">
+        <div class="cat"><p class="label" style="margin:0;display:inline-block">CAT 01</p><p class="name" style="margin:0">{{CAT_1_NAME}}</p><p class="body">{{CAT_1_BODY}}</p></div>
+        <div class="cat"><p class="label" style="margin:0;display:inline-block">CAT 02</p><p class="name" style="margin:0">{{CAT_2_NAME}}</p><p class="body">{{CAT_2_BODY}}</p></div>
+        <div class="cat"><p class="label" style="margin:0;display:inline-block">CAT 03</p><p class="name" style="margin:0">{{CAT_3_NAME}}</p><p class="body">{{CAT_3_BODY}}</p></div>
+      </div>
+      <div class="conn-2">
+        <div class="sub"><div class="leaf-line up"></div><div class="leaf-line down"></div></div>
+        <div class="sub"><div class="leaf-line up"></div><div class="leaf-line down"></div></div>
+        <div class="sub"><div class="leaf-line up"></div><div class="leaf-line down"></div></div>
+      </div>
+      <div class="col-leaves">
+        <div class="leaf"><p class="name" style="margin:0">{{LEAF_1_NAME}}</p><div class="body">{{LEAF_1_BODY}}</div></div>
+        <div class="leaf"><p class="name" style="margin:0">{{LEAF_2_NAME}}</p><div class="body">{{LEAF_2_BODY}}</div></div>
+        <div class="leaf"><p class="name" style="margin:0">{{LEAF_3_NAME}}</p><div class="body">{{LEAF_3_BODY}}</div></div>
+        <div class="leaf"><p class="name" style="margin:0">{{LEAF_4_NAME}}</p><div class="body">{{LEAF_4_BODY}}</div></div>
+        <div class="leaf"><p class="name" style="margin:0">{{LEAF_5_NAME}}</p><div class="body">{{LEAF_5_BODY}}</div></div>
+        <div class="leaf"><p class="name" style="margin:0">{{LEAF_6_NAME}}</p><div class="body">{{LEAF_6_BODY}}</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>시장 성장 추이</title>
+<link rel="stylesheet" href="../_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+  .axis-cap { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0 0 8px 0; }
+  .source { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0; }
+
+  .chart-box { width: 100%; height: 268px; }
+  .chart-box svg { width: 100%; height: 100%; display: block; }
+
+  .t { display: flex; flex-direction: column; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); font-size: 11.5px; }
+  .tr { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.6fr; border-bottom: 1px solid var(--light-border); }
+  .tr:last-child { border-bottom: none; }
+  .thead .tr { background: var(--light-bg); }
+  .th, .td { padding: 7px 10px; }
+  .th p { margin: 0; font-size: 11px; font-weight: 700; color: var(--dark-gray); letter-spacing: 0.02em; }
+  .td p { margin: 0; color: var(--label-gray); font-size: 11px; line-height: 1.4; }
+  .num { text-align: right; }
+  .num p { font-family: ui-monospace, Menlo, monospace; color: var(--black); font-weight: 600; }
+  .tr.hi { background: #FFF1EC; }
+  .tr.hi .num p { color: var(--brand-blue); font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner"><p>Part 1. 사업 배경 및 시장 현황</p><p>03</p></div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">시장 환경 분석</p>
+    <h1 class="ph1">시장 규모 <span class="a">연평균 +30% 고성장</span> — '26년 3,500억 원 전망</h1>
+    <p class="lede">디지털 전환(DX) 가속화에 따라 관련 산업군은 5개년 연평균 30%+ 의 고성장을 기록. 신규 수요 유입 및 시장 파편화 동시 진행 중.</p>
+
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start;margin-top:14px">
+      <div>
+        <p class="axis-cap">시장 규모 추이 · 단위 억원</p>
+        <div class="chart-box" data-pptx-image="true">
+          <svg viewBox="0 0 460 290" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- Y axis labels: 400 / 300 / 200 / 100 / 0 -->
+            <g font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#7A7A78" text-anchor="end">
+              <text x="50" y="18">400</text>
+              <text x="50" y="76">300</text>
+              <text x="50" y="134">200</text>
+              <text x="50" y="192">100</text>
+              <text x="50" y="250">0</text>
+            </g>
+            <!-- Gridlines -->
+            <g stroke="#F0F0F0" stroke-width="1">
+              <line x1="55" y1="14" x2="450" y2="14"/>
+              <line x1="55" y1="72" x2="450" y2="72"/>
+              <line x1="55" y1="130" x2="450" y2="130"/>
+              <line x1="55" y1="188" x2="450" y2="188"/>
+            </g>
+            <!-- Baseline -->
+            <line x1="55" y1="246" x2="450" y2="246" stroke="#000" stroke-width="1"/>
+            <!-- Data points: x = 90, 175, 260, 345, 430 -->
+            <!-- 120 → y=246-(120/400)*232 = 246-69.6 = 176.4 -->
+            <!-- 155 → y=246-(155/400)*232 = 246-89.9 = 156.1 -->
+            <!-- 210 → y=246-(210/400)*232 = 246-121.8 = 124.2 -->
+            <!-- 280 → y=246-(280/400)*232 = 246-162.4 = 83.6 -->
+            <!-- 350 → y=246-(350/400)*232 = 246-203.0 = 43.0 -->
+            <!-- Filled area under line -->
+            <path d="M 90 176.4 L 175 156.1 L 260 124.2 L 345 83.6 L 430 43 L 430 246 L 90 246 Z" fill="#FF7E5F" fill-opacity="0.10"/>
+            <!-- Line -->
+            <polyline points="90,176.4 175,156.1 260,124.2 345,83.6 430,43" fill="none" stroke="#FF7E5F" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <!-- Markers -->
+            <g fill="#FFFFFF" stroke="#FF7E5F" stroke-width="2.4">
+              <circle cx="90" cy="176.4" r="4.5"/>
+              <circle cx="175" cy="156.1" r="4.5"/>
+              <circle cx="260" cy="124.2" r="4.5"/>
+              <circle cx="345" cy="83.6" r="4.5"/>
+              <circle cx="430" cy="43" r="5.5" fill="#FF7E5F"/>
+            </g>
+            <!-- Value labels above markers -->
+            <g font-family="ui-monospace, Menlo, monospace" font-size="11" font-weight="700" text-anchor="middle">
+              <text x="90" y="167" fill="#000">120</text>
+              <text x="175" y="147" fill="#000">155</text>
+              <text x="260" y="115" fill="#000">210</text>
+              <text x="345" y="74" fill="#000">280</text>
+              <text x="430" y="32" fill="#FF7E5F">350</text>
+            </g>
+            <!-- X labels -->
+            <g font-size="11" text-anchor="middle" fill="#676765">
+              <text x="90" y="266">2022</text>
+              <text x="175" y="266">2023</text>
+              <text x="260" y="266">2024(E)</text>
+              <text x="345" y="266">2025(E)</text>
+              <text x="430" y="266" fill="#FF7E5F" font-weight="800">2026(E)</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div>
+        <div class="t">
+          <div class="thead"><div class="tr"><div class="th"><p>구분</p></div><div class="th num"><p>2023 실적</p></div><div class="th num"><p>2024 예상</p></div><div class="th"><p>비고</p></div></div></div>
+          <div class="tbody">
+            <div class="tr hi"><div class="td"><p>시장 규모</p></div><div class="td num"><p>1,550억</p></div><div class="td num"><p>2,100억</p></div><div class="td"><p>전년비 +35%</p></div></div>
+            <div class="tr"><div class="td"><p>서비스 보급률</p></div><div class="td num"><p>42.5%</p></div><div class="td num"><p>58.0%</p></div><div class="td"><p>신규 수요 급증</p></div></div>
+            <div class="tr"><div class="td"><p>경쟁사 점유율</p></div><div class="td num"><p>12.4%</p></div><div class="td num"><p>11.8%</p></div><div class="td"><p>시장 파편화</p></div></div>
+          </div>
+        </div>
+        <p class="source" style="text-align:right;margin-top:8px">[ 자료 : 자체 추정 · 업계 리포트 종합 ]</p>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

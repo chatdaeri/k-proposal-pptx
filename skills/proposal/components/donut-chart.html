@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Donut Chart (SVG capture)</title>
+<!--
+  USAGE:
+  4 세그먼트 비율 시각화 — 도넛 + 중앙 합계 + 우측 범례 표 + 하단 시사점.
+
+  RENDER MODE:
+  도넛 SVG → <div data-pptx-image="true"> 로 감싸 PNG 캡처.
+  우측 범례는 div+grid 표 (네이티브 텍스트 유지).
+
+  USE MODE:
+  reference. deck.cjs 의 `{ html: '<...>' }` 자유 모드:
+    1) <body> 통째 복사
+    2) 4개 <circle r="60"> 의 stroke-dasharray / stroke-dashoffset 만 비중%에 맞춰 재계산
+       원주 = 2π × 60 ≈ 376.99
+       세그먼트 호 = (비중% × 376.99) / 100
+       dashoffset = 누적 호의 음수
+    3) 중앙 <text> 의 합계 숫자·라벨 직접 수정
+    4) 우측 범례 표 .tr 4행 직접 작성 (swatch 색은 .swatch.s1~s4)
+
+  TOKENS (텍스트만):
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}
+  - {{LABEL}} {{TITLE}} {{LEDE}}
+  - {{TABLE_ROWS_HTML}}                    범례 표 .tr (4행)
+  - {{SOURCE_NOTE}}
+  - {{INSIGHT_BOX_HTML}}                   하단 시사점 (선택)
+
+  세그먼트 색 (밝→어두): #FF7E5F / #3E4A5E / #A0A8B3 / #D6D6D2
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+  .source { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0; }
+
+  .layout { display: grid; grid-template-columns: 0.95fr 1.1fr; gap: 24px; align-items: center; margin-top: 18px; height: 280px; }
+  .donut-box { background: #fff; height: 100%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--light-border); }
+  .donut-box svg { display: block; width: 240px; height: 240px; }
+
+  /* 우측 범례 표 */
+  .t { display: flex; flex-direction: column; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); font-size: 11.5px; }
+  .tr { display: grid; grid-template-columns: 14px 2fr 1fr 1fr; border-bottom: 1px solid var(--light-border); align-items: center; }
+  .tr:last-child { border-bottom: none; }
+  .thead .tr { background: var(--light-bg); }
+  .th, .td { padding: 7px 10px; }
+  .th p { margin: 0; font-size: 11px; font-weight: 700; color: var(--dark-gray); letter-spacing: 0.02em; }
+  .td p { margin: 0; color: var(--label-gray); }
+  .td .swatch { display: block; width: 10px; height: 10px; }
+  .swatch.s1 { background: #FF7E5F; }
+  .swatch.s2 { background: #3E4A5E; }
+  .swatch.s3 { background: #A0A8B3; }
+  .swatch.s4 { background: #D6D6D2; }
+  .num { text-align: right; }
+  .num p { font-family: ui-monospace, Menlo, monospace; color: var(--black); font-weight: 600; }
+  .tr.hi { background: #FFF1EC; }
+  .tr.hi .num p { color: var(--brand-blue); font-weight: 700; }
+
+  .anno { background: var(--light-bg); border-left: 3px solid var(--brand-blue); padding: 12px 16px; font-size: 12px; color: var(--dark-gray); line-height: 1.5; margin-top: 14px; }
+  .anno p { margin: 0; }
+  .anno strong { color: var(--brand-blue); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="layout">
+      <!-- 좌: 도넛 SVG (PNG 캡처). r=60 원주 376.99
+           예시 비중 52.4 / 22.1 / 15.8 / 9.7 → dasharray 197.5 / 83.3 / 59.6 / 36.6
+           dashoffset 0 / -197.5 / -280.8 / -340.4 -->
+      <div class="donut-box" data-pptx-image="true">
+        <svg viewBox="0 0 200 200">
+          <g transform="rotate(-90 100 100)">
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#FF7E5F" stroke-width="22" stroke-dasharray="197.5 376.99"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#3E4A5E" stroke-width="22" stroke-dasharray="83.3 376.99"  stroke-dashoffset="-197.5"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#A0A8B3" stroke-width="22" stroke-dasharray="59.6 376.99"  stroke-dashoffset="-280.8"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#D6D6D2" stroke-width="22" stroke-dasharray="36.6 376.99"  stroke-dashoffset="-340.4"/>
+          </g>
+          <text x="100" y="92"  text-anchor="middle" font-size="11" font-weight="600" fill="#676765" font-family="Pretendard Variable, sans-serif">총 신규 가입자</text>
+          <text x="100" y="116" text-anchor="middle" font-size="26" font-weight="900" fill="#000" font-family="ui-monospace,Menlo,monospace">12,840</text>
+          <text x="100" y="134" text-anchor="middle" font-size="10" fill="#676765" font-family="Pretendard Variable, sans-serif">'25년 누적</text>
+        </svg>
+      </div>
+
+      <!-- 우: 범례 표 (div grid) -->
+      <div>
+        <div class="t">
+          <div class="thead">
+            <div class="tr"><div class="th"></div><div class="th"><p>채널</p></div><div class="th num"><p>유입</p></div><div class="th num"><p>비중</p></div></div>
+          </div>
+          <div class="tbody">
+            {{TABLE_ROWS_HTML}}
+          </div>
+        </div>
+        <p class="source" style="text-align:right;margin-top:8px">{{SOURCE_NOTE}}</p>
+      </div>
+    </div>
+
+    <div class="anno"><p>{{INSIGHT_BOX_HTML}}</p></div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

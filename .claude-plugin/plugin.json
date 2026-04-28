@@ -1,0 +1,23 @@
+{
+  "name": "k-proposal-pptx",
+  "version": "1.0.0",
+  "description": "한국식 제안서 PPT 자동 생성 — 12~18장 한국식 스토리 아크",
+  "description_en": "Korean-style proposal PPTX generator with 23 layouts",
+  "author": {
+    "name": "Synergy Labs",
+    "brand": "CHATdaeri",
+    "url": "https://github.com/chatdaeri"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/chatdaeri/k-proposal-pptx",
+  "keywords": ["pptx", "presentation", "korean", "proposal", "claude-code", "consulting", "chatdaeri", "mckinsey-style"],
+  "requires": {
+    "node": ">=18",
+    "system": ["soffice (LibreOffice)", "pdftoppm (poppler)"]
+  },
+  "components": {
+    "agents": ["agents/proposal-deck-agent.md"],
+    "skills": ["skills/proposal/SKILL.md"],
+    "commands": ["commands/proposal.md"]
+  }
+}

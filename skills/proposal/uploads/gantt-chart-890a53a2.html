@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Gantt Chart</title>
+<!--
+  USAGE:
+  프로젝트 일정 간트차트. 6주~12개월 범위 권장. 각 행 = 작업, 막대 = 기간.
+  CHATdaeri 톤: 진행 = brand-blue / 예정 = soft-blue + brand-blue 보더 / 완료 = deep-navy / 마일스톤 = 다이아몬드.
+
+  REPLACE:
+  - {{HEADER_LEFT}} / {{PAGE_NUMBER}} / {{SECTION_LABEL}} / {{TITLE}} / {{LEDE}}
+  - 헤더 행: <th> 의 기간 라벨 (M1, M2 ... 또는 W1, W2 ...)
+  - 작업 행: 각 <tr> 의 .task-name + .bar (start, span 으로 grid-column)
+-->
+<style>
+@import url('./_shared.css');
+
+.body-area { position: absolute; top: 96px; left: var(--pad-x); right: var(--pad-x); bottom: 50px; }
+.section-label { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+.ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+.ph1 .a { color: var(--brand-blue); }
+.lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+.gantt { margin-top: 16px; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); }
+.gantt-row { display: grid; grid-template-columns: 200px repeat(12, 1fr); align-items: center; min-height: 26px; border-bottom: 1px solid var(--light-border); position: relative; }
+.gantt-row:last-child { border-bottom: 0; }
+.gantt-row.head { background: var(--light-bg); border-bottom: 1px solid var(--light-border); }
+.gantt-row.head .cell { font-size: 10.5px; font-weight: 700; color: var(--dark-gray); text-align: center; padding: 6px 0; font-family: ui-monospace, Menlo, monospace; letter-spacing: 0.04em; }
+.gantt-row.head .cell.label { text-align: left; padding-left: 12px; letter-spacing: 0.06em; }
+.gantt-row .cell { border-right: 1px solid var(--light-border); height: 100%; }
+.gantt-row .cell:last-child { border-right: 0; }
+.gantt-row .cell.label { padding: 0 12px; font-size: 11.5px; font-weight: 600; color: var(--black); display: flex; align-items: center; gap: 6px; height: 30px; }
+.gantt-row .cell.label .phase { font-size: 9.5px; color: var(--brand-blue); font-weight: 800; font-family: ui-monospace, Menlo, monospace; min-width: 26px; }
+
+.bar { height: 12px; align-self: center; }
+.bar.brand { background: var(--brand-blue); }
+.bar.soft  { background: #FFF1EC; border: 1.5px solid var(--brand-blue); height: 10px; }
+.bar.deep  { background: #E5573A; }
+.bar.gray  { background: #C8C8C8; }
+.bar-label { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 9px; color: #FFF; font-weight: 700; font-family: ui-monospace, Menlo, monospace; }
+
+/* 마일스톤 다이아몬드 */
+.milestone { width: 12px; height: 12px; background: var(--brand-blue); transform: rotate(45deg); align-self: center; justify-self: center; }
+
+.legend-row { display: flex; gap: 16px; margin-top: 12px; align-items: center; }
+.legend-row .item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--label-gray); }
+.legend-row .swatch { width: 16px; height: 10px; }
+.legend-row .swatch.brand { background: var(--brand-blue); }
+.legend-row .swatch.soft  { background: #FFF1EC; border: 1.5px solid var(--brand-blue); height: 8px; }
+.legend-row .swatch.deep  { background: #E5573A; }
+.legend-row .swatch.diamond { width: 10px; height: 10px; background: var(--brand-blue); transform: rotate(45deg); }
+
+.logo { position: absolute; bottom: 20px; right: var(--pad-x); height: 14px; }
+.logo span { font-family: 'Pretendard Variable', Pretendard, sans-serif; font-weight: 800; letter-spacing: -0.035em; color: var(--brand-blue); font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner"><p>{{HEADER_LEFT}}</p><p>{{PAGE_NUMBER}}</p></div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section-label">{{SECTION_LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="gantt">
+      <div class="gantt-row head">
+        <div class="cell label">단계 / 작업</div>
+        <div class="cell">M1</div><div class="cell">M2</div><div class="cell">M3</div>
+        <div class="cell">M4</div><div class="cell">M5</div><div class="cell">M6</div>
+        <div class="cell">M7</div><div class="cell">M8</div><div class="cell">M9</div>
+        <div class="cell">M10</div><div class="cell">M11</div><div class="cell">M12</div>
+      </div>
+
+      <div class="gantt-row">
+        <div class="cell label"><span class="phase">P1</span>{{TASK_1_NAME}}</div>
+        <div class="cell" style="grid-column:2/4;display:flex;align-items:center"><div class="bar deep" style="width:100%;position:relative"><span class="bar-label">완료</span></div></div>
+      </div>
+
+      <div class="gantt-row">
+        <div class="cell label"><span class="phase">P1</span>{{TASK_2_NAME}}</div>
+        <div class="cell" style="grid-column:3/6;display:flex;align-items:center"><div class="bar brand" style="width:100%"></div></div>
+      </div>
+
+      <div class="gantt-row">
+        <div class="cell label"><span class="phase">P2</span>{{TASK_3_NAME}}</div>
+        <div class="cell" style="grid-column:5/9;display:flex;align-items:center"><div class="bar brand" style="width:100%"></div></div>
+      </div>
+
+      <div class="gantt-row">
+        <div class="cell label"><span class="phase">P2</span>{{TASK_4_NAME}}</div>
+        <div class="cell" style="grid-column:7/11;display:flex;align-items:center"><div class="bar soft" style="width:100%"></div></div>
+      </div>
+
+      <div class="gantt-row">
+        <div class="cell label"><span class="phase">P3</span>{{TASK_5_NAME}}</div>
+        <div class="cell" style="grid-column:9/13;display:flex;align-items:center"><div class="bar soft" style="width:100%"></div></div>
+      </div>
+
+      <div class="gantt-row">
+        <div class="cell label"><span class="phase">★</span>{{MILESTONE_NAME}}</div>
+        <div class="cell" style="grid-column:7/8;display:flex;align-items:center;justify-content:center"><div class="milestone"></div></div>
+        <div class="cell" style="grid-column:13/14;display:flex;align-items:center;justify-content:center"><div class="milestone"></div></div>
+      </div>
+    </div>
+
+    <div class="legend-row">
+      <div class="item"><div class="swatch deep"></div>완료</div>
+      <div class="item"><div class="swatch brand"></div>진행 중</div>
+      <div class="item"><div class="swatch soft"></div>예정</div>
+      <div class="item"><div class="swatch diamond"></div>마일스톤</div>
+      <span style="margin-left:auto;font-size:10.5px;color:var(--mid-gray);font-family:ui-monospace,Menlo,monospace">[ Today · M5 ]</span>
+    </div>
+  </div>
+  <div class="logo"><span>CHATdaeri</span></div>
+</body>
+</html>

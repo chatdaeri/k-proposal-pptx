@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Content Grid Slide</title>
+<style>
+  :root {
+    --brand-blue: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    width: 960px;
+    height: 540px;
+    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--white);
+    overflow: hidden;
+    position: relative;
+  }
+  .slide-header { padding: 32px 60px 0 60px; }
+  .slide-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .slide-header-inner p {
+    font-size: 13px;
+    color: var(--dark-gray);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .header-line {
+    margin: 14px 60px 0 60px;
+    height: 2px;
+    background: var(--brand-blue);
+  }
+  .slide-body {
+    padding: 20px 60px 50px 60px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 66px);
+  }
+  .title-area {
+    margin-bottom: 14px;
+  }
+  .title-area .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--brand-blue);
+    letter-spacing: 0.06em;
+    margin: 0 0 4px 0;
+  }
+  .title-area h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--black);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px 0;
+  }
+  .title-area h2 .a { color: var(--brand-blue); }
+  .title-area .lede {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--label-gray, #4A4A48);
+    line-height: 1.45;
+    margin: 0;
+  }
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
+  }
+  .grid-item {
+    width: calc(50% - 7px);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background-color: var(--light-bg);
+    border-radius: 0;
+  }
+  .grid-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    background-color: var(--brand-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .grid-badge p {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .grid-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .grid-item-text h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.3;
+  }
+  .grid-item-text p {
+    font-size: 14px;
+    color: var(--dark-gray);
+    line-height: 1.5;
+  }
+  .bottom-logo {
+    position: absolute;
+    bottom: 20px;
+    right: 60px;
+    height: 14px;
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>Part 3. 평형 구성 제안</p>
+      <p>05</p>
+    </div>
+  </div>
+  <div class="header-line"></div>
+  <div class="slide-body">
+    <div class="title-area">
+      <p class="eyebrow">수요층 분석 기반 최적 평형 믹스</p>
+      <h2>1인 가구 + 신혼부부 수요 중심 <span class="a">59·74·84형 3종 구성</span></h2>
+      <p class="lede">인근 직장인 수요(59형) 와 가족 수요(84형) 를 모두 흡수. 중간형(74형) 은 소형 투자 수요로 흡수.</p>
+    </div>
+    <div class="grid-container">
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>1</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>59형 (전용 59㎡) · 40세대</h4>
+          <p>1~2인 직장인·싱글 타깃. 월세 수익률 관심 투자자 수요 강. 엘리베이터 1대 공용 구간 최적화.</p>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>2</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>74형 (전용 74㎡) · 30세대</h4>
+          <p>소형 투자 + 신혼 초기 수요. 드레스룸 제공 → 차별화. 분양가 1층 대비 20% 할인 구조.</p>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>3</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>84형 (전용 84㎡) · 20세대</h4>
+          <p>가족형 실거주 수요. 인근 A단지 대비 1,200만원 절감(84형 기준). 코너동 전 세대 배정.</p>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="grid-badge">
+          <p>4</p>
+        </div>
+        <div class="grid-item-text">
+          <h4>총 90세대 · 분양률 목표 95%</h4>
+          <p>업무지구 도보권 + 저렴한 분양가로 6개월 내 완판 목표. 미분양 시 임대 전환 옵션 설정.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-logo">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

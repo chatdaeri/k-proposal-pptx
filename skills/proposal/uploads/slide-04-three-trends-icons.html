@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고객(OEM) 관점의 핵심 의사결정 요인</title>
+<style>
+  :root {
+    --brand-orange: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+    --mid-gray: #676765;
+    --label-gray: #4A4A48;
+    --light-border: #E0E0E0;
+    --pad-x: 80px;
+    --pad-top: 42px;
+    --header-total: 88px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px;
+    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--white); color: var(--dark-gray);
+    position: relative; overflow: hidden;
+  }
+
+  /* 헤더 */
+  .slide-header { padding: var(--pad-top) var(--pad-x) 0 var(--pad-x); }
+  .slide-header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .slide-header-inner p { font-size: 14px; font-weight: 500; color: var(--dark-gray); line-height: 1.4; }
+  .header-line { height: 2px; background: var(--brand-orange); margin-top: 16px; }
+
+  /* 본문 */
+  .main {
+    height: calc(100% - var(--header-total));
+    padding: 30px var(--pad-x) 60px var(--pad-x);
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+  .main-title {
+    font-size: 30px; font-weight: 700;
+    color: var(--black); line-height: 1.2;
+    text-align: center;
+  }
+  .main-sub {
+    font-size: 14px; color: var(--mid-gray);
+    line-height: 1.5; margin-top: 8px;
+    text-align: center;
+  }
+
+  /* 3개 카드 */
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    margin-top: 50px;
+    flex: 1;
+    width: 100%;
+  }
+  .pillar {
+    display: flex; flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 18px;
+  }
+  .icon-circle {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--brand-orange);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--brand-orange);
+    font-size: 44px; font-weight: 700;
+    margin-bottom: 22px;
+    box-shadow: 0 0 0 6px rgba(255, 126, 95, 0.08);
+  }
+  .pillar-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .pillar-divider {
+    width: 48px; height: 2px;
+    background: var(--brand-orange);
+    margin-bottom: 18px;
+  }
+  .pillar-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+    width: 100%;
+  }
+  .pillar-bullets li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--dark-gray);
+    line-height: 1.5;
+    text-align: left;
+  }
+  .pillar-bullets li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 9px;
+    width: 6px; height: 6px;
+    background: var(--brand-orange);
+    border-radius: 50%;
+  }
+
+  /* 푸터 */
+  .footer-meta {
+    position: absolute;
+    bottom: 22px; left: var(--pad-x);
+    font-size: 11px; color: var(--mid-gray);
+  }
+  .logo-area {
+    position: absolute;
+    bottom: 22px; right: var(--pad-x);
+    height: 14px;
+  }
+  .logo-area img { height: 100%; width: auto; display: block; opacity: 0.85; }
+</style>
+</head>
+<body>
+  <!-- 헤더 -->
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>K-배터리 진출 전략</p>
+      <p>04</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <!-- 메인 -->
+  <div class="main">
+    <h1 class="main-title">고객(OEM) 관점의 핵심 의사결정 요인</h1>
+    <p class="main-sub">신규 셀 공급사 선정 시 OEM이 가장 중시하는 3가지</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="icon-circle">$</div>
+        <h3 class="pillar-title">원가 경쟁력</h3>
+        <div class="pillar-divider"></div>
+        <ul class="pillar-bullets">
+          <li>kWh 단가 절감 로드맵</li>
+          <li>원소재 헤지 전략</li>
+          <li>가격 인덱싱 모델</li>
+        </ul>
+      </div>
+
+      <div class="pillar">
+        <div class="icon-circle">♛</div>
+        <h3 class="pillar-title">기술 · 품질</h3>
+        <div class="pillar-divider"></div>
+        <ul class="pillar-bullets">
+          <li>에너지 밀도 우위</li>
+          <li>양산 수율 안정성</li>
+          <li>차세대 셀 로드맵</li>
+        </ul>
+      </div>
+
+      <div class="pillar">
+        <div class="icon-circle">★</div>
+        <h3 class="pillar-title">현지 대응력</h3>
+        <div class="pillar-divider"></div>
+        <ul class="pillar-bullets">
+          <li>OEM 공장 인근 거점</li>
+          <li>IRA · CRMA 적격성</li>
+          <li>ESG 거버넌스 체계</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <div class="footer-meta">Source: 글로벌 OEM 구매팀 인터뷰 (n=12), 2026</div>
+  <div class="logo-area"><img src="logo.png" alt="CHATdaeri"></div>
+</body>
+</html>

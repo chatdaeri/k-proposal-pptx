@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>글로벌 EV 배터리 시장 3대 트렌드</title>
+<style>
+  :root {
+    --brand-orange: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+    --mid-gray: #676765;
+    --label-gray: #4A4A48;
+    --light-border: #E0E0E0;
+    --pad-x: 80px;
+    --pad-top: 42px;
+    --header-total: 88px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px;
+    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--white); color: var(--dark-gray);
+    position: relative; overflow: hidden;
+  }
+
+  /* 헤더 */
+  .slide-header { padding: var(--pad-top) var(--pad-x) 0 var(--pad-x); }
+  .slide-header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .slide-header-inner p { font-size: 14px; font-weight: 500; color: var(--dark-gray); line-height: 1.4; }
+  .header-line { height: 2px; background: var(--brand-orange); margin-top: 16px; }
+
+  /* 본문 */
+  .main {
+    height: calc(100% - var(--header-total));
+    padding: 30px var(--pad-x) 60px var(--pad-x);
+    display: flex; flex-direction: column;
+  }
+  .main-title { font-size: 30px; font-weight: 700; color: var(--black); line-height: 1.2; }
+  .main-sub { font-size: 14px; color: var(--mid-gray); line-height: 1.5; margin-top: 8px; }
+
+  /* 3개 트렌드 */
+  .trends {
+    margin-top: 36px;
+    display: flex; flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+  .trend {
+    display: grid;
+    grid-template-columns: 96px 280px 1fr;
+    align-items: center;
+    gap: 28px;
+    padding: 22px 24px;
+    border: 1px solid var(--light-border);
+    border-left: 4px solid var(--brand-orange);
+    background: var(--white);
+  }
+  .trend-num {
+    width: 72px; height: 72px;
+    background: var(--brand-orange);
+    color: var(--white);
+    font-size: 32px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .trend-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.25;
+  }
+  .trend-title small {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--brand-orange);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .trend-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .trend-bullets li {
+    position: relative;
+    padding-left: 14px;
+    font-size: 13.5px;
+    color: var(--dark-gray);
+    line-height: 1.5;
+  }
+  .trend-bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 8px;
+    width: 5px; height: 5px;
+    background: var(--brand-orange);
+    border-radius: 50%;
+  }
+  .trend-bullets li strong { color: var(--black); font-weight: 700; }
+
+  /* 푸터 */
+  .footer-meta {
+    position: absolute;
+    bottom: 22px; left: var(--pad-x);
+    font-size: 11px; color: var(--mid-gray);
+  }
+  .logo-area {
+    position: absolute;
+    bottom: 22px; right: var(--pad-x);
+    height: 14px;
+  }
+  .logo-area img { height: 100%; width: auto; display: block; opacity: 0.85; }
+</style>
+</head>
+<body>
+  <!-- 헤더 -->
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>K-배터리 진출 전략</p>
+      <p>03</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <!-- 메인 -->
+  <div class="main">
+    <h1 class="main-title">글로벌 EV 배터리 시장 3대 트렌드</h1>
+    <p class="main-sub">향후 5년간 산업 구조를 결정할 메가 트렌드</p>
+
+    <div class="trends">
+      <div class="trend">
+        <div class="trend-num">1</div>
+        <div class="trend-title"><small>TREND 01</small>LFP 대중화</div>
+        <ul class="trend-bullets">
+          <li><strong>Tesla · Ford · VW</strong> 엔트리 LFP 채택 확대</li>
+          <li>kWh 원가 NCM 대비 <strong>−30%</strong></li>
+          <li>한국 3사 25년부터 LFP 신라인 가동</li>
+        </ul>
+      </div>
+
+      <div class="trend">
+        <div class="trend-num">2</div>
+        <div class="trend-title"><small>TREND 02</small>공급망 재편</div>
+        <ul class="trend-bullets">
+          <li><strong>IRA · CRMA</strong> 현지화 의무 수준 강화</li>
+          <li>중국 의존도 <strong>50% 미만</strong> 축소 경쟁 본격화</li>
+          <li>폐배터리 재활용 30년 <strong>300억 달러</strong> 규모</li>
+        </ul>
+      </div>
+
+      <div class="trend">
+        <div class="trend-num">3</div>
+        <div class="trend-title"><small>TREND 03</small>차세대 셀 기술</div>
+        <ul class="trend-bullets">
+          <li><strong>전고체</strong> 27–28 시제품 / 30 양산</li>
+          <li><strong>46파이</strong> 원형셀이 차세대 표준으로 부상</li>
+          <li>건식 전극 · 실리콘 음극 공정 혁신 가속</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <div class="footer-meta">Source: BNEF, SNE Research 2026</div>
+  <div class="logo-area"><img src="logo.png" alt="CHATdaeri"></div>
+</body>
+</html>

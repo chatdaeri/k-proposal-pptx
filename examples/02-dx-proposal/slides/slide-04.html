@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>SWOT 분석</title>
+<link rel="stylesheet" href="../_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+  .matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  .cell { padding: 18px 20px; border: 1px solid var(--light-border); min-height: 168px; display: flex; flex-direction: column; gap: 10px; }
+  .cell.s { background: #F8F8F8; border-top: 3px solid var(--brand-blue); }
+  .cell.w { background: #FFFFFF; border-top: 3px solid #C8C8C8; }
+  .cell.o { background: #FFF1EC; border-top: 3px solid var(--brand-blue); }
+  .cell.t { background: #FFFFFF; border-top: 3px solid #4A4A48; }
+  .cell h3 { margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; font-family: ui-monospace, Menlo, monospace; color: var(--brand-blue); }
+  .cell.w h3 { color: #B7B7B5; }
+  .cell.t h3 { color: #4A4A48; }
+  .cell h4 { margin: 0; font-size: 15px; font-weight: 800; color: var(--black); letter-spacing: -0.01em; }
+  .cell ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .cell li { font-size: 12px; color: var(--label-gray); line-height: 1.45; padding-left: 14px; position: relative; }
+  .cell li:before { content: "▸"; position: absolute; left: 0; color: var(--brand-blue); font-size: 10px; top: 2px; }
+  .cell.w li:before, .cell.t li:before { content: "·"; color: #B7B7B5; left: 4px; font-weight: 800; font-size: 14px; top: 0; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner"><p>Part 2. 전략적 목표 및 핵심 가치</p><p>04</p></div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">SWOT 분석 및 대응 전략</p>
+    <h1 class="ph1">기존 인프라 강점 + 정부 정책 기회로 <span class="a">신규 시장 선점</span></h1>
+    <p class="lede">내부 강점·약점 vs 외부 기회·위협을 4 분면으로 정렬. 강점·기회 조합을 1차 공략, 약점은 시스템 현대화로 보완.</p>
+
+    <div class="matrix">
+      <div class="cell s">
+        <h3>S · 강점 STRENGTH</h3>
+        <h4>업계 최고의 브랜드 인지도</h4>
+        <ul>
+          <li>20년+ 누적 브랜드 자산</li>
+          <li>탄탄한 기존 고객 인프라 — 이탈률 5% 미만</li>
+          <li>현장 운영 노하우 축적</li>
+        </ul>
+      </div>
+      <div class="cell w">
+        <h3>W · 약점 WEAKNESS</h3>
+        <h4>시스템 노후화 · 데이터 분절</h4>
+        <ul>
+          <li>레거시 시스템 노후화로 처리 속도 저하</li>
+          <li>부서 간 데이터 분절 — 통합 분석 불가</li>
+          <li>모바일·외부 채널 대응 미흡</li>
+        </ul>
+      </div>
+      <div class="cell o">
+        <h3>O · 기회 OPPORTUNITY</h3>
+        <h4>정부 디지털 혁신 지원 + 신규시장</h4>
+        <ul>
+          <li>정부 DX 지원 정책 — 보조금 최대 30%</li>
+          <li>신규 시장 확장성 풍부 — 인접 영역 4 개</li>
+          <li>고객사 자체 DX 수요 가속화</li>
+        </ul>
+      </div>
+      <div class="cell t">
+        <h3>T · 위협 THREAT</h3>
+        <h4>저가 신규 진입 · 보안 규제</h4>
+        <ul>
+          <li>신규 진입 업체의 저가 공세</li>
+          <li>글로벌 개인정보·보안 규정 강화</li>
+          <li>핵심 인력 이탈 리스크 상승</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Gantt Chart Slide</title>
+<!--
+  USAGE:
+  12개월 로드맵을 단계(Phase)별로 시각화하는 간트 차트 슬라이드.
+  "제품 출시 일정", "프로젝트 마일스톤", "분기별 실행 계획" 등 시간 기반 계획 슬라이드에 사용.
+
+  구조:
+  - 헤더 (섹션명 / 페이지번호 / 블루 라인)
+  - 타이틀 블록 (section label + title + lede)
+  - 12칸 월별 그리드 + 단계별 막대 (deep=완료, brand=진행중, soft=예정, diamond=마일스톤)
+  - 범례 + Today 캡션
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}} : 헤더
+  - {{LABEL}}, {{TITLE}}, {{LEDE}} : 타이틀 블록
+  - 막대 위치: style="grid-column: 시작/끝" (M1=2 ~ M12=14, label=1)
+  - 막대 색상: bar.deep / bar.brand / bar.soft 클래스
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  .slide-body { padding: 22px 60px 0; }
+  .ttl-block { padding: 12px 0 10px; }
+  .section-label { font-size: 14px; font-weight: 600; color: var(--brand-blue); letter-spacing: .06em; margin: 0 0 6px; }
+  .main-title { font-size: 30px; font-weight: 800; color: var(--black); line-height: 1.2; margin: 0 0 6px; letter-spacing: -.01em; }
+  .lede { font-size: 14px; color: var(--label-gray); line-height: 1.5; margin: 0; }
+
+  .gantt { margin-top: 14px; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); }
+  .gantt-row { display: grid; grid-template-columns: 220px repeat(12, 1fr); align-items: center; min-height: 32px; border-bottom: 1px solid var(--light-border); }
+  .gantt-row:last-child { border-bottom: 0; }
+  .gantt-row.head { background: var(--light-bg); }
+  .gantt-row.head .cell { font-size: 11px; font-weight: 700; color: var(--dark-gray); text-align: center; padding: 7px 0; font-family: ui-monospace, Menlo, monospace; letter-spacing: .04em; }
+  .gantt-row.head .cell.label { text-align: left; padding-left: 14px; }
+  .gantt-row .cell { border-right: 1px solid var(--light-border); height: 100%; }
+  .gantt-row .cell:last-child { border-right: 0; }
+  .gantt-row .cell.label { padding: 0 14px; font-size: 13px; font-weight: 600; color: var(--black); display: flex; align-items: center; gap: 8px; }
+  .gantt-row .cell.label .phase { font-size: 10.5px; color: var(--brand-blue); font-weight: 800; font-family: ui-monospace, Menlo, monospace; min-width: 26px; }
+  .bar { height: 14px; align-self: center; position: relative; }
+  .bar.brand { background: var(--brand-blue); }
+  .bar.soft { background: #FFF1EC; border: 1.5px solid var(--brand-blue); height: 11px; }
+  .bar.deep { background: #E5573A; }
+  .bar-label { position: absolute; right: 7px; top: 50%; transform: translateY(-50%); font-size: 9.5px; color: #fff; font-weight: 700; font-family: ui-monospace, Menlo, monospace; }
+  .milestone { width: 12px; height: 12px; background: var(--brand-blue); transform: rotate(45deg); align-self: center; justify-self: center; }
+
+  .legend-row { display: flex; gap: 18px; margin-top: 14px; align-items: center; }
+  .legend-row .item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--label-gray); }
+  .legend-row .swatch { width: 18px; height: 11px; }
+  .legend-row .swatch.brand { background: var(--brand-blue); }
+  .legend-row .swatch.soft { background: #FFF1EC; border: 1.5px solid var(--brand-blue); height: 9px; }
+  .legend-row .swatch.deep { background: #E5573A; }
+  .legend-row .swatch.diamond { width: 11px; height: 11px; background: var(--brand-blue); transform: rotate(45deg); }
+  .today-cap { margin-left: auto; font-size: 11px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="slide-body">
+    <div class="ttl-block">
+      <p class="section-label">{{LABEL}}</p>
+      <h1 class="main-title">{{TITLE}}</h1>
+      <p class="lede">{{LEDE}}</p>
+    </div>
+    <div class="gantt">
+      <div class="gantt-row head">
+        <div class="cell label">단계 / 작업</div>
+        <div class="cell">M1</div><div class="cell">M2</div><div class="cell">M3</div>
+        <div class="cell">M4</div><div class="cell">M5</div><div class="cell">M6</div>
+        <div class="cell">M7</div><div class="cell">M8</div><div class="cell">M9</div>
+        <div class="cell">M10</div><div class="cell">M11</div><div class="cell">M12</div>
+      </div>
+      <div class="gantt-row">
+        <div class="cell label"><p class="phase" style="margin:0;display:inline-block">P1</p><p style="margin:0;display:inline-block">{{TASK_1}}</p></div>
+        <div class="cell" style="grid-column:2/4;display:flex;align-items:center"><div class="bar deep" style="width:100%"><p class="bar-label" style="margin:0;display:inline-block">완료</p></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="cell label"><p class="phase" style="margin:0;display:inline-block">P1</p><p style="margin:0;display:inline-block">{{TASK_2}}</p></div>
+        <div class="cell" style="grid-column:3/6;display:flex;align-items:center"><div class="bar brand" style="width:100%"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="cell label"><p class="phase" style="margin:0;display:inline-block">P2</p><p style="margin:0;display:inline-block">{{TASK_3}}</p></div>
+        <div class="cell" style="grid-column:5/9;display:flex;align-items:center"><div class="bar brand" style="width:100%"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="cell label"><p class="phase" style="margin:0;display:inline-block">P2</p><p style="margin:0;display:inline-block">{{TASK_4}}</p></div>
+        <div class="cell" style="grid-column:7/11;display:flex;align-items:center"><div class="bar soft" style="width:100%"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="cell label"><p class="phase" style="margin:0;display:inline-block">P3</p><p style="margin:0;display:inline-block">{{TASK_5}}</p></div>
+        <div class="cell" style="grid-column:9/13;display:flex;align-items:center"><div class="bar soft" style="width:100%"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="cell label"><p class="phase" style="margin:0;display:inline-block">★</p>마일스톤</div>
+        <div class="cell" style="grid-column:7/8;display:flex;align-items:center;justify-content:center"><div class="milestone"></div></div>
+        <div class="cell" style="grid-column:13/14;display:flex;align-items:center;justify-content:center"><div class="milestone"></div></div>
+      </div>
+    </div>
+    <div class="legend-row">
+      <div class="item"><div class="swatch deep"></div>완료</div>
+      <div class="item"><div class="swatch brand"></div>진행 중</div>
+      <div class="item"><div class="swatch soft"></div>예정</div>
+      <div class="item"><div class="swatch diamond"></div>마일스톤</div>
+      <span class="today-cap">[ Today · {{TODAY}} ]</span>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Two-Up Charts (SVG capture)</title>
+<!--
+  USAGE:
+  좌·우 두 차트로 다른 측면 동시 비교.
+  좌(LEFT): ± 양·음수 막대 9개 (변동률 등). 0% 기준선 위·아래.
+  우(RIGHT): 라인 추이 14점 + 평균선.
+  하단 인사이트 박스로 결론 못박기.
+
+  RENDER MODE:
+  좌·우 SVG 각각 <div data-pptx-image="true"> 로 감싸 PNG 캡처.
+
+  USE MODE:
+  reference. deck.cjs 의 `{ html: '<...>' }` 자유 모드:
+    1) <body> 통째 복사
+    2) 좌 SVG: 양수 막대 y=120-h, 음수 막대 y=120 + h
+    3) 우 SVG: <polyline points> 좌표·circle 마커 직접 수정. 평균 점선 + 마지막 값 라벨
+
+  TOKENS (텍스트만):
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}     헤더
+  - {{LABEL}} {{TITLE}} {{LEDE}}           본문
+  - {{LEFT_CHART_TITLE}} {{LEFT_CHART_SUB}}
+  - {{RIGHT_CHART_TITLE}} {{RIGHT_CHART_SUB}}
+  - {{INSIGHT_BOX_HTML}}                   하단 인사이트 (<strong> 가능)
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 22px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 13px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0 0 12px; }
+
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .col-box { border: 1px solid var(--light-border); padding: 14px; }
+  .chart-title { font-size: 14px; font-weight: 700; color: var(--black); margin: 0 0 2px; }
+  .chart-sub { font-size: 11px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0 0 8px; }
+  .chart-svg-box { background: #fff; height: 200px; }
+  .chart-svg-box svg { display: block; width: 100%; height: 100%; }
+
+  .insight { margin-top: 14px; background: var(--light-bg); border-left: 3px solid var(--brand-blue); padding: 10px 14px; font-size: 12px; color: var(--dark-gray); line-height: 1.5; }
+  .insight p { margin: 0; }
+  .insight strong { color: var(--brand-blue); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="charts">
+      <!-- 좌: ± 9 막대 SVG (PNG 캡처) -->
+      <div class="col-box">
+        <p class="chart-title">{{LEFT_CHART_TITLE}}</p>
+        <p class="chart-sub">{{LEFT_CHART_SUB}}</p>
+        <div class="chart-svg-box" data-pptx-image="true">
+          <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- Y axis -->
+            <g font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+              <text x="36" y="22" text-anchor="end">+10</text>
+              <text x="36" y="62" text-anchor="end">+5</text>
+              <text x="36" y="102" text-anchor="end">0</text>
+              <text x="36" y="142" text-anchor="end">-5</text>
+            </g>
+            <!-- Gridlines -->
+            <g stroke="#F0F0F0" stroke-width="1">
+              <line x1="40" y1="20"  x2="395" y2="20"/>
+              <line x1="40" y1="60"  x2="395" y2="60"/>
+              <line x1="40" y1="140" x2="395" y2="140"/>
+            </g>
+            <!-- 0 baseline -->
+            <line x1="40" y1="100" x2="395" y2="100" stroke="#000" stroke-width="1"/>
+            <!-- Bars: 9 카테고리 (양수 4 + 음수 5). x=50,90,130,170,210,250,290,330,370 (col=40, bar w=22)
+                 양수 height = val*8 (per +10), y = 100 - height
+                 음수 height = abs(val)*8, y = 100 -->
+            <g>
+              <rect x="50"  y="26"  width="22" height="74" fill="#FF7E5F"/>
+              <rect x="90"  y="35"  width="22" height="65" fill="#FF7E5F"/>
+              <rect x="130" y="72"  width="22" height="28" fill="#FF7E5F"/>
+              <rect x="170" y="80"  width="22" height="20" fill="#FF7E5F"/>
+              <rect x="210" y="100" width="22" height="6"  fill="#C8C8C8"/>
+              <rect x="250" y="100" width="22" height="14" fill="#C8C8C8"/>
+              <rect x="290" y="100" width="22" height="20" fill="#C8C8C8"/>
+              <rect x="330" y="100" width="22" height="34" fill="#C8C8C8"/>
+              <rect x="370" y="100" width="22" height="42" fill="#C8C8C8"/>
+            </g>
+            <!-- 값 라벨 -->
+            <g font-size="9" fill="#000" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
+              <text x="61"  y="20">+9.2</text>
+              <text x="101" y="29">+8.1</text>
+              <text x="141" y="66">+3.5</text>
+              <text x="181" y="74">+2.5</text>
+              <text x="221" y="118" fill="#676765">-0.8</text>
+              <text x="261" y="126" fill="#676765">-1.7</text>
+              <text x="301" y="132" fill="#676765">-2.5</text>
+              <text x="341" y="146" fill="#676765">-4.3</text>
+              <text x="381" y="154" fill="#676765">-5.2</text>
+            </g>
+            <!-- X 카테고리 -->
+            <g font-size="9" fill="#676765" font-family="Pretendard Variable, sans-serif" text-anchor="middle">
+              <text x="61"  y="170">엔터</text>
+              <text x="101" y="170">B2B</text>
+              <text x="141" y="170">금융</text>
+              <text x="181" y="170">교육</text>
+              <text x="221" y="170">리테일</text>
+              <text x="261" y="170">미디어</text>
+              <text x="301" y="170">중소</text>
+              <text x="341" y="170">로컬</text>
+              <text x="381" y="170">전체</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 우: 라인 차트 14점 SVG (PNG 캡처) -->
+      <div class="col-box">
+        <p class="chart-title">{{RIGHT_CHART_TITLE}}</p>
+        <p class="chart-sub">{{RIGHT_CHART_SUB}}</p>
+        <div class="chart-svg-box" data-pptx-image="true">
+          <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <g font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+              <text x="36" y="22"  text-anchor="end">30,000</text>
+              <text x="36" y="62"  text-anchor="end">22,500</text>
+              <text x="36" y="102" text-anchor="end">15,000</text>
+              <text x="36" y="142" text-anchor="end">7,500</text>
+              <text x="36" y="182" text-anchor="end">0</text>
+            </g>
+            <g stroke="#F0F0F0" stroke-width="1">
+              <line x1="40" y1="20"  x2="395" y2="20"/>
+              <line x1="40" y1="60"  x2="395" y2="60"/>
+              <line x1="40" y1="100" x2="395" y2="100"/>
+              <line x1="40" y1="140" x2="395" y2="140"/>
+            </g>
+            <line x1="40" y1="180" x2="395" y2="180" stroke="#000" stroke-width="1"/>
+            <!-- 14 점 polyline. x = 50 + i*25, cy = 180 - (val/30000)*160
+                 예시값 7200,7000,6400,5500,4900,5800,7500,7000,8500,14000,19500,22000,25500,28000 -->
+            <polyline points="50,141.6 75,142.7 100,145.9 125,150.7 150,153.9 175,149.1 200,140.0 225,142.7 250,134.7 275,105.3 300,76.0 325,62.7 350,44.0 375,30.7"
+                      fill="none" stroke="#FF7E5F" stroke-width="2" stroke-linejoin="round"/>
+            <g fill="#FF7E5F" stroke="#fff" stroke-width="1.5">
+              <circle cx="50"  cy="141.6" r="3.5"/>
+              <circle cx="75"  cy="142.7" r="3.5"/>
+              <circle cx="100" cy="145.9" r="3.5"/>
+              <circle cx="125" cy="150.7" r="3.5"/>
+              <circle cx="150" cy="153.9" r="3.5"/>
+              <circle cx="175" cy="149.1" r="3.5"/>
+              <circle cx="200" cy="140.0" r="3.5"/>
+              <circle cx="225" cy="142.7" r="3.5"/>
+              <circle cx="250" cy="134.7" r="3.5"/>
+              <circle cx="275" cy="105.3" r="3.5"/>
+              <circle cx="300" cy="76.0"  r="3.5"/>
+              <circle cx="325" cy="62.7"  r="3.5"/>
+              <circle cx="350" cy="44.0"  r="3.5"/>
+              <circle cx="375" cy="30.7"  r="4"/>
+            </g>
+            <!-- 마지막 값 라벨 -->
+            <text x="375" y="22" font-size="10" fill="#FF7E5F" font-weight="800" text-anchor="middle" font-family="ui-monospace,Menlo,monospace">28,000</text>
+            <!-- 평균 점선 -->
+            <line x1="40" y1="119" x2="395" y2="119" stroke="#676765" stroke-width="1" stroke-dasharray="3 2"/>
+            <text x="392" y="116" font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace" text-anchor="end">평균 11,400</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight">{{INSIGHT_BOX_HTML}}</div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

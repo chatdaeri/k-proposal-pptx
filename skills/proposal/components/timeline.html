@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Timeline Slide</title>
+<!--
+  USAGE:
+  좌→우 가로 타임라인 슬라이드. "회사 연혁", "프로젝트 히스토리",
+  "분기별 마일스톤" 등 시간 순 흐름 슬라이드에 사용.
+
+  구조:
+  - 헤더 + 타이틀 블록
+  - 가로 블루 트랙 (양 끝 화살촉)
+  - 5개 노드 (홀수=상단 박스, 짝수=하단 박스 — zigzag)
+  - 현재 시점 노드는 .current 클래스 (블루 채움)
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}}, {{LABEL}}, {{TITLE}}, {{LEDE}}
+  - {{N_DATE}}, {{N_NAME}}, {{N_BODY}} : 5개 노드
+  - 현재 시점 노드에 .current 클래스 부여
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  .slide-body { padding: 22px 60px 0; }
+  .ttl-block { padding: 12px 0 10px; }
+  .section-label { font-size: 14px; font-weight: 600; color: var(--brand-blue); letter-spacing: .06em; margin: 0 0 6px; }
+  .main-title { font-size: 30px; font-weight: 800; color: var(--black); line-height: 1.2; margin: 0 0 6px; letter-spacing: -.01em; }
+  .lede { font-size: 14px; color: var(--label-gray); line-height: 1.5; margin: 0; }
+
+  .tl-wrap { position: relative; margin-top: 4px; height: 380px; }
+  .tl-track { position: absolute; left: 0; right: 0; top: 42%; height: 2px; background: var(--brand-blue); }
+  .tl-track::before, .tl-track::after { content: ""; position: absolute; top: -4px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .tl-track::before { left: -1px; border-right: 10px solid var(--brand-blue); }
+  .tl-track::after { right: -1px; border-left: 10px solid var(--brand-blue); }
+  .tl-nodes { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); height: 100%; }
+  .tl-node { position: relative; display: flex; align-items: center; justify-content: center; }
+  .tl-dot { width: 16px; height: 16px; background: #fff; border: 3px solid var(--brand-blue); position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; z-index: 2; }
+  .tl-node.current .tl-dot { background: var(--brand-blue); }
+  .tl-box { position: absolute; left: 50%; transform: translateX(-50%); width: calc(100% - 18px); padding: 10px 12px; background: #fff; border: 1px solid var(--light-border); }
+  .tl-node:nth-child(odd) .tl-box { bottom: calc(58% + 22px); border-top: 2px solid var(--brand-blue); }
+  .tl-node:nth-child(even) .tl-box { top: calc(42% + 22px); border-bottom: 2px solid var(--brand-blue); }
+  .tl-box .date { font-size: 12px; font-weight: 700; color: var(--brand-blue); font-family: ui-monospace, Menlo, monospace; letter-spacing: .04em; }
+  .tl-box .name { font-size: 14.5px; font-weight: 800; color: var(--black); margin-top: 3px; line-height: 1.25; }
+  .tl-box .body { font-size: 12px; color: var(--label-gray); margin-top: 3px; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="slide-body">
+    <div class="ttl-block">
+      <p class="section-label">{{LABEL}}</p>
+      <h1 class="main-title">{{TITLE}}</h1>
+      <p class="lede">{{LEDE}}</p>
+    </div>
+    <div class="tl-wrap">
+      <div class="tl-track"></div>
+      <div class="tl-nodes">
+        <div class="tl-node">
+          <div class="tl-box"><div class="date">{{N1_DATE}}</div><p class="name" style="margin:0">{{N1_NAME}}</p><div class="body">{{N1_BODY}}</div></div>
+          <div class="tl-dot"></div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-box"><div class="date">{{N2_DATE}}</div><p class="name" style="margin:0">{{N2_NAME}}</p><div class="body">{{N2_BODY}}</div></div>
+          <div class="tl-dot"></div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-box"><div class="date">{{N3_DATE}}</div><p class="name" style="margin:0">{{N3_NAME}}</p><div class="body">{{N3_BODY}}</div></div>
+          <div class="tl-dot"></div>
+        </div>
+        <div class="tl-node current">
+          <div class="tl-box"><div class="date">{{N4_DATE}}</div><p class="name" style="margin:0">{{N4_NAME}}</p><div class="body">{{N4_BODY}}</div></div>
+          <div class="tl-dot"></div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-box"><div class="date">{{N5_DATE}}</div><p class="name" style="margin:0">{{N5_NAME}}</p><div class="body">{{N5_BODY}}</div></div>
+          <div class="tl-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

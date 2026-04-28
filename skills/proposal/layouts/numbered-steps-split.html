@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Numbered Steps Split Slide</title>
+<!--
+  USAGE:
+  상단 대제목 + 중앙 좌/우 분할 레이아웃.
+  좌측: 작은 블루 번호 박스 + 제목 + 본문 (2~3개)
+  우측: 큰 스크린샷 이미지 placeholder (보통 3개 스택 또는 1개 큰 이미지)
+
+  구조:
+  - 상단: Step 서브 타이틀 (예: "Step 1. AI에게 위임해보기")
+  - 메인 제목 (큰 글자, 검정)
+  - 하단: 좌측 2~3개 numbered 박스 + 우측 스크린샷 영역
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}} : 헤더
+  - {{MAIN_TITLE}} : 큰 대제목
+  - {{STEP_LABEL}} : Step 서브 라벨 (예: "Step 1. AI에게 위임해보기")
+  - {{SUB_N_TITLE}}, {{SUB_N_BODY}} : 좌측 numbered 아이템
+  - {{IMG_DESC}} : 우측 스크린샷 placeholder 문구
+
+  CARD 개수 조정: .left-sub-steps 안의 .sub-box 개수를 2~3개로 조정
+-->
+<style>
+  :root {
+    --brand-blue: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+    --light-border: #E0E0E0;
+    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-family);
+    color: var(--dark-gray);
+    background: var(--white);
+    width: 960px;
+    height: 540px;
+    position: relative;
+  }
+
+  /* 헤더 */
+  .slide-header { padding: 32px 60px 0 60px; }
+  .slide-header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .slide-header p { font-size: 13px; font-weight: 500; color: var(--dark-gray); line-height: 1.4; }
+  .header-line { height: 2px; background: var(--brand-blue); margin-top: 14px; }
+
+  /* 메인 */
+  .main {
+    padding: 20px 60px 0 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .main-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.2;
+  }
+  .step-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand-blue);
+  }
+
+  /* 본문 2열 */
+  .body-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 10px;
+    flex: 1;
+  }
+
+  /* 좌측 sub-step 박스 */
+  .left-sub-steps {
+    flex: 0 0 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .sub-box {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .sub-num {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    background: var(--brand-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .sub-num p {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .sub-content {
+    flex: 1;
+    background: var(--light-bg);
+    border-left: 3px solid var(--brand-blue);
+    padding: 8px 12px;
+  }
+  .sub-content h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brand-blue);
+    margin-bottom: 4px;
+  }
+  .sub-content p {
+    font-size: 12px;
+    color: var(--dark-gray);
+    line-height: 1.55;
+  }
+
+  /* 우측 이미지 */
+  .right-image {
+    flex: 1;
+    background: var(--light-bg);
+    border: 2px dashed var(--light-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .right-image p {
+    font-size: 13px;
+    color: #bbb;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  /* 로고 */
+  .logo-area { position: absolute; bottom: 20px; right: 60px; height: 12px; }
+  .logo-area img { height: 100%; width: auto; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <h1 class="main-title">{{MAIN_TITLE}}</h1>
+    <p class="step-label">{{STEP_LABEL}}</p>
+
+    <div class="body-row">
+      <div class="left-sub-steps">
+        <div class="sub-box">
+          <div class="sub-num"><p>1</p></div>
+          <div class="sub-content">
+            <h4>{{SUB_1_TITLE}}</h4>
+            <p>{{SUB_1_BODY}}</p>
+          </div>
+        </div>
+        <div class="sub-box">
+          <div class="sub-num"><p>2</p></div>
+          <div class="sub-content">
+            <h4>{{SUB_2_TITLE}}</h4>
+            <p>{{SUB_2_BODY}}</p>
+          </div>
+        </div>
+        <div class="sub-box">
+          <div class="sub-num"><p>3</p></div>
+          <div class="sub-content">
+            <h4>{{SUB_3_TITLE}}</h4>
+            <p>{{SUB_3_BODY}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-image">
+        <p>IMAGE<br>{{IMG_DESC}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

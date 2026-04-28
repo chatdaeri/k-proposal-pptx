@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Content — Text Only</title>
+<!--
+  USAGE:
+  이미지가 없는 슬라이드 전용. 빈 placeholder를 남기지 않고 텍스트로 꽉 채운다.
+  좌측 대제목 + 세로 구분선 + 우측 서술/블록 2~3개 구조.
+  시선 흐름: 좌상 대제목 → 우측 블록 순차.
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}}
+  - {{LEFT_TITLE}}, {{LEFT_DESC}}
+  - {{HERO_TITLE}}, {{HERO_BODY}}
+  - {{SUB_N_TITLE}}, {{SUB_N_BODY}}
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+
+.main {
+  display: flex;
+  padding: 30px var(--pad-x) var(--pad-bottom) var(--pad-x);
+  gap: 36px;
+  height: calc(100% - var(--header-total));
+}
+.left-col {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 10px;
+}
+.left-col h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.2;
+}
+.left-col p {
+  font-size: 14px;
+  color: var(--dark-gray);
+  line-height: 1.6;
+}
+.vertical-divider {
+  width: 2px;
+  background: var(--black);
+  flex-shrink: 0;
+}
+.right-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 10px;
+}
+.block { display: flex; gap: 16px; align-items: flex-start; }
+.block .num {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-blue);
+  padding-top: 3px;
+  min-width: 20px;
+}
+.block .txt { flex: 1; }
+/* 상속 스타일 통일—세 블록은 같은 계층 */
+.block h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.block p.body {
+  font-size: 13px;
+  color: var(--dark-gray);
+  line-height: 1.55;
+}
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <div class="left-col">
+      <h1>{{LEFT_TITLE}}</h1>
+      <p>{{LEFT_DESC}}</p>
+    </div>
+
+    <div class="vertical-divider"></div>
+
+    <div class="right-col">
+      <div class="block">
+        <p class="num">01</p>
+        <div class="txt">
+          <h3>{{HERO_TITLE}}</h3>
+          <p class="body">{{HERO_BODY}}</p>
+        </div>
+      </div>
+      <div class="block">
+        <p class="num">02</p>
+        <div class="txt">
+          <h3>{{SUB_2_TITLE}}</h3>
+          <p class="body">{{SUB_2_BODY}}</p>
+        </div>
+      </div>
+      <div class="block">
+        <p class="num">03</p>
+        <div class="txt">
+          <h3>{{SUB_3_TITLE}}</h3>
+          <p class="body">{{SUB_3_BODY}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

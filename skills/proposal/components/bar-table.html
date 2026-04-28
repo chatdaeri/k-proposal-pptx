@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Bar Chart + Data Table (SVG capture)</title>
+<!--
+  USAGE:
+  좌:막대 차트 (SVG, N 카테고리) / 우:상세 데이터 표.
+
+  RENDER MODE:
+  차트는 <div data-pptx-image="true"><svg>…</svg></div> 로 감싸 PNG 캡처.
+  convert.cjs 가 playwright 로 캡처 후 slide.addImage() 로 박음.
+  (SVG 안의 polyline·rect·circle·text 모든 게 픽셀 퍼펙트로 PPTX 임베드)
+
+  USE MODE:
+  reference. deck.cjs 의 `{ html: '<...>' }` 자유 모드:
+    1) <body> 통째 복사
+    2) SVG 안의 <rect> y/height (값에 비례), <text> 라벨, X 카테고리 라벨 직접 수정
+    3) 카테고리 6개 미만이면 사용 안 하는 <rect>/<text> 요소 자체 삭제
+    4) 강조 막대는 fill="#FF7E5F" (브랜드 블루), 일반 막대는 #C8C8C8 (그레이)
+    5) 우측 표는 <div class="th"><p>…</p></div> / <div class="td num"><p>…</p></div> /
+       강조 행 <div class="tr hi">…</div> 형식 직접 작성
+    6) 헤더·타이틀·LEDE 등 텍스트 토큰은 그대로 치환
+
+  TOKENS (텍스트만):
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}     헤더
+  - {{LABEL}} {{TITLE}} {{LEDE}}           본문 라벨/타이틀/부제 (<span class="a"> 가능)
+  - {{TABLE_HEADERS_HTML}}                 표 헤더 (.th 셀)
+  - {{TABLE_ROWS_HTML}}                    표 본문 (.tr 행)
+  - {{SOURCE_NOTE}}                        하단 출처
+
+  ABSOLUTE RULES:
+  - SVG viewBox 안은 자유 (rect/text 모두 PNG 캡처되므로 PPTX 호환 X 영향 없음)
+  - 표는 div+grid 만 (<th>/<td> 금지 — html2pptx 미지원)
+  - linear-gradient/box-shadow/border-radius!=0 절대 금지
+  - 색은 8 토큰만 (#FF7E5F / #E5573A / #FFF1EC / #C8C8C8 / #676765 / #4A4A48 / #F8F8F8 / #E0E0E0)
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+  .source { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0; }
+
+  /* SVG 차트 박스 — PNG 캡처 대상 */
+  .chart-box { background: #fff; height: 260px; }
+  .chart-box svg { display: block; width: 100%; height: 100%; }
+
+  /* 우측 표 — div grid */
+  .t { display: flex; flex-direction: column; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); font-size: 11.5px; }
+  .tr { display: grid; grid-template-columns: var(--tr-cols, 2fr 1fr 1fr 1.5fr); border-bottom: 1px solid var(--light-border); }
+  .tr:last-child { border-bottom: none; }
+  .thead .tr { background: var(--light-bg); }
+  .th, .td { padding: 7px 10px; }
+  .th p { margin: 0; font-size: 11px; font-weight: 700; color: var(--dark-gray); letter-spacing: 0.02em; }
+  .td p { margin: 0; color: var(--label-gray); }
+  .num { text-align: right; }
+  .num p { font-family: ui-monospace, Menlo, monospace; color: var(--black); font-weight: 600; }
+  .tr.hi { background: #FFF1EC; }
+  .tr.hi .num p { color: var(--brand-blue); font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:18px;align-items:start;margin-top:14px">
+      <!-- 좌: SVG 막대 차트 (PNG 캡처) -->
+      <div class="chart-box" data-pptx-image="true">
+        <svg viewBox="0 0 420 260" preserveAspectRatio="xMidYMid meet">
+          <!-- Y축 라벨 (4단) — 데이터에 맞춰 직접 수정 -->
+          <g font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+            <text x="46" y="32" text-anchor="end">600</text>
+            <text x="46" y="92" text-anchor="end">400</text>
+            <text x="46" y="152" text-anchor="end">200</text>
+            <text x="46" y="232" text-anchor="end">0</text>
+          </g>
+          <!-- Gridlines -->
+          <g stroke="#F0F0F0" stroke-width="1">
+            <line x1="55" y1="28"  x2="410" y2="28"/>
+            <line x1="55" y1="88"  x2="410" y2="88"/>
+            <line x1="55" y1="148" x2="410" y2="148"/>
+          </g>
+          <!-- X축 -->
+          <line x1="55" y1="228" x2="410" y2="228" stroke="#000" stroke-width="1"/>
+          <!-- 축 캡션 (단위) -->
+          <text x="55" y="14" font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">단위 · 건</text>
+          <!-- 6 막대 — height = (val/maxY)*200, y = 228 - height
+               예시 데이터: 2, 179, 466, 343, 24, 7 (max 600). 강조: 466, 343 -->
+          <g>
+            <rect x="76"  y="227.3" width="40" height="0.7"   fill="#C8C8C8"/>
+            <rect x="133" y="168.3" width="40" height="59.7"  fill="#C8C8C8"/>
+            <rect x="190" y="72.7"  width="40" height="155.3" fill="#FF7E5F"/>
+            <rect x="247" y="113.7" width="40" height="114.3" fill="#FF7E5F"/>
+            <rect x="304" y="220.0" width="40" height="8.0"   fill="#C8C8C8"/>
+            <rect x="361" y="225.7" width="40" height="2.3"   fill="#C8C8C8"/>
+          </g>
+          <!-- 막대 위 값 라벨 -->
+          <g font-size="11" fill="#000" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
+            <text x="96"  y="220">2</text>
+            <text x="153" y="161">179</text>
+            <text x="210" y="65"  fill="#FF7E5F">466</text>
+            <text x="267" y="106" fill="#FF7E5F">343</text>
+            <text x="324" y="213">24</text>
+            <text x="381" y="219">7</text>
+          </g>
+          <!-- X 카테고리 라벨 -->
+          <g font-size="10" fill="#676765" font-family="Pretendard Variable, sans-serif" text-anchor="middle">
+            <text x="96"  y="248">~2만</text>
+            <text x="153" y="248">2~3만</text>
+            <text x="210" y="248" fill="#FF7E5F" font-weight="800">3~4만</text>
+            <text x="267" y="248" fill="#FF7E5F" font-weight="800">4~5만</text>
+            <text x="324" y="248">5~6만</text>
+            <text x="381" y="248">6만+</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 우: 데이터 표 (div grid) -->
+      <div>
+        <div class="t" style="--tr-cols: 2fr 1fr 1fr 1.5fr;">
+          <div class="thead"><div class="tr">{{TABLE_HEADERS_HTML}}</div></div>
+          <div class="tbody">
+            {{TABLE_ROWS_HTML}}
+          </div>
+        </div>
+        <p class="source" style="text-align:right;margin-top:8px">{{SOURCE_NOTE}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

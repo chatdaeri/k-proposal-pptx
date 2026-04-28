@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Product Screenshot — Concept List</title>
+<!--
+  USAGE:
+  좌:큰 제품 스크린샷 / 우:번호 매긴 개념 4개 리스트.
+  ⑥ 제품 소개 / ⑨ 정당화 슬롯 — "메인 화면 한 화면에 N가지 핵심" 메시지.
+
+  TOKENS:
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}     헤더
+  - {{LABEL}} {{TITLE}} {{LEDE}}           본문 라벨/타이틀/부제
+  - {{IMG_DESC}}                            이미지 placeholder 설명 (실제 이미지 경로로 교체 가능)
+  - {{IMG_CAPTION}}                         이미지 하단 출처/캡션
+  - {{CONCEPT_1_TAG}} {{CONCEPT_1_TITLE}} {{CONCEPT_1_BODY}} ~ {{CONCEPT_4_*}}
+                                            개념 4개 — 태그 (예: "개념 01") · 제목 · 설명
+
+  ABSOLUTE RULES:
+  - 이미지 슬롯은 1px 보더, 풀 블리드 금지
+  - 개념 사이 1px 회색 가로선
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+  .layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-top: 14px; height: 290px; }
+
+  /* 좌: 이미지 슬롯 + 캡션 */
+  .img-col { display: flex; flex-direction: column; gap: 6px; }
+  .img-slot { flex: 1; background: #F4F3F0; border: 1px solid var(--light-border); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; }
+  .img-slot p { margin: 0; color: #999; font-size: 11px; font-family: ui-monospace, Menlo, monospace; letter-spacing: 0.04em; }
+  .img-slot .tag { font-size: 9.5px; color: #B7B7B5; }
+  .img-cap { font-size: 10.5px; color: var(--mid-gray); margin: 0; font-family: ui-monospace, Menlo, monospace; letter-spacing: 0.02em; }
+
+  /* 우: 번호 매긴 개념 리스트 */
+  .concept-col { display: flex; flex-direction: column; gap: 10px; }
+  .concept { display: flex; gap: 10px; }
+  .concept-tag { padding-top: 2px; min-width: 44px; flex-shrink: 0; }
+  .concept-tag p { margin: 0; font-size: 10.5px; color: var(--brand-blue); font-weight: 800; font-family: ui-monospace, Menlo, monospace; letter-spacing: 0.04em; }
+  .concept-body { flex: 1; }
+  .concept-body p { margin: 0; }
+  .concept-title { font-size: 11.5px; font-weight: 700; color: var(--black); margin-bottom: 2px !important; }
+  .concept-desc { font-size: 10.5px; color: var(--label-gray); line-height: 1.5; }
+  .divider { height: 1px; background: var(--light-border); }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="layout">
+      <div class="img-col">
+        <div class="img-slot">
+          <p>{{IMG_DESC}}</p>
+          <p class="tag">PLACEHOLDER · 실제 캡처로 교체</p>
+        </div>
+        <p class="img-cap">{{IMG_CAPTION}}</p>
+      </div>
+
+      <div class="concept-col">
+        <div class="concept">
+          <div class="concept-tag"><p>{{CONCEPT_1_TAG}}</p></div>
+          <div class="concept-body">
+            <p class="concept-title">{{CONCEPT_1_TITLE}}</p>
+            <p class="concept-desc">{{CONCEPT_1_BODY}}</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="concept">
+          <div class="concept-tag"><p>{{CONCEPT_2_TAG}}</p></div>
+          <div class="concept-body">
+            <p class="concept-title">{{CONCEPT_2_TITLE}}</p>
+            <p class="concept-desc">{{CONCEPT_2_BODY}}</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="concept">
+          <div class="concept-tag"><p>{{CONCEPT_3_TAG}}</p></div>
+          <div class="concept-body">
+            <p class="concept-title">{{CONCEPT_3_TITLE}}</p>
+            <p class="concept-desc">{{CONCEPT_3_BODY}}</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="concept">
+          <div class="concept-tag"><p>{{CONCEPT_4_TAG}}</p></div>
+          <div class="concept-body">
+            <p class="concept-title">{{CONCEPT_4_TITLE}}</p>
+            <p class="concept-desc">{{CONCEPT_4_BODY}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

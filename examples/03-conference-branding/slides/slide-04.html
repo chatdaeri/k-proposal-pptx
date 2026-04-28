@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Content — Text Only</title>
+<!--
+  USAGE:
+  이미지가 없는 슬라이드 전용. 빈 placeholder를 남기지 않고 텍스트로 꽉 채운다.
+  좌측 대제목 + 세로 구분선 + 우측 서술/블록 2~3개 구조.
+  시선 흐름: 좌상 대제목 → 우측 블록 순차.
+
+  REPLACE:
+  - Part 2. 국내 IT 행사의 한계, 04
+  - 강연 중심 운영, 세션 90% 이상이 일방향 강연. 참가자는 "주인공" 이 아닌 "관람객" 으로 머물러 능동적 몰입이 약함.
+  - 국내 IT 행사엔 '성장 서사'가 없다, 대부분 강연 중심 운영 — 참가자 개인의 성장 서사 부재. 콘텐츠는 풍부하나 "내가 얻은 게 뭔가?" 라는 자기효용 인식이 약함. 결과: SNS 확산도, 재방문도 낮은 일회성 소비.
+  - {{SUB_N_TITLE}}, {{SUB_N_BODY}}
+-->
+<link rel="stylesheet" href="../_shared.css">
+<style>
+
+.main {
+  display: flex;
+  padding: 30px var(--pad-x) var(--pad-bottom) var(--pad-x);
+  gap: 36px;
+  height: calc(100% - var(--header-total));
+}
+.left-col {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 10px;
+}
+.left-col h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.2;
+}
+.left-col p {
+  font-size: 14px;
+  color: var(--dark-gray);
+  line-height: 1.6;
+}
+.vertical-divider {
+  width: 2px;
+  background: var(--black);
+  flex-shrink: 0;
+}
+.right-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 10px;
+}
+.block { display: flex; gap: 16px; align-items: flex-start; }
+.block .num {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-blue);
+  padding-top: 3px;
+  min-width: 20px;
+}
+.block .txt { flex: 1; }
+/* 상속 스타일 통일—세 블록은 같은 계층 */
+.block h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.block p.body {
+  font-size: 13px;
+  color: var(--dark-gray);
+  line-height: 1.55;
+}
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>Part 2. 국내 IT 행사의 한계</p>
+      <p>04</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <div class="left-col">
+      <h1>강연 중심 운영</h1>
+      <p>세션 90% 이상이 일방향 강연. 참가자는 "주인공" 이 아닌 "관람객" 으로 머물러 능동적 몰입이 약함.</p>
+    </div>
+
+    <div class="vertical-divider"></div>
+
+    <div class="right-col">
+      <div class="block">
+        <p class="num">01</p>
+        <div class="txt">
+          <h3>국내 IT 행사엔 '성장 서사'가 없다</h3>
+          <p class="body">대부분 강연 중심 운영 — 참가자 개인의 성장 서사 부재. 콘텐츠는 풍부하나 "내가 얻은 게 뭔가?" 라는 자기효용 인식이 약함. 결과: SNS 확산도, 재방문도 낮은 일회성 소비.</p>
+        </div>
+      </div>
+      <div class="block">
+        <p class="num">02</p>
+        <div class="txt">
+          <h3>자기효용 인식 부족</h3>
+          <p class="body">"내가 얻은 게 뭔가?" 에 답하는 가시적 결과물(배지·인증·작품)이 부재. 참가 후 자기 자랑거리가 남지 않음.</p>
+        </div>
+      </div>
+      <div class="block">
+        <p class="num">03</p>
+        <div class="txt">
+          <h3>재등록률 30% 미만</h3>
+          <p class="body">평균 재등록률 30% 이하 · SNS 해시태그 확산 미미. 정보는 소비되지만 브랜드 자산으로 축적되지 않음.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

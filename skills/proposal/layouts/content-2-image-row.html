@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Content — 2 Image Row</title>
+<!--
+  USAGE:
+  2개 이미지를 좌우로 나열. Before/After, 방법1/방법2, 기사 비교 등.
+  이미지 비율: 1:1 고정 (혼합 금지)
+  리듬: 왼쪽이 block-hero, 오른쪽이 block-sub로 차별화 가능 (Planner rhythm 지정).
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}}
+  - {{MAIN_TITLE}}, {{MAIN_SUB}}
+  - {{CARD_N_IMG_DESC}}, {{CARD_N_TITLE}}, {{CARD_N_BODY}}
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+.main {
+  padding: 14px var(--pad-x) 50px var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: calc(100% - var(--header-total));
+}
+.title-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cards {
+  display: flex;
+  gap: 28px;
+  flex: 1;
+  align-items: stretch;
+  min-height: 0;
+}
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.card .img-wrap {
+  width: 100%;
+  align-self: stretch;
+}
+/* override: 고정 비율 대신 고정 높이로 제한 (페이지 높이 제약) */
+.card .img-slot {
+  width: 100% !important;
+  height: 240px;
+}
+.card .img-slot::before { display: none !important; }
+.card .text-block {
+  padding-top: 6px;
+  border-top: 2px solid var(--brand-blue);
+}
+.card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brand-blue);
+  margin-bottom: 4px;
+}
+.card p.body {
+  font-size: 13px;
+  color: var(--dark-gray);
+  line-height: 1.55;
+}
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <div class="title-row">
+      <h1 class="main-title">{{MAIN_TITLE}}</h1>
+      <p class="main-sub">{{MAIN_SUB}}</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="img-wrap">
+          <div class="img-slot">
+            <div class="img-slot-inner">
+              <p>IMAGE<br>{{CARD_1_IMG_DESC}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="text-block">
+          <h3>{{CARD_1_TITLE}}</h3>
+          <p class="body">{{CARD_1_BODY}}</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <div class="img-slot">
+            <div class="img-slot-inner">
+              <p>IMAGE<br>{{CARD_2_IMG_DESC}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="text-block">
+          <h3>{{CARD_2_TITLE}}</h3>
+          <p class="body">{{CARD_2_BODY}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>News Clipping — Hero + 2 Secondary</title>
+<!--
+  USAGE:
+  좌:큰 헤로 뉴스 1개 / 우:보조 뉴스 2개 (위·아래).
+  ⑨ 정당화 / ③ 분석 슬롯 — "주요 매체가 주목한 시장 전환점", 외부 시그널 인용.
+
+  TOKENS:
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}     헤더
+  - {{LABEL}} {{TITLE}} {{LEDE}}           본문 라벨/타이틀/부제
+
+  HERO 뉴스 (좌측 큰 카드):
+  - {{HERO_CLIP_DESC}}                      이미지 placeholder 설명
+  - {{HERO_SOURCE}}                         "▸ 매일경제 · 2026.03.28 · 1면 톱"
+  - {{HERO_HEADLINE}}                       뉴스 헤드라인
+  - {{HERO_BODY}}                           기사 요약 (≤ 80자)
+  - {{HERO_META}}                           "산업부 · 김기자"
+
+  SUB 뉴스 (우측 보조 카드 2개):
+  - {{SUB_1_SOURCE}} {{SUB_1_HEADLINE}} {{SUB_1_META}}  ~  {{SUB_2_*}}
+
+  ABSOLUTE RULES:
+  - 카드 1px 회색 보더, 직각, 그림자 없음
+  - 클립 이미지 placeholder 는 #F4F3F0 배경, 텍스트만
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+  .layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; margin-top: 14px; height: 290px; }
+
+  /* 공통 카드 */
+  .news-card { border: 1px solid var(--light-border); background: var(--white); display: flex; flex-direction: column; }
+  .news-card .src { font-size: 10px; color: var(--brand-blue); font-weight: 700; font-family: ui-monospace, Menlo, monospace; letter-spacing: 0.04em; margin: 0; }
+  .news-card .h { font-weight: 700; color: var(--black); margin: 0; line-height: 1.35; letter-spacing: -0.005em; }
+  .news-card .meta { font-size: 10.5px; color: var(--mid-gray); margin: 0; font-family: ui-monospace, Menlo, monospace; }
+  .news-card .clip { background: #F4F3F0; display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #B7B7B5; font-family: ui-monospace, Menlo, monospace; letter-spacing: 0.04em; }
+
+  /* 좌측 hero */
+  .hero { padding: 0; overflow: hidden; }
+  .hero .clip { height: 140px; font-size: 11px; }
+  .hero-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .hero-body .h { font-size: 14px; }
+  .hero-body p.summary { margin: 0; font-size: 11px; color: var(--label-gray); line-height: 1.5; }
+  .hero-body .meta { margin-top: auto; font-size: 10px; }
+
+  /* 우측 sub 2개 */
+  .sub-col { display: grid; grid-template-rows: 1fr 1fr; gap: 10px; }
+  .sub { padding: 10px 12px; gap: 4px; }
+  .sub .src { font-size: 9.5px; }
+  .sub .clip { height: 42px; font-size: 9.5px; }
+  .sub .h { font-size: 11px; }
+  .sub .meta { font-size: 9.5px; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="layout">
+      <!-- 좌: 헤로 뉴스 -->
+      <div class="news-card hero">
+        <div class="clip"><p>{{HERO_CLIP_DESC}}</p></div>
+        <div class="hero-body">
+          <p class="src">{{HERO_SOURCE}}</p>
+          <p class="h">{{HERO_HEADLINE}}</p>
+          <p class="summary">{{HERO_BODY}}</p>
+          <p class="meta">{{HERO_META}}</p>
+        </div>
+      </div>
+
+      <!-- 우: 보조 뉴스 2개 -->
+      <div class="sub-col">
+        <div class="news-card sub">
+          <p class="src">{{SUB_1_SOURCE}}</p>
+          <div class="clip"><p>뉴스 캡처 · PLACEHOLDER</p></div>
+          <p class="h">{{SUB_1_HEADLINE}}</p>
+          <p class="meta">{{SUB_1_META}}</p>
+        </div>
+        <div class="news-card sub">
+          <p class="src">{{SUB_2_SOURCE}}</p>
+          <div class="clip"><p>뉴스 캡처 · PLACEHOLDER</p></div>
+          <p class="h">{{SUB_2_HEADLINE}}</p>
+          <p class="meta">{{SUB_2_META}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

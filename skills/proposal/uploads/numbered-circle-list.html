@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Numbered Circle List Slide</title>
+<!--
+  USAGE:
+  큰 페이지 타이틀 + 블루 원형 번호 리스트. "오늘 다룰 내용", "실습 준비",
+  "추가 자료", "분양 기획 실전 활용 사례" 등 간단한 안내형 슬라이드에 사용.
+
+  구조:
+  - 큰 페이지 타이틀 (좌측 정렬)
+  - 부제목 (선택)
+  - 2~3개 numbered items
+    - 블루 원형(1,2,3) + 제목 + 설명
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}} : 헤더
+  - {{MAIN_TITLE}} : 큰 대제목
+  - {{MAIN_SUB}} : 부제목 (없으면 p.main-sub 제거)
+  - {{ITEM_N_TITLE}}, {{ITEM_N_DESC}} : 각 항목 제목/설명
+-->
+<style>
+  :root {
+    --brand-blue: #FF7E5F;
+    --white: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --black: #000000;
+    --dark-gray: #333333;
+    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-family);
+    color: var(--dark-gray);
+    background: var(--white);
+    width: 960px;
+    height: 540px;
+    position: relative;
+  }
+
+  /* 헤더 */
+  .slide-header { padding: 32px 60px 0 60px; }
+  .slide-header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .slide-header p { font-size: 13px; font-weight: 500; color: var(--dark-gray); line-height: 1.4; }
+  .header-line { height: 2px; background: var(--brand-blue); margin-top: 14px; }
+
+  /* 메인 */
+  .main {
+    padding: 80px 60px 0 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .main-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.15;
+  }
+  .main-sub {
+    font-size: 14px;
+    color: var(--dark-gray);
+    line-height: 1.6;
+    margin-top: -12px;
+  }
+
+  /* numbered 아이템 */
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 10px;
+  }
+  .item {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+  .item .circle {
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    background: var(--brand-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .item .circle p {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .item .item-body {
+    flex: 1;
+    padding-top: 4px;
+  }
+  .item .item-body h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+  .item .item-body p {
+    font-size: 14px;
+    color: var(--dark-gray);
+    line-height: 1.55;
+  }
+
+  /* 로고 */
+  .logo-area { position: absolute; bottom: 20px; right: 60px; height: 12px; }
+  .logo-area img { height: 100%; width: auto; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="main">
+    <h1 class="main-title">{{MAIN_TITLE}}</h1>
+    <p class="main-sub">{{MAIN_SUB}}</p>
+
+    <div class="item-list">
+      <div class="item">
+        <div class="circle"><p>1</p></div>
+        <div class="item-body">
+          <h3>{{ITEM_1_TITLE}}</h3>
+          <p>{{ITEM_1_DESC}}</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="circle"><p>2</p></div>
+        <div class="item-body">
+          <h3>{{ITEM_2_TITLE}}</h3>
+          <p>{{ITEM_2_DESC}}</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="circle"><p>3</p></div>
+        <div class="item-body">
+          <h3>{{ITEM_3_TITLE}}</h3>
+          <p>{{ITEM_3_DESC}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-area">
+    <span class="logo-text" style="font-family:'Pretendard Variable',Pretendard,sans-serif;font-weight:800;letter-spacing:-0.035em;color:#FF7E5F;font-size:18px;line-height:1;">CHATdaeri</span>
+  </div>
+</body>
+</html>

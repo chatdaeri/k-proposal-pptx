@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>2×2 Matrix Slide</title>
+<!--
+  USAGE:
+  4분면 매트릭스 분석 슬라이드. "우선순위 매트릭스", "BCG 매트릭스",
+  "Effort vs Impact", "Importance vs Urgency" 등 두 축 분류 슬라이드에 사용.
+
+  구조:
+  - 헤더 + 타이틀 블록
+  - 좌: 4분면 매트릭스 (Y축 = 세로 라벨, X축 = 가로 라벨)
+  - 우: 4개 항목별 설명 카드 (I/II/III/IV)
+  - 강조 분면은 .accent 클래스 (FFF1EC 배경 + FF7E5F 보더)
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}}, {{LABEL}}, {{TITLE}}, {{LEDE}}
+  - {{Y_AXIS}}, {{X_AXIS}} : 축 라벨
+  - {{Q1_NAME}}~{{Q4_NAME}} + 설명
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  .slide-body { padding: 18px 60px 0; }
+  .ttl-block { padding: 8px 0 6px; }
+  .section-label { font-size: 14px; font-weight: 600; color: var(--brand-blue); letter-spacing: .06em; margin: 0 0 6px; }
+  .main-title { font-size: 30px; font-weight: 800; color: var(--black); line-height: 1.2; margin: 0 0 6px; letter-spacing: -.01em; }
+  .lede { font-size: 14px; color: var(--label-gray); line-height: 1.5; margin: 0; }
+
+  .matrix-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 4px; }
+  .matrix-wrap { position: relative; padding: 14px 18px 22px 56px; }
+  .matrix { position: relative; width: 100%; height: 250px; border: 1px solid var(--light-border); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+  .matrix > div { padding: 13px 14px; border: 1px solid var(--light-border); display: flex; flex-direction: column; gap: 4px; }
+  .matrix .quad-label { margin: 0; font-size: 11px; font-weight: 700; color: var(--mid-gray); letter-spacing: .06em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; }
+  .matrix .quad-name { margin: 0; font-size: 14px; font-weight: 800; color: var(--black); }
+  .matrix .quad-body { font-size: 11.5px; color: var(--label-gray); line-height: 1.45; margin: 0; }
+  .matrix .accent { background: #FFF1EC; border: 1.5px solid var(--brand-blue); }
+  .matrix .accent .quad-label { color: var(--brand-blue); }
+
+  /* 축 라벨 — 모든 텍스트는 <p> 로 (html2pptx 호환). transform 은 PDF 변환 시 흡수되므로 회전 대신 placement. */
+  .ax-y { position: absolute; left: 6px; top: 50%; transform: translateY(-50%); width: 40px; text-align: center; }
+  .ax-y p { margin: 0; font-size: 12px; font-weight: 700; color: var(--black); writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; }
+  .ax-y-low { position: absolute; left: 32px; bottom: 22px; }
+  .ax-y-low p { margin: 0; font-size: 11px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; }
+  .ax-y-high { position: absolute; left: 32px; top: 20px; }
+  .ax-y-high p { margin: 0; font-size: 11px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; }
+  .ax-x { position: absolute; left: 56px; right: 18px; bottom: 2px; text-align: center; }
+  .ax-x p { margin: 0; font-size: 13px; font-weight: 700; color: var(--black); }
+
+  .desc-list { display: flex; flex-direction: column; gap: 9px; }
+  .desc-item { display: flex; gap: 12px; padding: 9px 13px; border: 1px solid var(--light-border); align-items: flex-start; }
+  .desc-item .pin { font-size: 12.5px; color: var(--brand-blue); font-weight: 800; font-family: ui-monospace, Menlo, monospace; min-width: 36px; padding-top: 1px; margin: 0; }
+  .desc-item .name { font-size: 14px; font-weight: 700; color: var(--black); margin: 0 0 3px; }
+  .desc-item .body { font-size: 12px; color: var(--label-gray); line-height: 1.5; margin: 0; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="slide-body">
+    <div class="ttl-block">
+      <p class="section-label">{{LABEL}}</p>
+      <h1 class="main-title">{{TITLE}}</h1>
+      <p class="lede">{{LEDE}}</p>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-wrap">
+        <div class="ax-y"><p>{{Y_AXIS}}</p></div>
+        <div class="ax-y-high"><p>High</p></div>
+        <div class="ax-y-low"><p>Low</p></div>
+        <div class="ax-x"><p>{{X_AXIS}} →</p></div>
+        <div class="matrix">
+          <div><p class="quad-label">II · {{Q2_TAG}}</p><p class="quad-name">{{Q2_NAME}}</p><p class="quad-body">{{Q2_BODY}}</p></div>
+          <div class="accent"><p class="quad-label">I · {{Q1_TAG}}</p><p class="quad-name">{{Q1_NAME}}</p><p class="quad-body">{{Q1_BODY}}</p></div>
+          <div><p class="quad-label">IV · {{Q4_TAG}}</p><p class="quad-name">{{Q4_NAME}}</p><p class="quad-body">{{Q4_BODY}}</p></div>
+          <div><p class="quad-label">III · {{Q3_TAG}}</p><p class="quad-name">{{Q3_NAME}}</p><p class="quad-body">{{Q3_BODY}}</p></div>
+        </div>
+      </div>
+      <div class="desc-list">
+        <div class="desc-item"><p class="pin">I</p><div><p class="name">{{Q1_NAME}}</p><p class="body">{{Q1_DESC}}</p></div></div>
+        <div class="desc-item"><p class="pin">II</p><div><p class="name">{{Q2_NAME}}</p><p class="body">{{Q2_DESC}}</p></div></div>
+        <div class="desc-item"><p class="pin">III</p><div><p class="name">{{Q3_NAME}}</p><p class="body">{{Q3_DESC}}</p></div></div>
+        <div class="desc-item"><p class="pin">IV</p><div><p class="name">{{Q4_NAME}}</p><p class="body">{{Q4_DESC}}</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>
