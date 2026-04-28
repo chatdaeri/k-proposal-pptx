@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Line Chart Slide</title>
+<!--
+  USAGE:
+  단일 지표 시계열 추세 슬라이드. 영역 음영(#FFF1EC) + 평균 점선.
+  combo-bar-line과 구분: combo는 이중축+막대, 이것은 단일 지표 추세선만.
+  (two-up-charts 우측 패턴의 독립 슬라이드 버전)
+
+  RENDER MODE:
+  SVG → <div data-pptx-image="true"> PNG 캡처.
+
+  USE MODE:
+  reference. deck.cjs `{ html: '<...>' }` 자유 모드:
+    1) <body> 통째 복사
+    2) <polyline points> 좌표: x = 50 + i*25 (14점), cy = 180 - (val/maxY)*160
+    3) <circle> cx/cy 동일 매핑
+    4) 평균선 y: cy = 180 - (avg/maxY)*160
+    5) 영역 <path>: points 맨 앞과 맨 뒤에 L x_last,180 L 50,180 Z
+    6) 마지막 원: r=4.5, fill=#fff, stroke=#FF7E5F
+
+  TOKENS:
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}
+  - {{LABEL}} {{TITLE}} {{LEDE}}
+  - {{INSIGHT}}  우측 핵심 인사이트 (<strong> 가능)
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 22px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 13px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+  .chart-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 22px; align-items: start; margin-top: 12px; }
+  .chart-box { background: #fff; height: 254px; border: 1px solid var(--light-border); }
+  .chart-box svg { display: block; width: 100%; height: 100%; }
+
+  .side-panel { padding-top: 4px; }
+  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
+  .insight .ins-body { font-size: 13px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
+  .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="chart-layout">
+      <!-- 좌: 라인 추이 SVG (PNG 캡처)
+           viewBox 400×210. 14점. x = 50 + i*25 (i=0~13).
+           cy = 180 - (val/30000)*160.  평균선 y = 180 - (avg/30000)*160.
+           영역: path M x0,cy0 L ... L x_last,180 L x0,180 Z, fill="#FFF1EC" opacity=0.6.
+           마지막 원: r=4.5, fill=#fff, stroke=#FF7E5F stroke-width=2. -->
+      <div class="chart-box" data-pptx-image="true">
+        <svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid meet">
+          <g stroke="#F0F0F0" stroke-width="1">
+            <line x1="40" y1="20"  x2="395" y2="20"/>
+            <line x1="40" y1="60"  x2="395" y2="60"/>
+            <line x1="40" y1="100" x2="395" y2="100"/>
+            <line x1="40" y1="140" x2="395" y2="140"/>
+          </g>
+          <g font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+            <text x="36" y="23"  text-anchor="end">30k</text>
+            <text x="36" y="63"  text-anchor="end">22.5k</text>
+            <text x="36" y="103" text-anchor="end">15k</text>
+            <text x="36" y="143" text-anchor="end">7.5k</text>
+          </g>
+          <!-- 평균선 (avg ~11.4k → y ≈ 119) -->
+          <line x1="40" y1="119" x2="395" y2="119" stroke="#676765" stroke-width="1" stroke-dasharray="3 2"/>
+          <text x="390" y="115" font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace" text-anchor="end">avg ~11.4k</text>
+          <!-- 영역 -->
+          <path d="M 50,142 L 75,143 L 100,146 L 125,151 L 150,154 L 175,149 L 200,140 L 225,143 L 250,135 L 275,105 L 300,76 L 325,63 L 350,44 L 375,31 L 375,180 L 50,180 Z"
+                fill="#FFF1EC" opacity="0.6"/>
+          <!-- 라인 -->
+          <polyline points="50,142 75,143 100,146 125,151 150,154 175,149 200,140 225,143 250,135 275,105 300,76 325,63 350,44 375,31"
+                    fill="none" stroke="#FF7E5F" stroke-width="2" stroke-linejoin="round"/>
+          <!-- X축 -->
+          <line x1="40" y1="180" x2="395" y2="180" stroke="#000" stroke-width="1"/>
+          <!-- 마커 -->
+          <g fill="#FF7E5F" stroke="#fff" stroke-width="1.5">
+            <circle cx="50"  cy="142" r="3"/><circle cx="75"  cy="143" r="3"/>
+            <circle cx="100" cy="146" r="3"/><circle cx="125" cy="151" r="3"/>
+            <circle cx="150" cy="154" r="3"/><circle cx="175" cy="149" r="3"/>
+            <circle cx="200" cy="140" r="3"/><circle cx="225" cy="143" r="3"/>
+            <circle cx="250" cy="135" r="3"/><circle cx="275" cy="105" r="3"/>
+            <circle cx="300" cy="76"  r="3"/><circle cx="325" cy="63"  r="3"/>
+            <circle cx="350" cy="44"  r="3"/>
+          </g>
+          <!-- 마지막 점 강조 -->
+          <circle cx="375" cy="31" r="4.5" fill="#fff" stroke="#FF7E5F" stroke-width="2"/>
+          <text x="375" y="23" font-size="9" fill="#FF7E5F" font-weight="800"
+                font-family="ui-monospace,Menlo,monospace" text-anchor="middle">28,000</text>
+          <!-- X 라벨 -->
+          <g font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+            <text x="50"  y="196">'12</text>
+            <text x="125" y="196">'15</text>
+            <text x="200" y="196">'18</text>
+            <text x="300" y="196">'22</text>
+            <text x="375" y="196">'25</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 우: 핵심 인사이트 -->
+      <div class="side-panel">
+        <div class="insight">
+          <span class="ins-label">핵심 인사이트</span>
+          <p class="ins-body">{{INSIGHT}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

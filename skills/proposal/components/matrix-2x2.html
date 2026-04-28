@@ -19,6 +19,7 @@
   - {{SECTION_TITLE}}, {{PAGE_NUMBER}}, {{LABEL}}, {{TITLE}}, {{LEDE}}
   - {{Y_AXIS}}, {{X_AXIS}} : 축 라벨
   - {{Q1_NAME}}~{{Q4_NAME}} + 설명
+  - {{INSIGHT}} : 우측 하단 핵심 인사이트 (<strong> 가능)
 -->
 <link rel="stylesheet" href="../primitives/_shared.css">
 <style>
@@ -48,8 +49,12 @@
   .ax-x { position: absolute; left: 56px; right: 18px; bottom: 2px; text-align: center; }
   .ax-x p { margin: 0; font-size: 13px; font-weight: 700; color: var(--black); }
 
-  .desc-list { display: flex; flex-direction: column; gap: 9px; }
-  .desc-item { display: flex; gap: 12px; padding: 9px 13px; border: 1px solid var(--light-border); align-items: flex-start; }
+  .desc-list { display: flex; flex-direction: column; gap: 6px; }
+  .desc-item { display: flex; gap: 12px; padding: 6px 13px; border: 1px solid var(--light-border); align-items: flex-start; }
+  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 10px 13px; margin-top: 8px; }
+  .insight .ins-label { font-size: 10px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 4px; display: block; }
+  .insight .ins-body { font-size: 12px; color: var(--black); line-height: 1.5; margin: 0; font-weight: 600; letter-spacing: -.005em; }
+  .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
   .desc-item .pin { font-size: 12.5px; color: var(--brand-blue); font-weight: 800; font-family: ui-monospace, Menlo, monospace; min-width: 36px; padding-top: 1px; margin: 0; }
   .desc-item .name { font-size: 14px; font-weight: 700; color: var(--black); margin: 0 0 3px; }
   .desc-item .body { font-size: 12px; color: var(--label-gray); line-height: 1.5; margin: 0; }
@@ -82,11 +87,17 @@
           <div><p class="quad-label">III · {{Q3_TAG}}</p><p class="quad-name">{{Q3_NAME}}</p><p class="quad-body">{{Q3_BODY}}</p></div>
         </div>
       </div>
-      <div class="desc-list">
-        <div class="desc-item"><p class="pin">I</p><div><p class="name">{{Q1_NAME}}</p><p class="body">{{Q1_DESC}}</p></div></div>
-        <div class="desc-item"><p class="pin">II</p><div><p class="name">{{Q2_NAME}}</p><p class="body">{{Q2_DESC}}</p></div></div>
-        <div class="desc-item"><p class="pin">III</p><div><p class="name">{{Q3_NAME}}</p><p class="body">{{Q3_DESC}}</p></div></div>
-        <div class="desc-item"><p class="pin">IV</p><div><p class="name">{{Q4_NAME}}</p><p class="body">{{Q4_DESC}}</p></div></div>
+      <div>
+        <div class="desc-list">
+          <div class="desc-item"><p class="pin">I</p><div><p class="name">{{Q1_NAME}}</p><p class="body">{{Q1_DESC}}</p></div></div>
+          <div class="desc-item"><p class="pin">II</p><div><p class="name">{{Q2_NAME}}</p><p class="body">{{Q2_DESC}}</p></div></div>
+          <div class="desc-item"><p class="pin">III</p><div><p class="name">{{Q3_NAME}}</p><p class="body">{{Q3_DESC}}</p></div></div>
+          <div class="desc-item"><p class="pin">IV</p><div><p class="name">{{Q4_NAME}}</p><p class="body">{{Q4_DESC}}</p></div></div>
+        </div>
+        <div class="insight">
+          <span class="ins-label">핵심 인사이트</span>
+          <p class="ins-body">{{INSIGHT}}</p>
+        </div>
       </div>
     </div>
   </div>

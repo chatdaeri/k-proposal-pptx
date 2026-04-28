@@ -1,6 +1,6 @@
 # CHATdaeri Catalog — Stage Index
 
-> 31개 템플릿이 한국식 스토리 아크 ① ~ ⑩ 슬롯별 stage 파일에 분산돼있다.
+> 36개 템플릿이 한국식 스토리 아크 ① ~ ⑩ 슬롯별 stage 파일에 분산돼있다.
 > 에이전트는 슬라이드 자리(slot)가 정해지면 **그 stage 파일 1개만** Read.
 > 전체 카탈로그(`CATALOG.md` 1300줄)를 매번 로드하지 않는다.
 
@@ -12,9 +12,9 @@
 |---|---|---|
 | ① 표지 / ⑩ 마무리 | [stage-cover.md](stage-cover.md) | 3 (cover, divider, emphasis-hero) |
 | ② 목차 | [stage-toc.md](stage-toc.md) | 1 (toc) |
-| ③ 분석 1~5장 | [stage-analysis.md](stage-analysis.md) | 17 |
+| ③ 분석 1~5장 | [stage-analysis.md](stage-analysis.md) | 21 |
 | ⑤ 핵심 인사이트 | [stage-analysis.md](stage-analysis.md) | 3 (재사용: emphasis-hero, content-grid, content-3-col-cards) |
-| ⑥ 세부 실행방안 | [stage-execution.md](stage-execution.md) | 6 |
+| ⑥ 세부 실행방안 | [stage-execution.md](stage-execution.md) | 7 |
 | ⑦ 인력 구성 | [stage-people.md](stage-people.md) | 3 |
 | ⑧ 예산안 | [stage-budget.md](stage-budget.md) | 3 |
 | ⑨ 정당화 | 위 분석/예산/실행 stage 재사용 | — |
@@ -33,12 +33,12 @@
 - `matrix-2x2` · `bubble-chart` · `concept-tree`
 - `content-grid` · `content-text-only` · `content-split` · `content-2-col-cards` · `content-3-col-cards`
 - `content-hero-image` · `content-2-image-row` · `content-3-image-strip` · `image-left-label-blocks`
-- `combo-bar-line` · `two-up-charts` · `bar-table` · `donut-chart`
+- `combo-bar-line` · `two-up-charts-bar` · `two-up-charts-line` · `two-up-charts` · `bar-graph` · `bar-table` · `donut-chart` · `chart-donut`
 - `as-is-to-be`
 
 ### stage-execution.md (⑥)
 - `timeline` · `gantt-chart`
-- `step-cards` · `numbered-steps-split` · `numbered-circle-list`
+- `step-cards` · `numbered-steps-split` · `numbered-circle-list` · `areas-list`
 - `as-is-to-be`
 
 ### stage-people.md (⑦)

@@ -20,6 +20,7 @@
   - {{LABEL}}, {{TITLE}}, {{LEDE}} : 타이틀 블록
   - 막대 위치: style="grid-column: 시작/끝" (M1=2 ~ M12=14, label=1)
   - 막대 색상: bar.deep / bar.brand / bar.soft 클래스
+  - {{INSIGHT}} : 우측 핵심 인사이트 (<strong> 가능)
 -->
 <link rel="stylesheet" href="../primitives/_shared.css">
 <style>
@@ -29,8 +30,15 @@
   .main-title { font-size: 30px; font-weight: 800; color: var(--black); line-height: 1.2; margin: 0 0 6px; letter-spacing: -.01em; }
   .lede { font-size: 14px; color: var(--label-gray); line-height: 1.5; margin: 0; }
 
-  .gantt { margin-top: 14px; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); }
-  .gantt-row { display: grid; grid-template-columns: 220px repeat(12, 1fr); align-items: center; min-height: 32px; border-bottom: 1px solid var(--light-border); }
+  .chart-layout { display: grid; grid-template-columns: 2.2fr 1fr; gap: 20px; margin-top: 14px; align-items: start; }
+  .gantt { border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); }
+  .gantt-row { display: grid; grid-template-columns: 150px repeat(12, 1fr); align-items: center; min-height: 30px; border-bottom: 1px solid var(--light-border); }
+
+  .side-panel { padding-top: 2px; }
+  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 12px 14px; }
+  .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
+  .insight .ins-body { font-size: 12.5px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
+  .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
   .gantt-row:last-child { border-bottom: 0; }
   .gantt-row.head { background: var(--light-bg); }
   .gantt-row.head .cell { font-size: 11px; font-weight: 700; color: var(--dark-gray); text-align: center; padding: 7px 0; font-family: ui-monospace, Menlo, monospace; letter-spacing: .04em; }
@@ -70,6 +78,8 @@
       <h1 class="main-title">{{TITLE}}</h1>
       <p class="lede">{{LEDE}}</p>
     </div>
+    <div class="chart-layout">
+    <div>
     <div class="gantt">
       <div class="gantt-row head">
         <div class="cell label">단계 / 작업</div>
@@ -104,6 +114,17 @@
         <div class="cell" style="grid-column:13/14;display:flex;align-items:center;justify-content:center"><div class="milestone"></div></div>
       </div>
     </div>
+    </div><!-- /gantt -->
+
+      <!-- 우: 핵심 인사이트 -->
+      <div class="side-panel">
+        <div class="insight">
+          <span class="ins-label">핵심 인사이트</span>
+          <p class="ins-body">{{INSIGHT}}</p>
+        </div>
+      </div>
+    </div><!-- /chart-layout -->
+
     <div class="legend-row">
       <div class="item"><div class="swatch deep"></div>완료</div>
       <div class="item"><div class="swatch brand"></div>진행 중</div>

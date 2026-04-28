@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Donut Chart — Multi Variant</title>
+<!--
+  USAGE:
+  단일비율 · 강조(딥) · 다중세그먼트 도넛 3종 비교 슬라이드.
+  한 슬라이드에서 서로 다른 KPI를 비율로 동시에 제시할 때.
+  donut-chart와 구분:
+    donut-chart = 단일 도넛 + 우측 범례 표 (세그먼트 상세 수치 필요 시)
+    chart-donut  = 소형 도넛 3개 나열 (3개 KPI 비율을 한눈에)
+
+  RENDER MODE:
+  3개 도넛 그리드 → <div data-pptx-image="true"> PNG 캡처.
+
+  USE MODE:
+  reference. deck.cjs `{ html: '<...>' }` 자유 모드:
+    1) <body> 통째 복사
+    2) r=50 원주 = 2π×50 ≈ 314.16
+       단일/강조: stroke-dasharray = "호 314.16", stroke-dashoffset = -(314.16 - 호)
+                 rotate(-90 70 70) 로 12시 시작
+       다중: 각 segment dashoffset = -(누적 호)
+    3) 사용 안 하는 segment <circle> 삭제 (다중 3개 이하면 줄이기)
+    4) 중앙 값 텍스트·레이블 직접 수정
+
+  TOKENS (텍스트만):
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}
+  - {{LABEL}} {{TITLE}} {{LEDE}}
+  - {{D1_VALUE}} {{D1_LABEL}} {{D1_CAPTION}}  도넛 1 (단일 비율)
+  - {{D2_VALUE}} {{D2_LABEL}} {{D2_CAPTION}}  도넛 2 (딥 강조)
+  - {{D3_VALUE}} {{D3_LABEL}} {{D3_CAPTION}}  도넛 3 (다중 세그먼트)
+  - {{INSIGHT}}                               우측 핵심 인사이트 (<strong> 가능)
+
+  색 토큰:
+    단일 비율 arc  → #FF7E5F
+    딥 강조 arc    → #E5573A  (값 텍스트도 #E5573A)
+    다중 seg 1~2   → #FF7E5F / #E5573A
+    다중 seg 3~4   → #C8C8C8 / #E0E0E0
+    베이스 track   → #E0E0E0
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section  { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: .06em; margin: 0 0 4px; }
+  .ph1      { font-size: 22px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -.01em; }
+  .ph1 .a   { color: var(--brand-blue); }
+  .lede     { font-size: 13px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+  .chart-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 22px; align-items: start; margin-top: 14px; }
+
+  /* 3 donuts grid — PNG 캡처 대상 */
+  .donut-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: center;
+               border: 1px solid var(--light-border); padding: 18px 10px 14px; background: #fff; }
+  .donut-item { display: flex; flex-direction: column; align-items: center; }
+  .donut-item svg { display: block; }
+  .d-lbl { font-size: 11.5px; font-weight: 700; color: var(--black); text-align: center; margin: 7px 0 2px;
+            font-family: 'Pretendard Variable', sans-serif; }
+  .d-cap { font-size: 10px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace;
+           text-align: center; margin: 0; letter-spacing: .02em; }
+
+  /* 우측 패널 */
+  .side-panel { padding-top: 4px; }
+  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue);
+                        letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace;
+                        text-transform: uppercase; margin: 0 0 6px; display: block; }
+  .insight .ins-body  { font-size: 13px; color: var(--black); line-height: 1.55; margin: 0;
+                        font-weight: 600; letter-spacing: -.005em; }
+  .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="chart-layout">
+      <!-- 좌: 도넛 3종 (PNG 캡처)
+           r=50 원주 314.16. rotate(-90 70 70) 로 12시 시작.
+           단일비율: dasharray "245.04 314.16" = 78%×314.16, dashoffset=78.54 (= -(314.16-dasharray[0])/4 방식)
+           딥강조:   dasharray "267.5 314.16" = 85.1%×314.16
+           다중:     4 segments, dashoffset = 누적 호의 음수 -->
+      <div class="donut-row" data-pptx-image="true">
+
+        <!-- 도넛 1: 단일 비율 (#FF7E5F) -->
+        <div class="donut-item">
+          <svg viewBox="0 0 140 140" width="108" height="108">
+            <circle cx="70" cy="70" r="50" fill="none" stroke="#E0E0E0" stroke-width="14"/>
+            <circle cx="70" cy="70" r="50" fill="none" stroke="#FF7E5F" stroke-width="14"
+                    stroke-dasharray="245.04 314.16" stroke-dashoffset="78.54"
+                    transform="rotate(-90 70 70)"/>
+            <text x="70" y="67" text-anchor="middle" font-size="22" font-weight="800" fill="#000"
+                  font-family="ui-monospace, Menlo, monospace">{{D1_VALUE}}</text>
+            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="#676765"
+                  font-family="Pretendard Variable, sans-serif">{{D1_LABEL}}</text>
+          </svg>
+          <p class="d-lbl">{{D1_CAPTION}}</p>
+          <p class="d-cap">단일 비율</p>
+        </div>
+
+        <!-- 도넛 2: 딥 강조 (#E5573A 값+arc) -->
+        <div class="donut-item">
+          <svg viewBox="0 0 140 140" width="108" height="108">
+            <circle cx="70" cy="70" r="50" fill="none" stroke="#E0E0E0" stroke-width="14"/>
+            <circle cx="70" cy="70" r="50" fill="none" stroke="#E5573A" stroke-width="14"
+                    stroke-dasharray="267.5 314.16" stroke-dashoffset="46.66"
+                    transform="rotate(-90 70 70)"/>
+            <text x="70" y="67" text-anchor="middle" font-size="20" font-weight="800" fill="#E5573A"
+                  font-family="ui-monospace, Menlo, monospace">{{D2_VALUE}}</text>
+            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="#676765"
+                  font-family="Pretendard Variable, sans-serif">{{D2_LABEL}}</text>
+          </svg>
+          <p class="d-lbl">{{D2_CAPTION}}</p>
+          <p class="d-cap">딥 강조</p>
+        </div>
+
+        <!-- 도넛 3: 다중 세그먼트 (4 segments) -->
+        <div class="donut-item">
+          <svg viewBox="0 0 140 140" width="108" height="108">
+            <g transform="rotate(-90 70 70)">
+              <circle cx="70" cy="70" r="50" fill="none" stroke="#FF7E5F" stroke-width="14"
+                      stroke-dasharray="185.4 128.76"/>
+              <circle cx="70" cy="70" r="50" fill="none" stroke="#E5573A" stroke-width="14"
+                      stroke-dasharray="88 226.16" stroke-dashoffset="-185.4"/>
+              <circle cx="70" cy="70" r="50" fill="none" stroke="#C8C8C8" stroke-width="14"
+                      stroke-dasharray="31.4 282.76" stroke-dashoffset="-273.4"/>
+              <circle cx="70" cy="70" r="50" fill="none" stroke="#E0E0E0" stroke-width="14"
+                      stroke-dasharray="9.4 304.76" stroke-dashoffset="-304.8"/>
+            </g>
+            <text x="70" y="67" text-anchor="middle" font-size="14" font-weight="800" fill="#000"
+                  font-family="ui-monospace, Menlo, monospace">{{D3_VALUE}}</text>
+            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="#676765"
+                  font-family="Pretendard Variable, sans-serif">{{D3_LABEL}}</text>
+          </svg>
+          <p class="d-lbl">{{D3_CAPTION}}</p>
+          <p class="d-cap">다중 세그먼트</p>
+        </div>
+
+      </div><!-- /donut-row -->
+
+      <!-- 우: 핵심 인사이트 -->
+      <div class="side-panel">
+        <div class="insight">
+          <span class="ins-label">핵심 인사이트</span>
+          <p class="ins-body">{{INSIGHT}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

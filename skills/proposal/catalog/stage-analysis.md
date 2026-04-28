@@ -23,9 +23,13 @@
 | 이미지 3장 (1:1, 병렬) | `content-3-image-strip` |
 | 좌:이미지 + 우:라벨 블록 | `image-left-label-blocks` |
 | 시계열 막대+선 콤보 | `combo-bar-line` |
+| 카테고리 ±편차 막대 (0 기준선) | `two-up-charts-bar` |
+| 단일 지표 시계열 추세선 | `two-up-charts-line` |
 | 좌·우 다른 차트 (변동률+추이) | `two-up-charts` |
+| 카테고리 막대만 (표 불필요) | `bar-graph` |
 | 막대(좌) + 표(우) | `bar-table` |
-| 도넛 비율 (4 세그먼트) | `donut-chart` |
+| 도넛 비율 (4 세그먼트 + 범례 표) | `donut-chart` |
+| 도넛 3종 KPI 비교 (한 슬라이드) | `chart-donut` |
 | AS-IS / TO-BE 변환 | `as-is-to-be` |
 | 좌:큰 제품 화면 + 우:번호 개념 4 | `product-screenshot` |
 | 4 개념 큰 아이콘 카드 | `icon-grid` |
@@ -175,9 +179,9 @@
 
 ---
 
-## 차트 4종 공통 정책 (J-1 ~ J-4 + D-2 bubble) — 반드시 읽기
+## 차트 공통 정책 (J-1 ~ J-8 + D-2 bubble) — 반드시 읽기
 
-이 5 종 차트 reference 는 모두 **SVG + data-pptx-image PNG 캡처** 패턴 사용. html2pptx 가 SVG 의 `<rect>`/`<polyline>`/`<circle>` 을 PPTX 도형으로 변환 못 하고, div+CSS rotate 도 PPTX 에서 회전 미적용이라, **차트 영역 SVG 를 div 로 감싸 playwright 스크린샷 → `slide.addImage()`** 가 유일하게 픽셀 퍼펙트한 방법.
+이 차트 reference 들은 모두 **SVG + data-pptx-image PNG 캡처** 패턴 사용. html2pptx 가 SVG 의 `<rect>`/`<polyline>`/`<circle>` 을 PPTX 도형으로 변환 못 하고, div+CSS rotate 도 PPTX 에서 회전 미적용이라, **차트 영역 SVG 를 div 로 감싸 playwright 스크린샷 → `slide.addImage()`** 가 유일하게 픽셀 퍼펙트한 방법.
 
 **작성 절차 (모든 차트 공통):**
 1. `deck.cjs` 슬라이드를 `{ html: '<!DOCTYPE html>…</html>' }` 자유 모드로 작성 (template+tokens 모드 X)
@@ -191,6 +195,70 @@
 - 차트 영역 (PNG 캡처 부분) 은 PowerPoint 안에서 **단일 raster image** — 더블클릭 편집 불가
 - 데이터 변경 필요시 deck.cjs 의 SVG 좌표 수정 후 빌드 스크립트 (`build.cjs`) 재실행
 - 표·텍스트는 PPTX 네이티브라 PowerPoint 에서 자유롭게 편집 가능
+
+---
+
+## [J-5] bar-graph
+
+- **File:** `skills/proposal/components/bar-graph.html`
+- **Use when:** 카테고리 N개 절대값 크기 비교. 정확한 수치 표 불필요. 우측 인사이트 박스로 결론 고정.
+- **Don't use:** 수치 표 병행 필요 → `bar-table` / 시계열 → `combo-bar-line` / ±편차 → `two-up-charts-bar`
+- **Tokens (텍스트만):** `{{SECTION_TITLE}}` `{{PAGE_NUMBER}}` `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` `{{INSIGHT}}`
+- **SVG 좌표계 (viewBox 420×254):**
+  - 6 막대 — x=64,124,184,244,304,364 (width 42, col pitch 60)
+  - Y 매핑: height = val/maxY × 200, y = 220 - height
+  - 강조 막대: `fill="#FF7E5F"`, 값 라벨 `fill="#FF7E5F"`, X 라벨 `font-weight="800"`
+  - 일반 막대: `fill="#C8C8C8"`
+  - 카테고리 6 미만이면 `<rect>`/`<text>` 통째 삭제
+- **우측:** `.insight` 박스 (`{{INSIGHT}}`) — 토큰 치환
+
+---
+
+## [J-6] two-up-charts-bar
+
+- **File:** `skills/proposal/components/two-up-charts-bar.html`
+- **Use when:** 카테고리별 ±편차·증감률 — 0 기준선 위(양수) / 아래(음수) 분리. "산업별 성장률 비교"
+- **Don't use:** 절대값 크기만 → `bar-graph` / 시계열 이중축 → `combo-bar-line` / 단일 지표 추세 → `two-up-charts-line`
+- **Tokens (텍스트만):** `{{SECTION_TITLE}}` `{{PAGE_NUMBER}}` `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` `{{INSIGHT}}`
+- **SVG 좌표계 (viewBox 400×210):**
+  - 0 기준선 y=110. 9 카테고리 x=50,90,130,170,210,250,290,330,370, width=22
+  - 양수 막대: height = val×8 (±10 단위 → 80px), y = 110 - height, `fill="#FF7E5F"`
+  - 음수 막대: height = |val|×8, y = 110, `fill="#C8C8C8"`
+  - 값 라벨: 양수 `fill="#000"`, 음수 `fill="#676765"`
+  - 카테고리 9 미만이면 요소 통째 삭제
+- **우측:** `.insight` 박스 (`{{INSIGHT}}`)
+
+---
+
+## [J-7] two-up-charts-line
+
+- **File:** `skills/proposal/components/two-up-charts-line.html`
+- **Use when:** 단일 지표 시계열 추세 + 평균선 + 영역 음영. "월별 신규 가입자 추이"
+- **Don't use:** 이중축 막대+선 → `combo-bar-line` / ±편차 → `two-up-charts-bar` / 두 차트 동시 → `two-up-charts`
+- **Tokens (텍스트만):** `{{SECTION_TITLE}}` `{{PAGE_NUMBER}}` `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` `{{INSIGHT}}`
+- **SVG 좌표계 (viewBox 400×210):**
+  - 14점 라인 — x = 50 + i×25 (i=0~13), cy = 180 - (val/maxY)×160
+  - 평균선: `stroke-dasharray="3 2"`, y = 180 - (avg/maxY)×160
+  - 영역 `<path>`: `M x0,cy0 L … L x_last,180 L 50,180 Z`, `fill="#FFF1EC" opacity="0.6"`
+  - 마지막 점 강조: `r=4.5`, `fill="#fff"`, `stroke="#FF7E5F" stroke-width="2"`
+  - 마지막 값 라벨: `fill="#FF7E5F" font-weight="800"`
+- **우측:** `.insight` 박스 (`{{INSIGHT}}`)
+
+---
+
+## [J-8] chart-donut
+
+- **File:** `skills/proposal/components/chart-donut.html`
+- **Use when:** KPI 비율 3개를 한 슬라이드에 나란히. 단일 비율·딥 강조·다중 세그먼트 변형 비교 제시.
+- **Don't use:** 세그먼트 1종 + 범례 표 → `donut-chart` / 수치 분포 카테고리 → `bar-table` / 2~3개 비율 텍스트 → `content-3-col-cards`
+- **Tokens (텍스트만):** `{{SECTION_TITLE}}` `{{PAGE_NUMBER}}` `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` `{{D1_VALUE}} {{D1_LABEL}} {{D1_CAPTION}}` `{{D2_VALUE}} {{D2_LABEL}} {{D2_CAPTION}}` `{{D3_VALUE}} {{D3_LABEL}} {{D3_CAPTION}}` `{{INSIGHT}}`
+- **SVG 공식 (r=50, 원주 314.16):**
+  - 도넛 1 (단일비율): `stroke="#FF7E5F"`, `stroke-dasharray="호 314.16"`, `stroke-dashoffset=-(314.16-호)`
+  - 도넛 2 (딥강조): `stroke="#E5573A"`, 값 텍스트 `fill="#E5573A"`
+  - 도넛 3 (다중): 4 circle — #FF7E5F / #E5573A / #C8C8C8 / #E0E0E0, dashoffset = 누적 호의 음수
+  - 모든 도넛 `transform="rotate(-90 70 70)"` (12시 방향 시작)
+- **PNG 캡처:** 3개 도넛 그리드 `.donut-row[data-pptx-image]`
+- **우측:** `.insight` 박스 (`{{INSIGHT}}`)
 
 ---
 
@@ -296,6 +364,11 @@
 | `content-hero-image` vs `image-left-label-blocks` | 이미지 50%+? → hero-image / 이미지 + 우 라벨? → image-left-label |
 | `combo-bar-line` vs `two-up-charts` | 한 차트 콤보? → combo / 좌우 다른 차트? → two-up |
 | `combo-bar-line` vs `bar-table` | 시계열(연도)? → combo / 카테고리 분포? → bar-table |
+| `bar-graph` vs `bar-table` | 수치 표 불필요? → bar-graph / 표 병행 필요? → bar-table |
+| `bar-graph` vs `two-up-charts-bar` | 절대값 비교? → bar-graph / ±부호 편차? → two-up-charts-bar |
+| `two-up-charts-bar` vs `combo-bar-line` | 카테고리 ±편차? → two-up-charts-bar / 시계열 이중축? → combo |
+| `two-up-charts-line` vs `combo-bar-line` | 단일 지표 추세? → two-up-charts-line / 막대+선 이중축? → combo |
+| `donut-chart` vs `chart-donut` | 세그먼트 상세 표 필요? → donut-chart / KPI 3개 비율 나열? → chart-donut |
 | `bar-table` vs `donut-chart` | 카테고리 빈도·금액? → bar-table / 비율(100%)? → donut |
 | `as-is-to-be` vs `content-2-col-cards` | 변환 방향성? → as-is-to-be / 단순 2개? → 2-col-cards |
 | `[J] DATA-VIS` vs `matrix-2x2` | 정량 시각화? → [J] / 두 축 사분면? → matrix |

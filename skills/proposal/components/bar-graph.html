@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Bar Graph Slide</title>
+<!--
+  USAGE:
+  세로 막대 그래프 단독 슬라이드. 카테고리 간 크기 비교가 메시지일 때.
+  우측 핵심 인사이트 박스로 결론 고정.
+
+  bar-table과 구분:
+  - bar-graph : 시각적 크기 비교가 목적, 숫자 표 불필요
+  - bar-table : 차트 + 우측 상세 수치 표 병행, 데이터 신뢰성 제시 목적
+
+  RENDER MODE:
+  SVG → <div data-pptx-image="true"> PNG 캡처.
+
+  USE MODE:
+  reference. deck.cjs `{ html: '<...>' }` 자유 모드:
+    1) <body> 통째 복사
+    2) SVG <rect> height = val/maxY * 200, y = 220 - height
+    3) 강조 막대: fill="#FF7E5F", 일반: fill="#C8C8C8"
+    4) 카테고리 6개 미만이면 사용 안 하는 요소 삭제
+
+  TOKENS:
+  - {{SECTION_TITLE}} {{PAGE_NUMBER}}
+  - {{LABEL}} {{TITLE}} {{LEDE}}
+  - {{INSIGHT}}  우측 핵심 인사이트 (<strong> 가능)
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  body { width: 960px; height: 540px; position: relative; }
+  .body-area { position: absolute; top: 96px; left: 60px; right: 60px; bottom: 50px; }
+  .section { font-size: 12px; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.06em; margin: 0 0 4px; }
+  .ph1 { font-size: 24px; font-weight: 800; color: var(--black); line-height: 1.25; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .ph1 .a { color: var(--brand-blue); }
+  .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
+
+  .chart-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 22px; align-items: start; margin-top: 12px; }
+  .chart-box { background: #fff; height: 254px; }
+  .chart-box svg { display: block; width: 100%; height: 100%; }
+
+  .side-panel { padding-top: 4px; }
+  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
+  .insight .ins-body { font-size: 13px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
+  .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="body-area">
+    <p class="section">{{LABEL}}</p>
+    <h1 class="ph1">{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+
+    <div class="chart-layout">
+      <!-- 좌: 세로 막대 그래프 SVG (PNG 캡처)
+           viewBox 420×254. 6 카테고리. bar width 42, col pitch 60
+           x 시작 55. bar x = 55 + i*60 + 9 (i=0~5)
+           Y: maxY 600 → 4단 (0/200/400/600) → y 220/165/110/55
+           height = val/600 * 200. y = 220 - height
+           강조 막대 fill="#FF7E5F", 일반 fill="#C8C8C8" -->
+      <div class="chart-box" data-pptx-image="true">
+        <svg viewBox="0 0 420 254" preserveAspectRatio="xMidYMid meet">
+          <g font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+            <text x="46" y="28" text-anchor="end">600</text>
+            <text x="46" y="83" text-anchor="end">400</text>
+            <text x="46" y="138" text-anchor="end">200</text>
+            <text x="46" y="224" text-anchor="end">0</text>
+          </g>
+          <g stroke="#F0F0F0" stroke-width="1">
+            <line x1="55" y1="24"  x2="412" y2="24"/>
+            <line x1="55" y1="79"  x2="412" y2="79"/>
+            <line x1="55" y1="134" x2="412" y2="134"/>
+          </g>
+          <line x1="55" y1="220" x2="412" y2="220" stroke="#000" stroke-width="1"/>
+          <text x="55" y="14" font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">단위 · 건</text>
+          <!-- 6 막대 예시 (강조: 466, 343) -->
+          <g>
+            <rect x="64"  y="160" width="42" height="60"  fill="#C8C8C8"/>
+            <rect x="124" y="64"  width="42" height="156" fill="#FF7E5F"/>
+            <rect x="184" y="106" width="42" height="114" fill="#FF7E5F"/>
+            <rect x="244" y="46"  width="42" height="174" fill="#C8C8C8"/>
+            <rect x="304" y="140" width="42" height="80"  fill="#C8C8C8"/>
+            <rect x="364" y="190" width="42" height="30"  fill="#C8C8C8"/>
+          </g>
+          <g font-size="10" fill="#000" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
+            <text x="85"  y="153">180</text>
+            <text x="145" y="57"  fill="#FF7E5F">466</text>
+            <text x="205" y="99"  fill="#FF7E5F">343</text>
+            <text x="265" y="39">520</text>
+            <text x="325" y="133">240</text>
+            <text x="385" y="183">90</text>
+          </g>
+          <g font-size="10" fill="#676765" font-family="Pretendard Variable, sans-serif" text-anchor="middle">
+            <text x="85"  y="240">A사</text>
+            <text x="145" y="240" fill="#FF7E5F" font-weight="800">B사</text>
+            <text x="205" y="240" fill="#FF7E5F" font-weight="800">C사</text>
+            <text x="265" y="240">D사</text>
+            <text x="325" y="240">E사</text>
+            <text x="385" y="240">F사</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 우: 핵심 인사이트 -->
+      <div class="side-panel">
+        <div class="insight">
+          <span class="ins-label">핵심 인사이트</span>
+          <p class="ins-body">{{INSIGHT}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

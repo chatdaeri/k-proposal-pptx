@@ -90,6 +90,7 @@ const TEMPLATES = {
   'step-cards': 'layouts/step-cards.html',
   'numbered-steps-split': 'layouts/numbered-steps-split.html',
   'numbered-circle-list': 'components/numbered-circle-list.html',
+  'areas-list': 'layouts/areas-list.html',
   // 카테고리 [H] PEOPLE
   'org-chart': 'components/org-chart.html',
   'instructor-profile': 'layouts/instructor-profile.html',
@@ -99,8 +100,14 @@ const TEMPLATES = {
   // 카테고리 [J] DATA-VIS
   'combo-bar-line': 'components/combo-bar-line.html',
   'two-up-charts': 'components/two-up-charts.html',
+  'two-up-charts-bar': 'components/two-up-charts-bar.html',
+  'two-up-charts-line': 'components/two-up-charts-line.html',
+  'bar-graph': 'components/bar-graph.html',
   'bar-table': 'components/bar-table.html',
   'donut-chart': 'components/donut-chart.html',
+  'chart-donut': 'components/chart-donut.html',
+  'bubble-chart': 'components/bubble-chart.html',
+  'matrix-2x2': 'components/matrix-2x2.html',
   'budget-table': 'layouts/budget-table.html',
 };
 

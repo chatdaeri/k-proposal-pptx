@@ -28,6 +28,7 @@
   - {{LEGEND_BAR}} {{LEGEND_LINE}}         범례 (막대·라인)
   - {{FORECAST_LABEL}}                     예측 마커 텍스트
   - {{SOURCE_NOTE}}                        하단 출처
+  - {{INSIGHT}}                            우측 핵심 인사이트 (<strong> 가능)
 -->
 <link rel="stylesheet" href="../primitives/_shared.css">
 <style>
@@ -44,10 +45,18 @@
   .swatch-blue { width: 14px; height: 10px; background: #FF7E5F; }
   .swatch-line { width: 14px; height: 2px; background: #000; }
 
-  .chart-box { background: #fff; height: 260px; margin-top: 8px; }
+  .chart-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 22px; align-items: start; margin-top: 8px; }
+  .chart-panel { display: flex; flex-direction: column; }
+  .chart-box { background: #fff; height: 240px; }
   .chart-box svg { display: block; width: 100%; height: 100%; }
   .forecast-tag { display: inline-block; margin-top: 8px; padding: 4px 10px; background: #FFF1EC; border-left: 3px solid var(--brand-blue); font-size: 11px; color: var(--brand-blue); font-weight: 700; }
   .forecast-tag p { margin: 0; }
+
+  .side-panel { padding-top: 4px; }
+  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
+  .insight .ins-body { font-size: 13px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
+  .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
 </style>
 </head>
 <body>
@@ -63,10 +72,12 @@
     <h1 class="ph1">{{TITLE}}</h1>
     <p class="lede">{{LEDE}}</p>
 
-    <div class="legend">
-      <div class="item"><div class="swatch-blue"></div><p>{{LEGEND_BAR}}</p></div>
-      <div class="item"><div class="swatch-line"></div><p>{{LEGEND_LINE}}</p></div>
-    </div>
+    <div class="chart-layout">
+      <div class="chart-panel">
+        <div class="legend">
+          <div class="item"><div class="swatch-blue"></div><p>{{LEGEND_BAR}}</p></div>
+          <div class="item"><div class="swatch-line"></div><p>{{LEGEND_LINE}}</p></div>
+        </div>
 
     <!-- 콤보 차트 SVG (PNG 캡처). viewBox 880×260.
          X 시작 55, 끝 870 (= 815px / 12 = 67.9 col 폭). bar width 24, x = 55 + i*67.92 + 21.96
@@ -140,9 +151,19 @@
       </svg>
     </div>
 
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px">
-      <div class="forecast-tag"><p>{{FORECAST_LABEL}}</p></div>
-      <p class="source">{{SOURCE_NOTE}}</p>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px">
+          <div class="forecast-tag"><p>{{FORECAST_LABEL}}</p></div>
+          <p class="source">{{SOURCE_NOTE}}</p>
+        </div>
+      </div>
+
+      <!-- 우: 핵심 인사이트 -->
+      <div class="side-panel">
+        <div class="insight">
+          <span class="ins-label">핵심 인사이트</span>
+          <p class="ins-body">{{INSIGHT}}</p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="logo-area">

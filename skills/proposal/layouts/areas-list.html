@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=960, height=540">
+<title>Areas List Slide</title>
+<!--
+  USAGE:
+  번호 + 레이블 + 설명 5개 항목을 나열하는 리스트 슬라이드.
+  "전략 영역 5가지", "추진 과제", "실행 우선순위" 등 순번이 있는 항목 나열에 사용.
+
+  구조:
+  - 헤더 (섹션명 / 페이지번호 / 블루 라인)
+  - 타이틀 블록 (section label + title)
+  - 5행 리스트 (번호 | 항목명 → | 설명) — 홀수행 #F8F8F8, 짝수행 #FFFFFF
+
+  REPLACE:
+  - {{SECTION_TITLE}}, {{PAGE_NUMBER}} : 헤더
+  - {{LABEL}}, {{TITLE}} : 타이틀 블록
+  - {{ROW_N_NUM}} : 행 번호 (01 ~ 05)
+  - {{ROW_N_NAME}} : 항목명 (<strong> 가능)
+  - {{ROW_N_DESC}} : 설명 텍스트 (<strong> 가능)
+  - N = 1 ~ 5. 5개 이하면 해당 .area 행 삭제.
+-->
+<link rel="stylesheet" href="../primitives/_shared.css">
+<style>
+  .slide-body { padding: 20px 60px 0; }
+  .ttl-block { padding: 10px 0 14px; }
+  .section-label { font-size: 14px; font-weight: 600; color: var(--brand-blue); letter-spacing: .06em; margin: 0 0 6px; }
+  .main-title { font-size: 28px; font-weight: 800; color: var(--black); line-height: 1.2; margin: 0; letter-spacing: -.01em; }
+
+  .areas { display: flex; flex-direction: column; border-top: 1px solid var(--light-border); }
+  .area {
+    display: grid;
+    grid-template-columns: 38px 190px 24px 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--light-border);
+  }
+  .area:nth-child(odd)  { background: #F8F8F8; }
+  .area:nth-child(even) { background: #FFFFFF; }
+
+  .area-num {
+    font-size: 15px; font-weight: 800;
+    color: var(--mid-gray);
+    font-family: ui-monospace, Menlo, monospace;
+    letter-spacing: -.01em; line-height: 1;
+  }
+  .area-label {
+    font-size: 15px; font-weight: 700;
+    color: var(--black);
+    letter-spacing: -.005em;
+  }
+  .area-label strong { font-weight: inherit; color: inherit; }
+  .arr {
+    color: var(--brand-blue);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .arr svg { width: 16px; height: 9px; }
+  .desc { font-size: 13px; color: var(--dark-gray); font-weight: 500; line-height: 1.45; margin: 0; }
+  .desc strong { color: var(--black); font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="slide-header">
+    <div class="slide-header-inner">
+      <p>{{SECTION_TITLE}}</p>
+      <p>{{PAGE_NUMBER}}</p>
+    </div>
+    <div class="header-line"></div>
+  </div>
+  <div class="slide-body">
+    <div class="ttl-block">
+      <p class="section-label">{{LABEL}}</p>
+      <h1 class="main-title">{{TITLE}}</h1>
+    </div>
+
+    <div class="areas">
+      <div class="area">
+        <p class="area-num">{{ROW_1_NUM}}</p>
+        <p class="area-label">{{ROW_1_NAME}}</p>
+        <p class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></p>
+        <p class="desc">{{ROW_1_DESC}}</p>
+      </div>
+      <div class="area">
+        <span class="area-num">{{ROW_2_NUM}}</span>
+        <span class="area-label">{{ROW_2_NAME}}</span>
+        <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
+        <p class="desc">{{ROW_2_DESC}}</p>
+      </div>
+      <div class="area">
+        <span class="area-num">{{ROW_3_NUM}}</span>
+        <span class="area-label">{{ROW_3_NAME}}</span>
+        <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
+        <p class="desc">{{ROW_3_DESC}}</p>
+      </div>
+      <div class="area">
+        <span class="area-num">{{ROW_4_NUM}}</span>
+        <span class="area-label">{{ROW_4_NAME}}</span>
+        <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
+        <p class="desc">{{ROW_4_DESC}}</p>
+      </div>
+      <div class="area">
+        <span class="area-num">{{ROW_5_NUM}}</span>
+        <span class="area-label">{{ROW_5_NAME}}</span>
+        <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
+        <p class="desc">{{ROW_5_DESC}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+  </div>
+</body>
+</html>

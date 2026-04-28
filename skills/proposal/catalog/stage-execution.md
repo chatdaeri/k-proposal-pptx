@@ -13,7 +13,8 @@
 | 워크스트림 N개 × 주간 막대 | `gantt-chart` |
 | 단계 4개 가로 카드 | `step-cards` |
 | 좌:대제목 + 우:단계 3~5 | `numbered-steps-split` |
-| 세로 리스트 5~10개 | `numbered-circle-list` |
+| 세로 리스트 5~10개 (원형 번호 뱃지) | `numbered-circle-list` |
+| 번호+레이블+설명 5개 행 리스트 | `areas-list` |
 | AS-IS / TO-BE 개선안 | `as-is-to-be` |
 
 ---
@@ -68,6 +69,17 @@
 
 ---
 
+## [G-6] areas-list
+
+- **File:** `skills/proposal/layouts/areas-list.html`
+- **Use when:** 전략·실행 영역 5개를 번호+항목명+설명 행으로 나열. 홀짝 배경 교대. "5대 실행 우선순위"
+- **Don't use:** 원형 뱃지 세로 리스트(5~10개) → `numbered-circle-list` / 가로 카드 4개 → `step-cards` / 설명 없이 항목만 → `numbered-steps-split` / 6+ 행 → 분할
+- **Tokens:** `{{SECTION_TITLE}}` `{{PAGE_NUMBER}}` `{{LABEL}}` `{{TITLE}}` `{{ROW_N_NUM}}` `{{ROW_N_NAME}}` `{{ROW_N_DESC}}` (N=1~5, `<strong>` 가능) — **SVG 없음, 순수 토큰 치환**
+- **Layout:** `grid: 38px 190px 24px 1fr`. 홀수행 #F8F8F8 / 짝수행 #FFFFFF. 화살표 SVG 16×9 stroke 브랜드 블루(#FF7E5F).
+- **NOTE:** ③ 분석 슬롯에서도 "분석 영역 5가지" 등에 사용 가능.
+
+---
+
 ## [E-6] as-is-to-be
 
 - **File:** `skills/proposal/layouts/as-is-to-be.html`
@@ -86,5 +98,7 @@
 | `timeline` vs `numbered-steps-split` | 시간축(날짜)? → timeline / 절차(번호)? → numbered-steps |
 | `step-cards` vs `numbered-circle-list` | 가로 4 카드? → step-cards / 세로 5~10? → numbered-circle |
 | `step-cards` vs `numbered-steps-split` | 동등 가로? → step-cards / 좌메인+우단계? → numbered-steps |
+| `numbered-circle-list` vs `areas-list` | 원형 뱃지 + 제목+설명? → numbered-circle / 번호+항목명+설명 행? → areas-list |
+| `areas-list` vs `numbered-steps-split` | 5행 테이블 느낌? → areas-list / 좌메인+우단계? → numbered-steps |
 | `numbered-circle-list` vs `org-chart` | 평면 명단? → numbered-circle / 계층? → org-chart |
 | `as-is-to-be` vs `numbered-steps-split` | 변환 방향성? → as-is-to-be / 절차 단계? → numbered-steps |
