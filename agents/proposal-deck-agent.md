@@ -50,21 +50,70 @@ brew install poppler
 
 ## 9-Step Workflow — 매번 이 순서
 
-### Step 1. 브리프 이해 + 절대 규칙 로드
+### Step 1. 브리프 이해 + 절대 규칙 로드 + **프로젝트 폴더 전체 스캔**
 
-먼저 두 가지를 동시에 읽는다.
+먼저 세 가지를 동시에 처리한다.
 
 1. 사용자가 던진 한 문단(또는 슬래시 커맨드 인자) 다시 읽기 — 청중 / 목적 / 데이터 / 언어 톤 식별.
 2. **`${PLUGIN_ROOT}/skills/proposal/SKILL.md`** Read — 절대 규칙 10개를 컨텍스트에 올린다. 이 규칙들은 처음부터 끝까지 어떤 슬라이드도 깰 수 없다. 사용자가 "규칙을 깨라"고 명시해도 한 번 더 확인을 요청한다.
+3. **현재 작업 디렉토리(CWD) 의 자료를 모두 스캔하고 관련 파일은 모두 읽는다 — 사용자가 자료 위치를 명시하지 않아도 항상 먼저 한다.** 사용자가 같은 폴더에 둔 자료는 브리프의 일부이며, 안 읽고 시작하면 placeholder 가 늘어난다.
+
+**프로젝트 폴더 스캔 절차 (항상 실행):**
+
+```bash
+# 1) 디렉토리 트리 한눈에 보기 (depth 3 까지)
+find . -maxdepth 3 \
+  -not -path '*/node_modules/*' \
+  -not -path '*/output/*' \
+  -not -path '*/.git/*' \
+  -not -path '*/__pycache__/*' \
+  -not -path '*/.venv/*' \
+  -not -name '.DS_Store' \
+  | head -200
+
+# 2) 콘텐츠로 읽을 후보 파일 목록 (텍스트·문서·시트·PDF·이미지)
+find . -maxdepth 4 -type f \
+  \( -iname '*.md' -o -iname '*.txt' -o -iname '*.markdown' \
+     -o -iname '*.docx' -o -iname '*.doc' -o -iname '*.hwp' -o -iname '*.hwpx' \
+     -o -iname '*.xlsx' -o -iname '*.xls' -o -iname '*.csv' -o -iname '*.tsv' \
+     -o -iname '*.pdf' \
+     -o -iname '*.json' -o -iname '*.yaml' -o -iname '*.yml' \
+     -o -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) \
+  -not -path '*/node_modules/*' -not -path '*/output/*' -not -path '*/.git/*' \
+  | sort
+```
+
+스캔 후 다음 우선순위로 **모두 Read** 한다 (각 파일 1회씩, 큰 파일은 핵심 부분만):
+
+1. `inputs/` 폴더 안 모든 파일 (있다면 최우선)
+2. CWD 루트의 `*.md`, `README*`, `brief*`, `요약*`, `개요*` 류 텍스트
+3. CWD 루트의 `*.docx`, `*.xlsx`, `*.csv`, `*.pdf` (브리프·자료)
+4. `data/`, `docs/`, `자료/`, `참고/`, `reference/` 같은 폴더 안의 자료
+5. CWD 루트의 이미지(로고·차트·스크린샷) — 슬라이드에 박을 수 있는지 확인
+
+읽기 도구 매칭:
+
+| 형식 | 도구 |
+|---|---|
+| md / txt / json / yaml / csv / tsv | Read |
+| pdf | Read (pages 인자 사용, 큰 PDF 는 1-20 먼저) |
+| png / jpg / webp | Read (멀티모달 — 로고·차트·레이아웃 참고용) |
+| xlsx / xls | `python3 -c "import openpyxl; ..."` 또는 `node -e "require('xlsx')..."` Bash 로 시트별 데이터 dump |
+| docx | `python3 -c "from docx import Document; ..."` Bash 로 본문 + 표 추출 |
+| hwp / hwpx | `python3 -c "import olefile/zipfile..."` 로 텍스트 추출 시도, 안 되면 사용자에게 docx/pdf 변환 요청 |
+
+스캔이 끝나면 **무엇을 읽었는지를 사용자에게 한 번 보고** 한다 (파일 N개, 그 중 자료 M개 식). 그래야 사용자가 "그 파일은 무시해도 돼" / "이 파일이 메인 브리프야" 식으로 가벼운 교정을 할 수 있다.
+
+큰 폴더 가드: 콘텐츠 후보 파일이 50개 넘으면 모두 읽기 전에 사용자에게 "어느 폴더가 핵심인지" 한 번 묻는다. 그 외에는 묻지 말고 그냥 다 읽고 시작한다.
 
 청중·목적·데이터·언어 식별 가이드:
 
 - **청중**: 의사결정권자(임원·이사회) / 실무 팀 / 고객사 / 내부 공유 — 매수와 텍스트 밀도가 달라진다.
 - **목적**: 수주 제안 / 분기 리뷰 / 킥오프 / 진행 보고 / 교육.
-- **데이터**: 사용자가 명시적으로 준 숫자·고유명사와, 우리가 합리적 placeholder 로 채워야 하는 빈칸을 분리해서 적어둔다 — 마지막 보고서에 그대로 들어간다.
+- **데이터**: 사용자가 명시적으로 준 숫자·고유명사와, 우리가 합리적 placeholder 로 채워야 하는 빈칸을 분리해서 적어둔다 — 마지막 보고서에 그대로 들어간다. **프로젝트 폴더에서 읽은 자료에 들어 있는 숫자·고유명사는 placeholder 가 아닌 실데이터로 취급한다.**
 - **언어 톤**: 정중체("~합니다") 기본. 제품 마케팅 카피만 단정한 해요체. 영문 CTA 금지.
 
-작업 디렉토리에 `inputs/` 폴더가 있고 엑셀·워드·PDF 가 있으면 이 단계에서 어느 시트·어느 페이지가 어느 슬라이드에 매핑될지까지 확정한다. 폰트는 무조건 `${PLUGIN_ROOT}/skills/proposal/fonts/PretendardVariable.ttf` 로 고정.
+읽은 자료에서 어느 시트·어느 페이지·어느 단락이 어느 슬라이드에 매핑될지까지 이 단계에서 확정한다. 폰트는 무조건 `${PLUGIN_ROOT}/skills/proposal/fonts/PretendardVariable.ttf` 로 고정.
 
 ### Step 2. catalog/_index.md 만 먼저 로드 (분할 카탈로그)
 
