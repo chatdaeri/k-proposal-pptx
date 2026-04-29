@@ -50,19 +50,52 @@ bluelaps-design-system/
 
 ## 시작 순서
 
-PPT 빌드(에이전트 위임): `proposal-deck-agent` 에 위임. 9-step 워크플로 본문은 `agents/proposal-deck-agent.md` 에 있음. 핵심:
+PPT 빌드 핵심 흐름:
 
-1. `catalog/_index.md` 만 먼저 Read (분할 카탈로그) — 어느 stage 파일을 볼지 결정.
-2. 슬라이드 슬롯이 정해지면 해당 stage 파일 1개만 Read.
+1. **`QUICK_REF.md` 먼저 Read** — 모든 템플릿 토큰명이 한 파일에 정리됨. 개별 HTML 파일 Read 불필요.
+2. 슬라이드 슬롯 결정 → `CATALOG.md` 의 결정 트리 참조 (이미 컨텍스트에 있으면 Skip).
 3. **슬라이드별 Read/Write 반복 금지** — `output/<slug>/deck.cjs` 한 파일에 모든 슬라이드의 (template, tokens, blocks) 정의.
-4. `node skills/proposal/scripts/build.cjs deck.cjs` 한 번 호출 → render → lint → convert 자동 실행 → `<slug>.pptx` 완성.
+4. 빌드 명령 한 번:
+   ```bash
+   node ~/.claude/skills/k-proposal-pptx/scripts/build.cjs output/<slug>/deck.cjs
+   # 빠른 빌드: --no-lint 추가
+   ```
+   → render → lint → convert 자동 실행 → `<slug>.pptx` 완성.
 
 새 단일 슬라이드를 직접 손으로 만들 때:
 
-1. **먼저 읽어라**: `tokens/colors_and_type.css` + `README.html` 의 Visual Foundations.
-2. **템플릿에서 출발**: 단위 컴포넌트는 `components/`, 슬라이드 한 장 단위 완성본은 `layouts/`.
-3. **공용 CSS**: `primitives/_shared.css` 를 import — 헤더·로고·이미지 슬롯·리듬 클래스 정의.
-4. **브랜드 토큰**: 값 하드코딩 금지. 항상 `var(--brand-orange)`, `var(--light-border)` 형태로.
+1. **먼저 읽어라**: `primitives/_shared.css` — 브랜드 변수 + 공용 클래스 단일 소스.
+2. **템플릿에서 출발**: 단위 컴포넌트는 `components/`, 슬라이드 한 장 단위 완성본은`layouts/`.
+3. **브랜드 토큰**: 값 하드코딩 금지. 항상 `var(--brand-orange)`, `var(--light-border)` 형태로.
+
+## 브랜드 커스텀
+
+유저가 "컬러 바꿔줘", "로고 교체해줘", "브랜드 커스텀해줘" 요청 시:
+
+### 컬러
+`primitives/_shared.css` 의 `:root` 블록 수정 (7~12번째 줄):
+```css
+--brand-orange:     #FF7E5F;   /* 메인 포인트 컬러 → 원하는 컬러로 교체 */
+--brand-deep:       #E5573A;   /* 헤드라인·뱃지 → 더 짙은 버전 */
+--brand-tint-solid: #FFF1EC;   /* 하이라이트 배경 → 메인 컬러의 10% tint */
+```
+이 3줄만 바꾸면 **전체 덱(모든 템플릿)의 컬러가 한번에 반영**됨.
+
+### 로고
+```bash
+# 가장 간단한 방법 — 파일을 같은 이름으로 교체
+cp /path/to/my-logo.png ~/.claude/skills/k-proposal-pptx/assets/chatdaeri-logo.png
+```
+교체 후 빌드하면 모든 슬라이드 우측 하단 로고가 자동 반영.
+
+### 폰트
+`primitives/_shared.css` 의 `--font-family` 변수 수정 (26번째 줄):
+```css
+--font-family: '원하는폰트', -apple-system, BlinkMacSystemFont, sans-serif;
+```
+
+> **컬러+폰트는 `_shared.css` 1개 파일로 전체 제어 가능.**
+> **로고는 `assets/chatdaeri-logo.png` 파일 교체로 전체 적용.**
 
 ## 슬라이드 제작 체크리스트
 
@@ -77,6 +110,11 @@ PPT 빌드(에이전트 위임): `proposal-deck-agent` 에 위임. 9-step 워크
 - [ ] 2~4개 블록이면 **1개는 hero (flex:1.4, h3 19px 블루)**, 나머지는 sub (flex:1, h3 17px 그레이). AI 균일 카드 방지.
 - [ ] 이미지는 한 슬라이드에서 **같은 aspect-ratio** (`16-9`, `3-2`, `4-3`, `1-1`, `2-3` 중 하나)
 - [ ] 표는 **상단 3px + 하단 2px 블루 · 좌우 보더 없음 · 가로선만**
+- [ ] **bar-table / budget-table 행 한도 (★ overflow 사전 차단)**
+  - **≤4행**: LEDE 2줄 + SOURCE_NOTE 정상 — 안전
+  - **5행**: LEDE 1줄(≤40자) + SOURCE_NOTE 비움(`''`) 필수 — 안 그러면 4.5pt 초과
+  - **6~8행**: 위 압축 + 컬럼 ≤5개 권장
+  - **9행 이상**: **첫 시도부터 2개 슬라이드로 분할** (카테고리 기준: 검색/DA·UAC, MO/PC, 본사/지사 등). 9행 한 슬라이드는 175pt+ 초과 — 무조건 빌드 실패하므로 시도하지 말 것.
 
 ## 카피 라이팅 체크
 

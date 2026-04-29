@@ -136,3 +136,83 @@ Step C. catalog/stage-*.md 분할 + agents 워크플로에서 stage 단위 Read
 ```
 
 원하시면 1순위 (#3 — `deck.cjs` 일괄 치환 시스템) 부터 구현. Step A + B 만 적용해도 사용자가 한 명령으로 14장 덱을 만들 때 에이전트가 14번이 아니라 1번 출력으로 끝나서 Pro 플랜 사용량이 크게 줄어듭니다.
+
+---
+
+## 8. 템플릿 오버플로 방지 — 자유 HTML 전환 금지 원칙
+
+> **행/항목이 많아도 `{ html: '...' }` 자유 모드로 전환하지 말 것.**
+> 기존 템플릿 + `TABLE_ROWS_HTML` 인라인 스타일로 해결한다.
+> 자유 HTML 1장은 토큰 ~500+ 소모. 템플릿 토큰 치환은 ~50.
+
+### 템플릿별 항목 수 한도
+
+| 템플릿 | 슬롯 구조 | 기본 max | 압축 max | 초과 시 |
+|---|---|---|---|---|
+| `budget-table` | TABLE_ROWS_HTML 자유 | **~6행** | **~9행** (plan 카드 유지) / **~13행** (plan 카드 최소화) | 슬라이드 분할 |
+| `bar-table` | 우측 TABLE_ROWS_HTML | **~6행** | **~9행** | 슬라이드 분할 |
+| `faq-list` | Q_1~Q_5 고정 | **5쌍** | 5쌍 | 6+ → 슬라이드 분할 |
+| `areas-list` | ROW_1~ROW_5 고정 | **5항목** | 5항목 | 6+ → 슬라이드 분할 |
+| `step-cards` | CARD_1~CARD_4 고정 | **4카드** | 4카드 | 5+ → `areas-list` 또는 분할 |
+| `numbered-circle-list` | ITEM_1~ITEM_3 고정 | **3항목** | 3항목 | 4+ → `step-cards` |
+| `toc` | BLOCK:toc_item 반복 | **~5항목** | **~7항목** (padding 축소) | 8+ → 슬라이드 분할 |
+| `content-grid` | ITEM_1~ITEM_4 고정 | **4항목** | 4항목 | 5+ → `areas-list` |
+
+---
+
+### budget-table 행 수별 처리 레시피
+
+**레이아웃 계산 (560px 슬라이드 기준)**
+- body padding: top 90px / bottom 56px → 가용 394px
+- 타이틀+라벨: ~70px / plan 카드: ~74px / 표 헤더: ~27px / 소스+푸터: ~74px
+- 기본 tbody 가용: **약 150px**
+- 기본 행 높이 26px (font:12px + padding:7px×2) → **최대 ~5.8행**
+
+**6행 이하 → 기본 작성**
+```js
+TABLE_ROWS_HTML: `<div class="tr">
+  <div class="td"><p>...</p></div>
+  <div class="td num"><p>...</p></div>
+</div>`
+```
+
+**7~9행 → 인라인 압축 (plan 카드 유지)**
+각 `.tr`에 font-size + padding 인라인 스타일 추가:
+```js
+TABLE_ROWS_HTML: `<div class="tr" style="font-size:10px;line-height:1.3">
+  <div class="td" style="padding:4px 8px"><p>...</p></div>
+  <div class="td num" style="padding:4px 8px"><p>...</p></div>
+</div>`
+// 행 높이 ~18px → tbody 150px ÷ 18 ≈ 8행 수용
+```
+
+**10~13행 → 인라인 압축 + plan 카드 한 줄 요약**
+```js
+// 각 행: padding 3px 6px + font-size 10px → 행 높이 ~16px
+// plan 카드를 한 줄 인사이트로 축소 → 카드 영역 ~40px로 감소
+// 확보된 tbody ≈ 150 + 34(카드 축소분) ≈ 184px ÷ 16px ≈ 11~12행
+
+PLAN_A_BODY_HTML: `<strong>MO 소계</strong> 638,150,000원 — 앱설치 119,601건 목표`,
+PLAN_B_BODY_HTML: `<strong>PC 소계</strong> 558,000,000원 — 구매전환 중심 운영`,
+
+TABLE_ROWS_HTML: `<div class="tr" style="font-size:10px;line-height:1.25">
+  <div class="td" style="padding:3px 6px"><p>...</p></div>
+  <div class="td num" style="padding:3px 6px"><p>...</p></div>
+</div>`
+```
+
+**14행 이상 → 슬라이드 분할이 정답**
+단일 슬라이드에 14행을 욱여넣으면 가독성이 사라짐.
+MO 9채널 / PC 5채널처럼 디바이스별 또는 매체 성격별로 2장으로 분할.
+```js
+// Slide N:   MO 채널 (최대 9행) → budget-table + PLAN_A: MO 소계
+// Slide N+1: PC 채널 (최대 5행) → budget-table + PLAN_A: PC 소계
+```
+
+---
+
+### 공통 원칙
+
+1. **자유 HTML 전환 조건:** 위 레시피를 모두 써도 안 될 때만 — 그 전에 슬라이드 분할을 먼저 검토.
+2. **압축 한계:** font-size 10px / padding 3px 이하로 내리지 말 것 (프로젝터 가독성 기준 최소).
+3. **항목 수 먼저 세기:** deck.cjs 작성 전 TABLE_ROWS_HTML 행 수를 먼저 세고 위 표와 대조.

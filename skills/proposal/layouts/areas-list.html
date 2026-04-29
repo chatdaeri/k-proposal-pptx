@@ -17,10 +17,11 @@
   REPLACE:
   - {{SECTION_TITLE}}, {{PAGE_NUMBER}} : 헤더
   - {{LABEL}}, {{TITLE}} : 타이틀 블록
-  - {{ROW_N_NUM}} : 행 번호 (01 ~ 05)
-  - {{ROW_N_NAME}} : 항목명 (<strong> 가능)
-  - {{ROW_N_DESC}} : 설명 텍스트 (<strong> 가능)
-  - N = 1 ~ 5. 5개 이하면 해당 .area 행 삭제.
+  - blocks.area_item[]: { NUM, NAME, DESC } — 가변 행 (1~5개)
+    예) blocks: { area_item: [
+          { NUM:'01', NAME:'<strong>전략명</strong>', DESC:'설명...' },
+          { NUM:'02', NAME:'...', DESC:'...' },
+        ] }
 -->
 <link rel="stylesheet" href="../primitives/_shared.css">
 <style>
@@ -77,36 +78,14 @@
     </div>
 
     <div class="areas">
+      <!-- BLOCK:area_item BEGIN -->
       <div class="area">
-        <p class="area-num">{{ROW_1_NUM}}</p>
-        <p class="area-label">{{ROW_1_NAME}}</p>
-        <p class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></p>
-        <p class="desc">{{ROW_1_DESC}}</p>
-      </div>
-      <div class="area">
-        <span class="area-num">{{ROW_2_NUM}}</span>
-        <span class="area-label">{{ROW_2_NAME}}</span>
+        <span class="area-num">{{NUM}}</span>
+        <span class="area-label">{{NAME}}</span>
         <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
-        <p class="desc">{{ROW_2_DESC}}</p>
+        <p class="desc">{{DESC}}</p>
       </div>
-      <div class="area">
-        <span class="area-num">{{ROW_3_NUM}}</span>
-        <span class="area-label">{{ROW_3_NAME}}</span>
-        <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
-        <p class="desc">{{ROW_3_DESC}}</p>
-      </div>
-      <div class="area">
-        <span class="area-num">{{ROW_4_NUM}}</span>
-        <span class="area-label">{{ROW_4_NAME}}</span>
-        <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
-        <p class="desc">{{ROW_4_DESC}}</p>
-      </div>
-      <div class="area">
-        <span class="area-num">{{ROW_5_NUM}}</span>
-        <span class="area-label">{{ROW_5_NAME}}</span>
-        <span class="arr"><svg viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="4.5" x2="14" y2="4.5"/><polyline points="10,1 14,4.5 10,8"/></svg></span>
-        <p class="desc">{{ROW_5_DESC}}</p>
-      </div>
+      <!-- BLOCK:area_item END -->
     </div>
   </div>
   <div class="logo-area">

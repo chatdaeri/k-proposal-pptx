@@ -91,6 +91,12 @@ async function main() {
   pres.author = DECK_AUTHOR;
   pres.company = 'CHATdaeri';
 
+  // 브라우저를 한 번만 기동해 전 슬라이드에서 공유 — 슬라이드당 Chrome 기동 제거
+  const launchOptions = { env: { TMPDIR: process.env.TMPDIR || '/tmp' } };
+  if (process.platform === 'darwin') launchOptions.channel = 'chrome';
+  const sharedBrowser = await chromium.launch(launchOptions);
+
+  try {
   for (const file of SLIDES) {
     const filePath = path.isAbsolute(file) ? file : path.join(dir, file);
     if (!fs.existsSync(filePath)) {
@@ -142,29 +148,31 @@ async function main() {
     //     element 의 bbox 위치·크기로 PPTX 좌표 자동 계산 (96px/in).
     const imageRegions = [];
     if (slideHtml.includes('data-pptx-image')) {
-      const browser = await chromium.launch({ args: ['--no-sandbox'] });
-      const page = await browser.newPage({ viewport: { width: 960, height: 540 }, deviceScaleFactor: 2 });
-      await page.goto('file://' + path.resolve(filePath));
-      await page.waitForLoadState('networkidle');
-      const locators = await page.locator('[data-pptx-image]').all();
-      for (const loc of locators) {
-        const bbox = await loc.boundingBox();
-        if (!bbox) continue;
-        const buf = await loc.screenshot({ omitBackground: true });
-        imageRegions.push({
-          x: bbox.x / 96,
-          y: bbox.y / 96,
-          w: bbox.width / 96,
-          h: bbox.height / 96,
-          data: 'data:image/png;base64,' + buf.toString('base64'),
-        });
+      const page = await sharedBrowser.newPage({ viewport: { width: 960, height: 540 }, deviceScaleFactor: 2 });
+      try {
+        await page.goto('file://' + path.resolve(filePath));
+        await page.waitForLoadState('networkidle');
+        const locators = await page.locator('[data-pptx-image]').all();
+        for (const loc of locators) {
+          const bbox = await loc.boundingBox();
+          if (!bbox) continue;
+          const buf = await loc.screenshot({ omitBackground: true });
+          imageRegions.push({
+            x: bbox.x / 96,
+            y: bbox.y / 96,
+            w: bbox.width / 96,
+            h: bbox.height / 96,
+            data: 'data:image/png;base64,' + buf.toString('base64'),
+          });
+        }
+      } finally {
+        await page.close();
       }
-      await browser.close();
     }
 
     // html2pptx 가 새 슬라이드를 추가하기 전 인덱스 기록
     const beforeCount = pres.slides ? pres.slides.length : 0;
-    await html2pptx(filePath, pres);
+    await html2pptx(filePath, pres, { browser: sharedBrowser });
 
     // html2pptx 가 추가한 마지막 슬라이드에 라인 + 마커 그리기
     if ((lineMarkers.length || dotMarkers.length) && pres.slides && pres.slides.length > beforeCount) {
@@ -198,6 +206,10 @@ async function main() {
       }
       console.log(`  → ${imageRegions.length} pptx-image (SVG/HTML 캡처)`);
     }
+  }
+
+  } finally {
+    await sharedBrowser.close();
   }
 
   const outFile = path.isAbsolute(OUTPUT_FILE) ? OUTPUT_FILE : path.join(dir, OUTPUT_FILE);

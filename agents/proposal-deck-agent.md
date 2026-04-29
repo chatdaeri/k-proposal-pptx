@@ -50,21 +50,70 @@ brew install poppler
 
 ## 9-Step Workflow — 매번 이 순서
 
-### Step 1. 브리프 이해 + 절대 규칙 로드
+### Step 1. 브리프 이해 + 절대 규칙 로드 + **프로젝트 폴더 전체 스캔**
 
-먼저 두 가지를 동시에 읽는다.
+먼저 세 가지를 동시에 처리한다.
 
 1. 사용자가 던진 한 문단(또는 슬래시 커맨드 인자) 다시 읽기 — 청중 / 목적 / 데이터 / 언어 톤 식별.
 2. **`${PLUGIN_ROOT}/skills/proposal/SKILL.md`** Read — 절대 규칙 10개를 컨텍스트에 올린다. 이 규칙들은 처음부터 끝까지 어떤 슬라이드도 깰 수 없다. 사용자가 "규칙을 깨라"고 명시해도 한 번 더 확인을 요청한다.
+3. **현재 작업 디렉토리(CWD) 의 자료를 모두 스캔하고 관련 파일은 모두 읽는다 — 사용자가 자료 위치를 명시하지 않아도 항상 먼저 한다.** 사용자가 같은 폴더에 둔 자료는 브리프의 일부이며, 안 읽고 시작하면 placeholder 가 늘어난다.
+
+**프로젝트 폴더 스캔 절차 (항상 실행):**
+
+```bash
+# 1) 디렉토리 트리 한눈에 보기 (depth 3 까지)
+find . -maxdepth 3 \
+  -not -path '*/node_modules/*' \
+  -not -path '*/output/*' \
+  -not -path '*/.git/*' \
+  -not -path '*/__pycache__/*' \
+  -not -path '*/.venv/*' \
+  -not -name '.DS_Store' \
+  | head -200
+
+# 2) 콘텐츠로 읽을 후보 파일 목록 (텍스트·문서·시트·PDF·이미지)
+find . -maxdepth 4 -type f \
+  \( -iname '*.md' -o -iname '*.txt' -o -iname '*.markdown' \
+     -o -iname '*.docx' -o -iname '*.doc' -o -iname '*.hwp' -o -iname '*.hwpx' \
+     -o -iname '*.xlsx' -o -iname '*.xls' -o -iname '*.csv' -o -iname '*.tsv' \
+     -o -iname '*.pdf' \
+     -o -iname '*.json' -o -iname '*.yaml' -o -iname '*.yml' \
+     -o -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) \
+  -not -path '*/node_modules/*' -not -path '*/output/*' -not -path '*/.git/*' \
+  | sort
+```
+
+스캔 후 다음 우선순위로 **모두 Read** 한다 (각 파일 1회씩, 큰 파일은 핵심 부분만):
+
+1. `inputs/` 폴더 안 모든 파일 (있다면 최우선)
+2. CWD 루트의 `*.md`, `README*`, `brief*`, `요약*`, `개요*` 류 텍스트
+3. CWD 루트의 `*.docx`, `*.xlsx`, `*.csv`, `*.pdf` (브리프·자료)
+4. `data/`, `docs/`, `자료/`, `참고/`, `reference/` 같은 폴더 안의 자료
+5. CWD 루트의 이미지(로고·차트·스크린샷) — 슬라이드에 박을 수 있는지 확인
+
+읽기 도구 매칭:
+
+| 형식 | 도구 |
+|---|---|
+| md / txt / json / yaml / csv / tsv | Read |
+| pdf | Read (pages 인자 사용, 큰 PDF 는 1-20 먼저) |
+| png / jpg / webp | Read (멀티모달 — 로고·차트·레이아웃 참고용) |
+| xlsx / xls | `python3 -c "import openpyxl; ..."` 또는 `node -e "require('xlsx')..."` Bash 로 시트별 데이터 dump |
+| docx | `python3 -c "from docx import Document; ..."` Bash 로 본문 + 표 추출 |
+| hwp / hwpx | `python3 -c "import olefile/zipfile..."` 로 텍스트 추출 시도, 안 되면 사용자에게 docx/pdf 변환 요청 |
+
+스캔이 끝나면 **무엇을 읽었는지를 사용자에게 한 번 보고** 한다 (파일 N개, 그 중 자료 M개 식). 그래야 사용자가 "그 파일은 무시해도 돼" / "이 파일이 메인 브리프야" 식으로 가벼운 교정을 할 수 있다.
+
+큰 폴더 가드: 콘텐츠 후보 파일이 50개 넘으면 모두 읽기 전에 사용자에게 "어느 폴더가 핵심인지" 한 번 묻는다. 그 외에는 묻지 말고 그냥 다 읽고 시작한다.
 
 청중·목적·데이터·언어 식별 가이드:
 
 - **청중**: 의사결정권자(임원·이사회) / 실무 팀 / 고객사 / 내부 공유 — 매수와 텍스트 밀도가 달라진다.
 - **목적**: 수주 제안 / 분기 리뷰 / 킥오프 / 진행 보고 / 교육.
-- **데이터**: 사용자가 명시적으로 준 숫자·고유명사와, 우리가 합리적 placeholder 로 채워야 하는 빈칸을 분리해서 적어둔다 — 마지막 보고서에 그대로 들어간다.
+- **데이터**: 사용자가 명시적으로 준 숫자·고유명사와, 우리가 합리적 placeholder 로 채워야 하는 빈칸을 분리해서 적어둔다 — 마지막 보고서에 그대로 들어간다. **프로젝트 폴더에서 읽은 자료에 들어 있는 숫자·고유명사는 placeholder 가 아닌 실데이터로 취급한다.**
 - **언어 톤**: 정중체("~합니다") 기본. 제품 마케팅 카피만 단정한 해요체. 영문 CTA 금지.
 
-작업 디렉토리에 `inputs/` 폴더가 있고 엑셀·워드·PDF 가 있으면 이 단계에서 어느 시트·어느 페이지가 어느 슬라이드에 매핑될지까지 확정한다. 폰트는 무조건 `${PLUGIN_ROOT}/skills/proposal/fonts/PretendardVariable.ttf` 로 고정.
+읽은 자료에서 어느 시트·어느 페이지·어느 단락이 어느 슬라이드에 매핑될지까지 이 단계에서 확정한다. 폰트는 무조건 `${PLUGIN_ROOT}/skills/proposal/fonts/PretendardVariable.ttf` 로 고정.
 
 ### Step 2. catalog/_index.md 만 먼저 로드 (분할 카탈로그)
 
@@ -157,6 +206,13 @@ slot ⑨ 정당화          → 위 stage 파일들 재사용
 - 2~4개 블록일 때: 1개는 hero(`flex:1.4`, h3 19px 블루), 나머지는 sub(`flex:1`, h3 17px 그레이). 균일 카드 금지.
 - **위계 위배 금지 (중요):** `content-text-only` 의 좌측 LEFT_TITLE(거대 hero) 은 **나머지 블록을 관통하는 단일 강조 메시지** 일 때만 사용. 동급 사실/데이터 항목 4개 (예: 사업 개요의 대지·연면적·세대·주차, 스펙 시트, 면적표) 를 나열할 때 그 중 하나만 거대 hero 로 띄우면 위계가 어긋남 — 이런 경우 `content-grid` 4 카드 / `budget-table` 표 / KPI 격자 사용. **체크 질문: "좌측에 띄울 항목이 우측 3개를 요약·대표하는가?" → No 면 hero 템플릿 쓰지 말 것.**
 - 이미지 aspect-ratio: 한 슬라이드 내 모든 이미지는 같은 비율(`16-9`, `3-2`, `4-3`, `1-1`, `2-3` 중 하나).
+- **★ bar-table / budget-table 행 한도 (overflow 사전 차단):** Step 5 단계에서 행 수를 미리 세고 다음 규칙으로 슬라이드를 구성. 어기면 `body overflow ~Npt` 로 빌드 실패하여 Step 6~7 을 다시 돌게 되므로 **첫 시도부터 적용**.
+  - **≤4행**: LEDE 2줄 + SOURCE_NOTE 정상 — 안전
+  - **5행**: LEDE 1줄(≤40자) + SOURCE_NOTE = `''` 필수 — 안 그러면 4.5pt 초과
+  - **6~8행**: 위 압축 + 컬럼 ≤5개 권장
+  - **9행 이상**: **반드시 2개 슬라이드로 분할** (카테고리 기준: 검색/DA·UAC, MO/PC, 본사/지사 등). 9행 한 슬라이드는 175pt+ 초과로 무조건 빌드 실패. 절대 단일 슬라이드로 시도하지 말 것.
+  - 행 수가 분할로도 압축으로도 줄지 않으면 인라인 `style="padding:4px 10px"` 로 .tr 압축 (자유 HTML 전환 금지 — 절대 규칙).
+  - **금지 패턴**: 빌드 실패 후 LEDE 텍스트만 4.5pt 씩 줄이며 풀빌드 반복하기. 풀빌드는 Playwright 16장 캡처로 30~60초 소모 — 디버깅 시 Step 7-속도 의 render-only 절차 사용.
 
 **절대 규칙(SKILL.md 섹션 3) 을 깨는 결정은 어떤 경우에도 금지.** 특히 "강조를 위해 그라디언트 살짝", "둥근 모서리 8px 만", "오프-팔레트 블루 한 번만" 같은 시도 자체를 안 한다.
 
@@ -258,6 +314,29 @@ node ${PLUGIN_ROOT}/skills/proposal/scripts/build.cjs deck.cjs
 1. `<div>` 안에 raw text (자유 HTML 슬라이드의 경우) — `<p>` 로 감싸기
 2. body 영역 overflow — Step 5 의 오버플로 규칙 위반, 텍스트 줄이거나 다른 템플릿
 3. deck.cjs 의 `template:` 명이 카탈로그에 없음 — render.cjs 가 즉시 fail. stage 파일에 명시된 이름인지 확인.
+
+### Step 7-속도. 빌드 실패 디버깅 시 — render-only + 부분 재빌드 (★ 시간 절약)
+
+`build.cjs` 는 매 호출마다 **모든 슬라이드를 Playwright 로 재캡처** 한다 (16장 기준 ~30~60초). overflow 같은 에러로 deck.cjs 를 여러 번 고칠 때 매번 풀빌드 돌리면 시간이 폭증.
+
+**디버깅 루프 권장 절차:**
+
+```bash
+# 1) render만 돌려 HTML 만 빠르게 생성 (~1초)
+node ${PLUGIN_ROOT}/skills/proposal/scripts/render.cjs deck.cjs
+
+# 2) 문제 슬라이드만 브라우저로 직접 확인 — overflow 시각 즉시 확인
+open slides/slide-13.html  # macOS
+
+# 3) deck.cjs 수정 → 1)~2) 반복 (Playwright 안 거치므로 매우 빠름)
+
+# 4) 최종 OK 되면 풀 빌드 1회만
+node ${PLUGIN_ROOT}/skills/proposal/scripts/build.cjs deck.cjs
+```
+
+**원칙: convert (Playwright) 는 마지막 1회만, 디버깅은 render + 브라우저 미리보기로.**
+
+특히 bar-table / budget-table 의 overflow 디버깅은 브라우저로 보면 어디가 튀어나왔는지 즉시 보이므로, "4.5pt 씩 텍스트 줄여가며 4번 풀빌드" 같은 패턴을 회피한다. 첫 시도부터 Step 5 행 한도 룰을 지키는 것이 가장 빠르지만, 실패 시에도 이 절차로 손실 최소화.
 
 ### Step 8. 시각 검증 (필수)
 

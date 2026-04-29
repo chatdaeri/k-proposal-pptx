@@ -41,7 +41,7 @@ const ALLOWED_GRAYS = new Set([
   // 도넛 차트 4 세그먼트 보조 그레이
   '#3E4A5E', '#A0A8B3', '#D6D6D2',
   // 차트 라벨용 placeholder grey
-  '#999', '#999999', '#aaa', '#bbb',
+  '#999', '#999999', '#AAA', '#BBB',
 ]);
 
 const VIOLATIONS = [];

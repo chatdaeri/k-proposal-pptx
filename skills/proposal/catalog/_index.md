@@ -57,6 +57,19 @@ Step 3 (스토리 아크 결정) → 슬롯별 stage 파일 1개만 Read
         예) ⑥ 실행 슬라이드 → stage-execution.md
         예) ⑩ 마무리      → stage-cover.md (재사용)
 
+Step 3.5 ★ 항목 수 먼저 확인 ★
+        stage 파일의 결정변수 표를 보기 전에,
+        해당 슬라이드에 들어갈 실제 데이터 항목이 몇 개인지 먼저 센다.
+        항목 수가 템플릿 슬롯 수와 맞지 않으면 템플릿을 바꾼다.
+        슬롯을 채우기 위해 없는 항목을 만들거나,
+        실제 항목을 슬롯 부족으로 누락시키는 것은 절대 금지.
+          예) 데이터 항목 3개 → content-3-col-cards / numbered-circle-list
+          예) 데이터 항목 4개 → step-cards / content-grid
+          예) 데이터 항목 5개 → areas-list / numbered-circle-list
+
+        ★ bar-table / budget-table 행 한도 → agent.md Step 5 / SKILL.md 체크리스트 참조
+          (요약: ≤4행 안전 / 5행 압축 / 9행+ 반드시 분할 — 어기면 overflow 빌드 실패)
+
 Step 4 에서 Use/Don't use 절로 후보 압축, 헷갈리는 페어는 § X 참조.
 ```
 
