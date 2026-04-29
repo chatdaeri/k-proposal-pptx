@@ -17,7 +17,6 @@
   },
   "components": {
     "agents": ["agents/proposal-deck-agent.md"],
-    "skills": ["skills/proposal/SKILL.md"],
     "commands": ["commands/proposal.md"]
   }
 }
