@@ -1,8 +1,7 @@
 {
   "name": "k-proposal-pptx",
   "version": "1.0.0",
-  "description": "한국식 제안서 PPT 자동 생성 — 12~18장 한국식 스토리 아크",
-  "description_en": "Korean-style proposal PPTX generator with 23 layouts",
+  "description": "Korean-style proposal PPT auto-generator for Claude Code. Builds 12–18 slide decks with 23 templates (charts, tables, matrix, org-chart, gantt) and outputs a real .pptx file. Inspired by mckinsey-pptx by axlabs, rewritten and adapted for Korean business use cases.",
   "author": {
     "name": "Synergy Labs",
     "brand": "CHATdaeri",
@@ -16,7 +15,7 @@
     "system": ["soffice (LibreOffice)", "pdftoppm (poppler)"]
   },
   "components": {
-    "agents": ["agents/proposal-deck-agent.md"],
-    "commands": ["commands/proposal.md"]
+    "agents": ["agents/k-proposal-agent.md"],
+    "commands": ["commands/k-proposal.md"]
   }
 }

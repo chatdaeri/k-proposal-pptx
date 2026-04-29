@@ -16,25 +16,33 @@
 
 ## 설치
 
-```bash
-# 1. 플러그인 설치
-/plugin install https://github.com/chatdaeri/k-proposal-pptx
+> 공식 마켓플레이스 등록 심사 중입니다. 현재는 git clone으로 설치하세요.
 
-# 2. 시스템 도구 (미설치 시)
+```bash
+# 1. 플러그인 다운로드
+git clone https://github.com/chatdaeri/k-proposal-pptx \
+  ~/.claude/plugins/marketplaces/chatdaeri
+
+# 2. 의존성 설치 (Playwright Chromium 등 자동 세팅)
+cd ~/.claude/plugins/marketplaces/chatdaeri && npm install
+
+# 3. 시스템 도구 (미설치 시)
 brew install --cask libreoffice  # macOS
 brew install poppler             # macOS
 # 또는
 sudo apt install libreoffice poppler-utils  # Ubuntu
 
-# 3. 설치 검증
+# 4. 설치 검증
 node scripts/doctor.cjs
 ```
+
+Claude Code를 재시작하면 `/k-proposal` 커맨드가 자동으로 활성화됩니다.
 
 ## 빠른 시작
 
 슬래시 명령:
 ```
-/proposal "Q4 사업 리뷰 12장으로 만들어줘"
+/k-proposal "Q4 사업 리뷰 12장으로 만들어줘"
 ```
 
 자연어 트리거:
@@ -63,7 +71,7 @@ node skills/proposal/scripts/build.cjs examples/02-dx-proposal/deck.cjs --no-lin
 | 인물 | instructor-profile, faq-list | 팀 소개·Q&A |
 | 실행 | step-cards, numbered-steps-split | 단계·프로세스 |
 
-완전한 토큰 명세는 `skills/proposal/catalog/_index.md` → 해당 stage 파일 참조.
+완전한 토큰 명세는 `skills/proposal/CATALOG.md` 참조.
 
 ## 절대 규칙 (깨면 안 됨)
 
