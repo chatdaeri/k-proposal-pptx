@@ -12,7 +12,7 @@
       "name": "k-proposal-pptx",
       "description": "Korean-style proposal PPT auto-generator. Builds 12–18 slide decks with 23 templates (charts, tables, matrix, org-chart, gantt) and outputs a real .pptx file.",
       "version": "1.0.0",
-      "source": "git",
+      "source": "./",
       "url": "https://github.com/chatdaeri/k-proposal-pptx.git",
       "category": "productivity",
       "homepage": "https://github.com/chatdaeri/k-proposal-pptx",
