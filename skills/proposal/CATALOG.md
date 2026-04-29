@@ -1,6 +1,6 @@
 # CHATdaeri Templates — Catalog
 
-> 31 개 HTML 템플릿(`layouts/` + `components/`) 의 결정 트리 + 토큰 명세.
+> 39 개 HTML 템플릿(`layouts/` + `components/`) 의 결정 트리 + 토큰 명세.
 > **이 파일 1번 Read 로 슬롯 매핑 · MECE 페어 · 모든 템플릿 토큰까지 파악된다.** (catalog/ 분할 폴더는 제거되어 더 이상 존재하지 않음.)
 
 ## 사용 흐름
@@ -20,13 +20,13 @@
 |---|---|
 | ① 표지 | `cover` |
 | ② 목차 | `toc` |
-| ③ 분석 1~5 장 | **모든 콘텐츠 템플릿 후보 (26 개)** — `cover` / `toc` / `divider` / `emphasis-hero` / `faq-list` 제외. 1 순위(흔히 맞음): [D] `matrix-2x2` `bubble-chart` `concept-tree` · [J] `combo-bar-line` `two-up-charts` `bar-table` `donut-chart` · `as-is-to-be`. 2 순위(메시지 따라): [E] `content-grid` `content-text-only` `content-split` `content-2-col-cards` `content-3-col-cards` · [F] `content-hero-image` `content-2-image-row` `content-3-image-strip` `image-left-label-blocks` · [G] · [H] · [I] `tool-card-grid`. |
+| ③ 분석 1~5 장 | **모든 콘텐츠 템플릿 후보 (34 개)** — `cover` / `toc` / `divider` / `emphasis-hero` / `faq-list` 제외. 1 순위(흔히 맞음): [D] `matrix-2x2` `bubble-chart` `concept-tree` · [J] `combo-bar-line` `two-up-charts` `bar-table` `donut-chart` `bar-graph` `chart-donut` `two-up-charts-bar` `two-up-charts-line` · `as-is-to-be`. 2 순위(메시지 따라): [E] `content-grid` `content-text-only` `content-split` `content-2-col-cards` `content-3-col-cards` · [F] `content-hero-image` `content-2-image-row` `content-3-image-strip` `image-left-label-blocks` `news-clipping` · [G] · [H] · [I] `tool-card-grid` `areas-list`. |
 | ④ 핵심 메시지 | `emphasis-hero` |
-| ⑤ 핵심 인사이트 | `emphasis-hero` (재사용) · `content-grid` · `content-3-col-cards` |
-| ⑥ 실행방안 | **모든 콘텐츠 템플릿 후보 (26 개)** — 같은 제외 5 개. 1 순위: [G] `timeline` `gantt-chart` `step-cards` `numbered-steps-split` `numbered-circle-list` · `as-is-to-be`. 2 순위(보조 메시지·근거): [E] · [F] · [J] (실행 효과 차트) · `tool-card-grid` (활용 도구). |
+| ⑤ 핵심 인사이트 | `emphasis-hero` (재사용) · `content-grid` · `content-3-col-cards` · `icon-grid` |
+| ⑥ 실행방안 | **모든 콘텐츠 템플릿 후보 (34 개)** — 같은 제외 5 개. 1 순위: [G] `timeline` `gantt-chart` `step-cards` `numbered-steps-split` `numbered-circle-list` · `as-is-to-be`. 2 순위(보조 메시지·근거): [E] · [F] · [J] (실행 효과 차트) · `tool-card-grid` `areas-list` (활용 도구·순번 과제) · `product-screenshot` (제품 소개). |
 | ⑦ 인력 구성 | [H] `org-chart` `instructor-profile` · `numbered-circle-list` (5~10 명 명단) |
 | ⑧ 예산안 | `budget-table` (한국 제안서 표준) · `bar-table` · `content-grid` |
-| ⑨ 정당화 | **모든 콘텐츠 템플릿 후보 (26 개)** — 같은 제외 5 개. 1 순위: 과거 사례 → [F] `content-3-image-strip` `content-2-image-row` `content-hero-image` 또는 [E] `content-3-col-cards` `content-grid` / 자사 솔루션·도구 → [I] `tool-card-grid` / 팀·인물 → `instructor-profile` / 실적 데이터 → [J] 차트. 2 순위: 분석 재사용([D]) · Before/After (`as-is-to-be`) · 단계 흐름([G]). |
+| ⑨ 정당화 | **모든 콘텐츠 템플릿 후보 (34 개)** — 같은 제외 5 개. 1 순위: 과거 사례 → [F] `content-3-image-strip` `content-2-image-row` `content-hero-image` `news-clipping` 또는 [E] `content-3-col-cards` `content-grid` / 자사 솔루션·도구 → [I] `tool-card-grid` `icon-grid` / 팀·인물 → `instructor-profile` / 실적 데이터 → [J] 차트. 2 순위: 분석 재사용([D]) · Before/After (`as-is-to-be`) · 단계 흐름([G]) · 제품 스크린샷 → `product-screenshot`. |
 | ⑩ 마무리 | `divider` (Closing) · `emphasis-hero` (한 줄 결론) · `faq-list` (Q&A) |
 
 ### 카테고리 결정변수
@@ -38,11 +38,11 @@
 | [C] | EMPHASIS | — | `emphasis-hero` |
 | [D] | ANALYSIS | 관계 형태 | `matrix-2x2` (사분면) · `bubble-chart` (산점) · `concept-tree` (위계) |
 | [E] | CONTENT-LAYOUT | 블록 수 / 비교 형태 | `content-grid` (4 격자) · `content-text-only` (1 hero + 3 sub) · `content-split` (좌제목+우본문) · `content-2-col-cards` (2 카드) · `content-3-col-cards` (3 카드) · `as-is-to-be` (Before/After) |
-| [F] | IMAGE-LAYOUT | 이미지 수 / 면적 | `content-hero-image` (1 풀폭) · `content-2-image-row` (2) · `content-3-image-strip` (3) · `image-left-label-blocks` (이미지+라벨) |
+| [F] | IMAGE-LAYOUT | 이미지 수 / 면적 | `content-hero-image` (1 풀폭) · `content-2-image-row` (2) · `content-3-image-strip` (3) · `image-left-label-blocks` (이미지+라벨) · `news-clipping` (뉴스클립 1+2) · `product-screenshot` (스크린샷+개념4) |
 | [G] | EXECUTION-PLAN | 축 / 세부도 | `timeline` (마일스톤 점) · `gantt-chart` (워크스트림×주) · `step-cards` (가로 4) · `numbered-steps-split` (좌제목+우 3~5) · `numbered-circle-list` (세로 5~10) |
 | [H] | PEOPLE | 단위 | `org-chart` (조직 계층) · `instructor-profile` (1인) |
-| [I] | LIST | 종류 | `faq-list` (Q&A 3~5) · `tool-card-grid` (도구 6~8) |
-| [J] | DATA-VIS | 차트 형태 | `combo-bar-line` (시계열 12 점) · `two-up-charts` (좌:바±/우:라인) · `bar-table` (좌:바/우:표) · `donut-chart` (4 세그) · `budget-table` (표 + 합계) |
+| [I] | LIST | 종류 | `faq-list` (Q&A 3~5) · `tool-card-grid` (도구 6~8) · `areas-list` (순번 5행 리스트) · `icon-grid` (아이콘 4 카드) |
+| [J] | DATA-VIS | 차트 형태 | `combo-bar-line` (시계열 12 점) · `two-up-charts` (좌:바±/우:라인) · `bar-table` (좌:바/우:표) · `donut-chart` (4 세그) · `budget-table` (표 + 합계) · `bar-graph` (절대값 막대6) · `chart-donut` (도넛 3종) · `two-up-charts-bar` (±편차 막대9) · `two-up-charts-line` (단일 추세선) |
 
 ---
 
@@ -78,6 +78,18 @@
 | `bar-table` vs `budget-table` | 좌:차트+우:표? → bar-table / 표 단독+합계+운영안? → budget |
 | `donut-chart` vs `bar-table` | 비율(전체 100%)? → donut / 빈도·금액? → bar-table |
 | `budget-table` vs `content-grid` | 예산·KPI 표+합계? → budget / 4 항목 균등? → grid |
+| `areas-list` vs `numbered-circle-list` | 표형 행(번호+항목+설명 3열)? → areas-list / 세로 나열(원형 번호)? → circle |
+| `areas-list` vs `faq-list` | 순번+항목+설명 → areas-list / Q&A 쌍 → faq-list |
+| `icon-grid` vs `content-grid` | 아이콘 심볼 64px 강조? → icon-grid / 텍스트 균등 4? → content-grid |
+| `icon-grid` vs `tool-card-grid` | 추상 개념(텍스트 심볼)? → icon-grid / 구체 도구(로고)? → tool-card-grid |
+| `news-clipping` vs `content-2-image-row` | 뉴스(출처·헤드라인 포함)? → news-clipping / 일반 이미지 비교? → 2-image-row |
+| `product-screenshot` vs `image-left-label-blocks` | 우측 번호 개념 4개? → product-screenshot / 우측 라벨 블록 3~5? → image-left-label |
+| `product-screenshot` vs `content-hero-image` | 우측 개념 리스트 필요? → product-screenshot / 이미지만 강조? → hero-image |
+| `bar-graph` vs `bar-table` | 시각 크기 비교만? → bar-graph / 차트+우측 상세표? → bar-table |
+| `bar-graph` vs `two-up-charts-bar` | 절대값(양수만)? → bar-graph / ±증감률? → two-up-charts-bar |
+| `chart-donut` vs `donut-chart` | 3 KPI 비율 동시 비교? → chart-donut / 단일 도넛+범례 표? → donut-chart |
+| `two-up-charts-bar` vs `combo-bar-line` | 범주 간 ±편차? → two-up-charts-bar / 시계열 이중축? → combo-bar-line |
+| `two-up-charts-line` vs `combo-bar-line` | 단일 추세선+영역음영? → two-up-charts-line / 막대2+선1 이중축? → combo-bar-line |
 
 ---
 
@@ -306,18 +318,64 @@
 
 ---
 
+### `areas-list` — [I] · ③ ⑥ ⑨
+- File: `layouts/areas-list.html`
+- Use: 번호+항목명+설명 5행 테이블형 리스트 ("전략 영역 5가지", "추진 과제", "실행 우선순위")
+- Don't: Q&A 쌍 → `faq-list` / 세로 나열(원형 번호) → `numbered-circle-list` / 4 균등 격자 → `content-grid` / 도구 → `tool-card-grid`
+- Tokens: `{{LABEL}}` ≤ 20 자 · `{{TITLE}}` ≤ 50 자 · `{{ROW_1~5_NUM}}` "01"~"05" · `{{ROW_1~5_NAME}}` ≤ 18 자 (`<strong>` 가능) · `{{ROW_1~5_DESC}}` ≤ 60 자 (`<strong>` 가능)
+- Notes: 5행 고정. 3행 이하면 사용 안 하는 `.area` 행 삭제. 홀수행 `--light-bg`, 짝수행 white. brand-blue 화살표 SVG.
+
+### `news-clipping` — [F] · ③ ⑨
+- File: `layouts/news-clipping.html`
+- Use: 좌:헤로 뉴스 1개(이미지+헤드라인+요약) / 우:보조 뉴스 2개 — 외부 시그널·언론 인용 ("주요 매체가 주목한 시장 전환점")
+- Don't: 일반 이미지 비교 → `content-2-image-row` / 제품 스크린샷 → `product-screenshot` / 텍스트 중심 → `content-2-col-cards` / 뉴스 4+ → 분할
+- Tokens: `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` · `{{HERO_CLIP_DESC}}` `{{HERO_SOURCE}}` ≤ 30 자 ("▸ 매체명 · 날짜") `{{HERO_HEADLINE}}` ≤ 40 자 `{{HERO_BODY}}` ≤ 80 자 `{{HERO_META}}` ≤ 20 자 · `{{SUB_1~2_SOURCE}}` `{{SUB_1~2_HEADLINE}}` ≤ 30 자 `{{SUB_1~2_META}}` ≤ 15 자
+- Notes: 좌:우 = 1.5:1. 이미지 클립 placeholder `--light-bg` 배경. 1px `--light-border` 카드 보더. 출처 10px/700/brand-blue 모노 폰트.
+
+### `product-screenshot` — [F] · ⑥ ⑨
+- File: `layouts/product-screenshot.html`
+- Use: 좌:제품 스크린샷(플레이스홀더) / 우:번호 개념 4개 ("메인 화면 4가지 핵심")
+- Don't: 우측 라벨 블록 3~5 → `image-left-label-blocks` / 이미지만 강조 → `content-hero-image` / 개념 5+ → `numbered-steps-split` 또는 분할
+- Tokens: `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` · `{{IMG_DESC}}` (placeholder 설명) `{{IMG_CAPTION}}` ≤ 25 자 · `{{CONCEPT_1~4_TAG}}` ≤ 10 자 (예: "개념 01") `{{CONCEPT_1~4_TITLE}}` ≤ 18 자 `{{CONCEPT_1~4_BODY}}` ≤ 40 자
+- Notes: 좌:우 = 1.4:1. 개념 사이 1px `--light-border`. 태그 10.5px/800/brand-blue 모노 폰트.
+
+### `icon-grid` — [I] · ⑤ ⑨
+- File: `layouts/icon-grid.html`
+- Use: 4 개 개념을 심볼 박스 + 제목 + 설명으로 제시 ("서비스가 만드는 4가지 변화")
+- Don't: 텍스트 격자 → `content-grid` / 실제 로고·도구 → `tool-card-grid` / 아이콘 5+ → 분할
+- Tokens: `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` · `{{ICON_1~4}}` (단일 텍스트 심볼 ≤ 2 자) `{{ITEM_1~4_TITLE}}` ≤ 18 자 `{{ITEM_1~4_DESC}}` ≤ 40 자
+- Notes: 4 카드 균등 1:1:1:1. 심볼 박스 64×64px 2px brand-blue 보더. **이모지 절대 금지** — `★` `T` `$` `R` 등 텍스트 심볼만 허용. 카드 배경 `--light-bg`.
+
+### `bar-graph` — [J] · ③ 분석 (절대값 비교)
+- File: `components/bar-graph.html`
+- Use: 카테고리 6개 절대값 세로 막대 + 우측 핵심 인사이트 (시각적 크기 비교가 메시지일 때)
+- Don't: 차트+상세 수치 표 → `bar-table` / ±증감률 → `two-up-charts-bar` / 시계열+이중축 → `combo-bar-line` / 카테고리 7+ → 분할
+- Tokens: `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` · `{{INSIGHT}}` ≤ 100 자 (`<strong>` 가능)
+- Notes: SVG viewBox 420×254 → `data-pptx-image="true"` PNG 캡처. 강조 막대 brand-orange, 일반 mid-gray. 6 미만이면 해당 `<rect>` 삭제. **데이터 변경 시 `rect y/height` · X 라벨 `<text>` 직접 편집.**
+
+### `chart-donut` — [J] · ③ 분석 (다중 KPI 비율)
+- File: `components/chart-donut.html`
+- Use: 소형 도넛 3종 (단일비율·딥강조·다중세그먼트) 나열 + 우측 인사이트 — 3 KPI 비율 동시 비교
+- Don't: 단일 도넛 + 상세 범례표 → `donut-chart` / 시계열 → `combo-bar-line` / 막대 비교 → `bar-graph`/`bar-table`
+- Tokens: `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` · `{{D1_VALUE}}` `{{D1_LABEL}}` `{{D1_CAPTION}}` · `{{D2_VALUE}}` `{{D2_LABEL}}` `{{D2_CAPTION}}` · `{{D3_VALUE}}` `{{D3_LABEL}}` `{{D3_CAPTION}}` · `{{INSIGHT}}` ≤ 100 자
+- Notes: r=50 원주 ≈ 314.16 = 2π × 50. 단일비율 arc=brand-orange, 딥강조 arc=brand-deep, 다중세그 4색(brand-orange/brand-deep/mid-gray/light-border). **dasharray/dashoffset 직접 계산 편집.**
+
+### `two-up-charts-bar` — [J] · ③ 분석 (±편차)
+- File: `components/two-up-charts-bar.html`
+- Use: 카테고리 9개 ± 증감률·편차 막대 + 우측 인사이트 (0 기준선 위아래 분리)
+- Don't: 절대값 비교 → `bar-graph` / 시계열 이중축 → `combo-bar-line` / 차트+표 → `bar-table` / 카테고리 10+ → 분할
+- Tokens: `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` · `{{INSIGHT}}` ≤ 100 자
+- Notes: SVG viewBox 400×210 → PNG 캡처. 0 기준선 y=110. 양수=brand-orange, 음수=mid-gray. **데이터 변경 시 `rect y/height` (양수: `y=110-height`, 음수: `y=110`) 직접 편집.**
+
+### `two-up-charts-line` — [J] · ③ 분석 (단일 추세)
+- File: `components/two-up-charts-line.html`
+- Use: 단일 지표 시계열 라인 14점 + 영역 음영 + 평균 점선 + 우측 인사이트
+- Don't: 막대2+선1 이중축 → `combo-bar-line` / 좌·우 다른 차트 → `two-up-charts` / ±편차 → `two-up-charts-bar` / 비율 → `donut-chart`
+- Tokens: `{{LABEL}}` `{{TITLE}}` `{{LEDE}}` · `{{INSIGHT}}` ≤ 100 자
+- Notes: SVG viewBox 400×210 → PNG 캡처. 14점 x = 50 + i×25. 영역 `brand-tint-solid` 음영. 마지막 점 r=4.5 흰 배경+brand-orange 보더. **데이터 변경 시 `polyline points` · `circle cx/cy` · `path d` 직접 편집.**
+
+---
+
 ## § 4. 카탈로그에 없는 템플릿 / 토큰
 
 새로 발명하지 말 것. 후보가 없으면 가장 가까운 1 개 선택 + 변형 사유를 사용자에게 알리거나, 자유 HTML 슬라이드(`{ html: '...' }`) 로 작성한다 (자유 HTML 도 `_shared.css` + `tokens/colors_and_type.css` 토큰만 사용).
-
-### TODO — 미등록 템플릿 (실제 파일은 존재)
-
-다음 파일은 `layouts/`/`components/` 에 존재하지만 본 카탈로그에 정식 등록 안 됨. 추후 동일 형식으로 추가:
-
-- `layouts/areas-list.html` — 5 행 리스트 (번호 / 항목 / 설명)
-- `layouts/news-clipping.html` — 뉴스 헤로 + 보조 클립 2
-- `layouts/product-screenshot.html` — 좌:큰 스크린샷 / 우:번호 컨셉 리스트
-- `layouts/icon-grid.html` — 아이콘 4~6 그리드
-- `components/bar-graph.html` — 단일 막대 차트
-- `components/chart-donut.html` — 다중 도넛 (3 차트)
-- `components/two-up-charts-bar.html` / `two-up-charts-line.html` — `two-up-charts` 의 분리 버전

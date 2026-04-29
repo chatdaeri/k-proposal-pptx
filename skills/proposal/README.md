@@ -278,6 +278,4 @@ gantt-chart · matrix-2x2 · timeline · org-chart · bubble-chart · concept-tr
 | 목적 | 쓸 것 |
 |---|---|
 | 세일즈 / 마케팅 제안서 (16:9 슬라이드) | `layouts/` HTML 템플릿 + `primitives/_shared.css`, 또는 `pages/index.html` 스타일 |
-| 제품 마케팅 페이지 · 랜딩 (`scroll-snap` 풀스크린) | `ui_kits/web-proposal/` 참고, `WEB-GUIDELINE.md` 시스템 |
 | 차트 슬라이드 (KPI, 시계열, 비율) | `pages/charts.html` 7가지 패턴 |
-| 데이터 자동화 (엑셀 → PPT) | `proposal/pptx-skill` (별도 프로젝트) |

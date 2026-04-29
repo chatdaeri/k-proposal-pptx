@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CHATdaeri Template Gallery — 39종</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #F2F2F2;
+  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+  padding: 48px 60px;
+  color: #000;
+}
+h1 { font-size: 32px; font-weight: 800; margin-bottom: 6px; }
+.meta { font-size: 14px; color: #676765; margin-bottom: 48px; }
+.meta span { color: #FF7E5F; font-weight: 700; }
+
+.cat-block { margin-bottom: 52px; }
+.cat-heading {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
+  color: #FF7E5F; text-transform: uppercase;
+  border-bottom: 2px solid #FF7E5F;
+  padding-bottom: 8px; margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.grid.single { grid-template-columns: 1fr; }
+
+.card {
+  background: #fff;
+  border: 1px solid #E0E0E0;
+  overflow: hidden;
+}
+.card-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 14px;
+  border-bottom: 1px solid #E0E0E0;
+  background: #FAFAFA;
+}
+.card-name { font-size: 12px; font-weight: 700; color: #000; font-family: ui-monospace, monospace; }
+.card-cat  { font-size: 10px; font-weight: 600; color: #FF7E5F; letter-spacing: 0.06em; }
+
+/* iframe wrapper: 960×540 scaled to 44% = 422×238 */
+.fw {
+  width: 100%;
+  height: 238px;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+}
+.fw iframe {
+  width: 960px;
+  height: 540px;
+  border: none;
+  transform: scale(0.44);
+  transform-origin: top left;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<h1>CHATdaeri Template Gallery</h1>
+<p class="meta"><span>39종</span> HTML 템플릿 — layouts/ 24종 · components/ 15종 &nbsp;·&nbsp; 960×540 → 44% 미리보기</p>
+
+<!-- ═══════════════════════════════════════ [A] STRUCTURAL -->
+<div class="cat-block">
+  <div class="cat-heading">[A] STRUCTURAL — 표지 · 챕터 구분</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">cover</span><span class="card-cat">[A] · ① 표지</span></div>
+      <div class="fw"><iframe src="../layouts/cover.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">divider</span><span class="card-cat">[A] · ⑩ 챕터·마무리</span></div>
+      <div class="fw"><iframe src="../layouts/divider.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [B] NAVIGATION -->
+<div class="cat-block">
+  <div class="cat-heading">[B] NAVIGATION — 목차</div>
+  <div class="grid single">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">toc</span><span class="card-cat">[B] · ② 목차</span></div>
+      <div class="fw"><iframe src="../layouts/toc.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [C] EMPHASIS -->
+<div class="cat-block">
+  <div class="cat-heading">[C] EMPHASIS — 핵심 메시지</div>
+  <div class="grid single">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">emphasis-hero</span><span class="card-cat">[C] · ④ 핵심 메시지 / ⑤ 인사이트</span></div>
+      <div class="fw"><iframe src="../layouts/emphasis-hero.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [D] ANALYSIS -->
+<div class="cat-block">
+  <div class="cat-heading">[D] ANALYSIS — 분석 프레임워크</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">matrix-2x2</span><span class="card-cat">[D] · ③ 분석 (사분면)</span></div>
+      <div class="fw"><iframe src="../components/matrix-2x2.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">bubble-chart</span><span class="card-cat">[D] · ③ 분석 (산점도)</span></div>
+      <div class="fw"><iframe src="../components/bubble-chart.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">concept-tree</span><span class="card-cat">[D] · ③ 분석 (위계 트리)</span></div>
+      <div class="fw"><iframe src="../components/concept-tree.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [E] CONTENT-LAYOUT -->
+<div class="cat-block">
+  <div class="cat-heading">[E] CONTENT-LAYOUT — 본문 레이아웃</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-grid</span><span class="card-cat">[E] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-grid.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-text-only</span><span class="card-cat">[E] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-text-only.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-split</span><span class="card-cat">[E] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-split.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-2-col-cards</span><span class="card-cat">[E] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-2-col-cards.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-3-col-cards</span><span class="card-cat">[E] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-3-col-cards.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">as-is-to-be</span><span class="card-cat">[E+] · ③ ⑥</span></div>
+      <div class="fw"><iframe src="../layouts/as-is-to-be.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [F] IMAGE-LAYOUT -->
+<div class="cat-block">
+  <div class="cat-heading">[F] IMAGE-LAYOUT — 이미지 레이아웃</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-hero-image</span><span class="card-cat">[F] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-hero-image.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-2-image-row</span><span class="card-cat">[F] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-2-image-row.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">content-3-image-strip</span><span class="card-cat">[F] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/content-3-image-strip.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">image-left-label-blocks</span><span class="card-cat">[F] · ③ ⑥ ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/image-left-label-blocks.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">news-clipping</span><span class="card-cat">[F] · ③ ⑨ 🆕</span></div>
+      <div class="fw"><iframe src="../layouts/news-clipping.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">product-screenshot</span><span class="card-cat">[F] · ⑥ ⑨ 🆕</span></div>
+      <div class="fw"><iframe src="../layouts/product-screenshot.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [G] EXECUTION-PLAN -->
+<div class="cat-block">
+  <div class="cat-heading">[G] EXECUTION-PLAN — 실행 계획</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">timeline</span><span class="card-cat">[G] · ⑥ 실행</span></div>
+      <div class="fw"><iframe src="../components/timeline.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">gantt-chart</span><span class="card-cat">[G] · ⑥ 실행</span></div>
+      <div class="fw"><iframe src="../components/gantt-chart.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">step-cards</span><span class="card-cat">[G] · ⑥ 실행</span></div>
+      <div class="fw"><iframe src="../layouts/step-cards.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">numbered-steps-split</span><span class="card-cat">[G] · ⑥ 실행</span></div>
+      <div class="fw"><iframe src="../layouts/numbered-steps-split.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">numbered-circle-list</span><span class="card-cat">[G] · ⑥ 실행 / ⑦ 인력</span></div>
+      <div class="fw"><iframe src="../components/numbered-circle-list.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [H] PEOPLE -->
+<div class="cat-block">
+  <div class="cat-heading">[H] PEOPLE — 인력·조직</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">org-chart</span><span class="card-cat">[H] · ⑦ 인력</span></div>
+      <div class="fw"><iframe src="../components/org-chart.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">instructor-profile</span><span class="card-cat">[H] · ⑨ 정당화</span></div>
+      <div class="fw"><iframe src="../layouts/instructor-profile.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [I] LIST -->
+<div class="cat-block">
+  <div class="cat-heading">[I] LIST — 목록·카탈로그</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">faq-list</span><span class="card-cat">[I] · ⑨ ⑩</span></div>
+      <div class="fw"><iframe src="../layouts/faq-list.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">tool-card-grid</span><span class="card-cat">[I] · ⑨</span></div>
+      <div class="fw"><iframe src="../layouts/tool-card-grid.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">areas-list</span><span class="card-cat">[I] · ③ ⑥ ⑨ 🆕</span></div>
+      <div class="fw"><iframe src="../layouts/areas-list.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">icon-grid</span><span class="card-cat">[I] · ⑤ ⑨ 🆕</span></div>
+      <div class="fw"><iframe src="../layouts/icon-grid.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ [J] DATA-VIS -->
+<div class="cat-block">
+  <div class="cat-heading">[J] DATA-VIS — 데이터 시각화</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-bar"><span class="card-name">combo-bar-line</span><span class="card-cat">[J] · ③ 시계열</span></div>
+      <div class="fw"><iframe src="../components/combo-bar-line.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">two-up-charts</span><span class="card-cat">[J] · ③ 좌·우 비교</span></div>
+      <div class="fw"><iframe src="../components/two-up-charts.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">bar-table</span><span class="card-cat">[J] · ③ ⑧</span></div>
+      <div class="fw"><iframe src="../components/bar-table.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">donut-chart</span><span class="card-cat">[J] · ③ 비율</span></div>
+      <div class="fw"><iframe src="../components/donut-chart.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">budget-table</span><span class="card-cat">[J] · ⑧ 예산안</span></div>
+      <div class="fw"><iframe src="../layouts/budget-table.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">bar-graph</span><span class="card-cat">[J] · ③ 절대값 비교 🆕</span></div>
+      <div class="fw"><iframe src="../components/bar-graph.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">chart-donut</span><span class="card-cat">[J] · ③ 다중 KPI 비율 🆕</span></div>
+      <div class="fw"><iframe src="../components/chart-donut.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">two-up-charts-bar</span><span class="card-cat">[J] · ③ ±편차 🆕</span></div>
+      <div class="fw"><iframe src="../components/two-up-charts-bar.html" loading="lazy"></iframe></div>
+    </div>
+    <div class="card">
+      <div class="card-bar"><span class="card-name">two-up-charts-line</span><span class="card-cat">[J] · ③ 단일 추세 🆕</span></div>
+      <div class="fw"><iframe src="../components/two-up-charts-line.html" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

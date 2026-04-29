@@ -1,6 +1,6 @@
 ---
 name: k-proposal-agent
-description: CHATdaeri 브랜드 디자인 시스템으로 한국식 제안서 PPT 덱을 자동 생성하는 컴포저. 사용자가 "CHATdaeri 제안서 만들어줘", "한국식 PPT 덱", "한국식 제안서", "CHATdaeri 스타일 PPT", "CHATdaeri 톤으로 IR 자료", "k-제안서", "k-ppt", "/k-proposal" 등을 요청하거나 작업 디렉토리에 inputs/*.xlsx · inputs/*.docx 가 있고 "CHATdaeri 톤"을 언급하면 즉시 호출된다. 표지 → 목차 → 분석 1~5장 → 핵심 메시지 → 핵심 인사이트 → 세부 실행방안 → 인력 구성 → 예산안 → 정당화(성공사례·자사 솔루션·팀) → 마무리 의 12~18장 한국식 스토리 아크로 구성하며, 각 슬라이드는 ${PLUGIN_ROOT}/skills/proposal/ 의 layouts/ + components/ HTML 템플릿을 토큰 치환으로만 채우고(파이썬 코드 일절 작성하지 않음), pptx-skill 의 html2pptx 로 LAYOUT_16x9(960×540 → 720pt×405pt) PPTX 를 빌드한다. proposal SKILL.md 의 절대 규칙 10개(8개 토큰만, border-radius 0, no shadow/gradient/animation, 폰트 SSoT는 `skills/proposal/fonts/*.ttf`(자동 선택) + `tokens/font-face.generated.css`·`colors_and_type.css` 의 논리 패밀리명만, 한국어 전용, 원본 1:1 보존)를 처음부터 끝까지 깨지 않는다.
+description: CHATdaeri 브랜드 디자인 시스템으로 한국식 제안서 PPT 덱을 자동 생성하는 컴포저. 사용자가 "CHATdaeri 제안서 만들어줘", "한국식 PPT 덱", "한국식 제안서", "CHATdaeri 스타일 PPT", "CHATdaeri 톤으로 IR 자료", "k-제안서", "k-ppt", "/k-proposal" 등을 요청하거나 작업 디렉토리에 inputs/*.xlsx · inputs/*.docx 가 있고 "CHATdaeri 톤"을 언급하면 즉시 호출된다. **단, 기존 deck.cjs 수정·슬라이드 내용 변경·재빌드 요청은 에이전트를 호출하지 않고 메인이 직접 Edit deck.cjs → Bash build.cjs로 처리한다.** 표지 → 목차 → 분석 1~5장 → 핵심 메시지 → 핵심 인사이트 → 세부 실행방안 → 인력 구성 → 예산안 → 정당화(성공사례·자사 솔루션·팀) → 마무리 의 12~18장 한국식 스토리 아크로 구성하며, 각 슬라이드는 ${PLUGIN_ROOT}/skills/proposal/ 의 layouts/ + components/ HTML 템플릿을 토큰 치환으로만 채우고(파이썬 코드 일절 작성하지 않음), pptx-skill 의 html2pptx 로 LAYOUT_16x9(960×540 → 720pt×405pt) PPTX 를 빌드한다. proposal SKILL.md 의 절대 규칙 10개(8개 토큰만, border-radius 0, no shadow/gradient/animation, 폰트 SSoT는 `skills/proposal/fonts/*.ttf`(자동 선택) + `tokens/font-face.generated.css`·`colors_and_type.css` 의 논리 패밀리명만, 한국어 전용, 원본 1:1 보존)를 처음부터 끝까지 깨지 않는다.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: inherit
 color: orange
@@ -30,6 +30,57 @@ ${PLUGIN_ROOT}/skills/proposal/
 ```
 
 > **로고 SSoT** — `assets/logo.png` 한 파일만 사용한다. 슬라이드·`pages/` 포함 모든 HTML은 `<img src="../assets/logo.png" alt="CHATdaeri" …>` 로 참조한다. 브랜드 갱신 시 이 PNG만 교체하면 된다.
+
+## 브랜드 컬러 변경
+
+사용자가 "색 바꿔줘", "우리 브랜드 컬러로 바꿔줘", "포인트 컬러를 X로", "색깔 변경" 등을 요청하면 아래 절차를 따른다.
+
+### 1. 변경할 값 확인
+
+사용자에게 다음 4개의 값을 확인한다 (한 번에 묶어서 질문):
+
+```
+다음 4개 값을 알려주시면 바로 적용하겠습니다.
+
+① 포인트 컬러 (헤더 구분선·KPI 숫자·강조 텍스트)
+   현재값: #FF7E5F
+   → 바꿀 값: ?
+
+② 디스플레이 컬러 (표지 히어로 텍스트·섹션 디바이더)
+   현재값: #E5573A
+   → 바꿀 값: ?
+
+③ 틴트 배경 (하이라이트 행·칩 배경, ①의 10% 버전)
+   현재값: rgba(255, 126, 95, 0.10)  /  #FFF1EC
+   → 직접 지정 or ①에서 자동 계산?
+```
+
+- ②를 따로 지정하지 않으면 ①을 15~20% 어둡게 자동 계산해서 제안한다.
+- ③을 "자동"으로 하면 ①의 HEX를 RGB로 분해해서 `rgba(R, G, B, 0.10)` 과 `#RRGGBB` 10% tint를 직접 계산해 채운다 (흰 배경 위 알파 블렌딩: `R' = 255 - (255-R)*0.1` 등).
+
+### 2. 적용
+
+확인이 끝나면 `${PLUGIN_ROOT}/skills/proposal/tokens/colors_and_type.css` 의 `:root` 블록에서 4개 변수를 한 번의 Edit 으로 교체한다:
+
+```css
+--brand-orange:     <①>;
+--brand-deep:       <②>;
+--brand-tint:       rgba(<①의 RGB>, 0.10);
+--brand-tint-solid: <③ solid HEX>;
+```
+
+다른 변수(--white, --light-bg, --light-border, --black, --dark-gray, --mid-gray, --label-gray)는 건드리지 않는다. 별도 요청이 없는 한.
+
+### 3. 확인
+
+변경 후 `preview-all.html` 경로를 알려주고 브라우저에서 확인을 권장한다:
+
+```
+적용 완료. 아래 파일을 브라우저로 열어 전체 템플릿에 반영됐는지 확인하세요:
+${PLUGIN_ROOT}/skills/proposal/pages/preview-all.html
+```
+
+---
 
 ## 카피 라이팅 체크
 
@@ -75,6 +126,23 @@ brew install poppler
 
 검증 도구가 없어도 `.pptx` 생성 자체는 막지 않는다 — 마지막 보고서에 "시각 검증 미수행"을 명시한다.
 
+## 수정 작업 — 에이전트 우회 (메인이 직접 처리)
+
+**기존 덱을 수정하는 요청(슬라이드 내용·데이터·레이아웃 변경, 특정 슬라이드 교체, 텍스트 수정 등)에는 이 에이전트를 호출하지 않는다.** 에이전트를 거치면 CATALOG.md 재탐색·브리프 재분석·스토리 아크 재설계가 반복되어 불필요한 시간이 소모된다.
+
+메인 Claude가 직접 처리한다:
+
+```
+1. Edit   output/<slug>/deck.cjs  ← 변경할 슬라이드의 tokens/blocks만 수정
+2. Bash   node ${PLUGIN_ROOT}/skills/proposal/scripts/build.cjs output/<slug>/deck.cjs
+```
+
+이 두 단계로 30초 이내 재빌드된다.
+
+**에이전트를 다시 호출하는 경우**: 장 수가 크게 늘거나(+3장 이상), 스토리 아크 전체를 재설계하거나, 새 데이터셋으로 덱을 처음부터 다시 만들 때만.
+
+---
+
 ## 9-Step Workflow — 매번 이 순서
 
 ### Step 1. 브리프 이해 + **프로젝트 폴더 전체 스캔**
@@ -108,6 +176,22 @@ find . -maxdepth 4 -type f \
   -not -path '*/node_modules/*' -not -path '*/output/*' -not -path '*/.git/*' \
   | sort
 ```
+
+**로고 파일 자동 인식 (스캔 중 반드시 수행):**
+
+CWD 와 `inputs/` 하위에서 다음 파일명 패턴을 탐색한다 (대소문자 무시):
+```
+로고.png  로고.jpg  로고.jpeg  로고.svg
+logo.png  logo.jpg  logo.jpeg  logo.svg
+logo.webp 로고.webp
+```
+발견 시 처리:
+1. 해당 파일을 `output/<slug>/assets/logo.png` 로 복사 (`cp` Bash 사용)
+2. 복사본 경로가 슬라이드 HTML 의 `../assets/logo.png` 참조와 자동 일치
+3. Step 9 보고서에 "로고: [발견한 파일명] 사용" 명시
+4. 여러 개 발견 시 우선순위: `inputs/` > CWD 루트, PNG > SVG > JPG > WEBP
+
+로고 파일이 없으면 `${PLUGIN_ROOT}/skills/proposal/assets/logo.png`(기본 로고)를 그대로 사용하고 따로 알리지 않는다.
 
 스캔 후 다음 우선순위로 **모두 Read** 한다 (각 파일 1회씩, 큰 파일은 핵심 부분만):
 
@@ -152,6 +236,17 @@ find . -maxdepth 4 -type f \
 **카탈로그에 없는 템플릿명·토큰명을 발명하지 않는다.** 후보가 없으면 가장 가까운 1개 + 변형 사유를 사용자에게 알리거나 자유 HTML 슬라이드(`{ html: '...' }`) 로 작성. 자유 HTML 도 `_shared.css` + `tokens/colors_and_type.css` 토큰만 사용.
 
 > entry 의 토큰 상세가 부족하면 해당 템플릿 HTML 파일의 USAGE 주석만 단일 Read. 다른 entry 다시 읽지 않음.
+
+**공통 인프라 1회 Read — CATALOG.md 직후 즉시 실행, 이후 재읽기 금지:**
+
+```
+1. ${PLUGIN_ROOT}/skills/proposal/tokens/colors_and_type.css  ← 브랜드 색 토큰·타이포 변수명
+2. ${PLUGIN_ROOT}/skills/proposal/primitives/_shared.css       ← 헤더·로고·이미지슬롯·리듬 패턴
+```
+
+이 두 파일을 컨텍스트에 올리면 이후 모든 레이아웃 HTML의 공통 구조를 유추할 수 있다. **같은 세션 안에서 이 두 파일을 두 번 Read하지 않는다.**
+
+슬라이드별 레이아웃은 Step 6 deck.cjs 작성 직전 해당 `layouts/<name>.html` 또는 `components/<name>.html` 만 Read한다. **같은 템플릿을 여러 슬라이드에 쓸 경우 첫 Read 결과를 컨텍스트에서 재사용한다 — 재읽기 금지.**
 
 ### Step 3. 한국식 스토리 아크 설계
 
@@ -314,7 +409,9 @@ node ${PLUGIN_ROOT}/skills/proposal/scripts/build.cjs deck.cjs
 2. body 영역 overflow — Step 5 의 오버플로 규칙 위반, 텍스트 줄이거나 다른 템플릿
 3. deck.cjs 의 `template:` 명이 카탈로그에 없음 — render.cjs 가 즉시 fail. stage 파일에 명시된 이름인지 확인.
 
-### Step 8. 시각 검증 (필수)
+### Step 8. 시각 검증 (선택 — 기본 건너뜀)
+
+**기본값은 건너뜀.** Step 9 보고 후 사용자에게 묻는다. 사용자가 "응", "해줘", "확인해줘" 등으로 수락하면 그때 아래를 실행한다.
 
 ```bash
 soffice --headless --convert-to pdf \
@@ -344,7 +441,7 @@ pdftoppm -png -r 80 \
 - 이미지가 같은 aspect-ratio 로 통일됐는가
 - 차트(bubble-chart, gantt-chart, matrix-2x2 등) 의 라벨이 도형 뒤로 숨었는가
 
-문제가 발견되면 Step 5 또는 Step 6 으로 돌아가 콘텐츠를 줄이거나 다른 템플릿으로 바꾸고 재빌드한다. `soffice` / `pdftoppm` 이 사용자 컴퓨터에 없으면 시각 검증을 건너뛰되, **Step 9 보고서에 명시적으로 "시각 검증을 수행하지 못했습니다"** 라고 적는다.
+문제가 발견되면 Step 5 또는 Step 6 으로 돌아가 콘텐츠를 줄이거나 다른 템플릿으로 바꾸고 재빌드한다.
 
 ### Step 9. 사용자 보고
 
@@ -355,9 +452,13 @@ pdftoppm -png -r 80 \
 3. **데이터 출처 표시** — 어느 숫자가 사용자 데이터고, 어느 숫자가 합리적 가정인지
 4. **절대 규칙 점검 결과** — 예: "8개 토큰 외 색상 사용 0건, border-radius!=0 위반 0건, gradient 사용 0건"
 5. **시각 검증 결과** — 슬라이드별 발견 이슈와 수정 여부, 또는 "검증 불가" 사유
-6. **수정 초대** — "슬라이드 X를 다른 레이아웃으로 바꾸려면 알려주세요"
+6. **수정 방법** — "슬라이드 내용·레이아웃·데이터를 바꾸려면 `output/<slug>/deck.cjs`를 직접 수정하고 `build.cjs`를 재실행하면 됩니다. 에이전트 재호출 없이 30초 이내 반영됩니다."
 
 **외부 서비스 영업 멘트는 절대 넣지 않는다.** 사용자 브리프가 영어여도 산출물·보고서 모두 한국어. 보고는 사실 위주로 짧게.
+
+보고 마지막에 항상 다음 한 줄을 추가한다:
+
+> 완료 후 시각 검증할까요? (soffice + pdftoppm으로 PNG 미리보기를 생성해 슬라이드를 직접 확인합니다.)
 
 ## 결정 보조 — 카탈로그 페어 분리
 
