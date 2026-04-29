@@ -316,6 +316,9 @@ node skills/proposal/scripts/build.cjs examples/02-dx-proposal/deck.cjs --no-lin
 **레이아웃이 마음에 안 들면요?**
 "이 슬라이드 레이아웃 바꿔줘"라고 하면 됩니다. 39개 중 다른 걸 골라 다시 그려줘요.
 
+**로고 교체 가능한가요?**
+됩니다. `inputs/` 폴더에 `로고.png`(또는 `logo.png`, `logo.svg`)를 넣으면 모든 슬라이드의 로고가 자동으로 교체됩니다.
+
 **완성 파일 편집 가능한가요?**
 일반 `.pptx` 파일이에요. 파워포인트·Keynote로 바로 열어서 편집하면 됩니다.
 
