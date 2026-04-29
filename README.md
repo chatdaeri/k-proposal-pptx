@@ -38,6 +38,23 @@ node scripts/doctor.cjs
 
 Claude Code를 재시작하면 `/k-proposal` 커맨드가 자동으로 활성화됩니다.
 
+## 에이전트
+
+이 플러그인은 `k-proposal-agent` 하나로 동작합니다.
+
+| 항목 | 내용 |
+|---|---|
+| 파일 | `agents/k-proposal-agent.md` |
+| 트리거 | `/k-proposal` 슬래시 커맨드, 또는 "한국식 제안서", "맥킨지 스타일 PPT" 등 자연어 |
+| 입력 | 한 문단 브리프 또는 `inputs/` 폴더의 xlsx · docx · pdf |
+| 출력 | `output/<slug>/<slug>.pptx` |
+
+에이전트를 직접 호출하려면 Claude Code에서:
+
+```
+Use the k-proposal-agent to build a proposal for ...
+```
+
 ## 빠른 시작
 
 슬래시 명령:
