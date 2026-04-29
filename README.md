@@ -116,11 +116,13 @@ node skills/proposal/scripts/build.cjs examples/02-dx-proposal/deck.cjs --no-lin
 node ../../skills/proposal/scripts/build.cjs ./deck.cjs --no-lint
 ```
 
-## 라이선스
+## License
+
+This open-source plugin is licensed under the MIT License.
 
 MIT © 2026 Synergy Labs — 챗대리 (CHATdaeri)
 
-오픈소스 플러그인에는 MIT 라이선스가 적용됩니다. 커스텀 확장·프라이빗 템플릿·엔터프라이즈 배포는 별도의 상업적 조건으로 운영됩니다 — Synergy Labs로 문의 주세요.
+Heavily influenced by [mckinsey-pptx by axlabs](https://github.com/axlabs/mckinsey-pptx).
 
 ## 기여
 
