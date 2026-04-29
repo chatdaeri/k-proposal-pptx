@@ -41,27 +41,27 @@
   .h-rule { position: absolute; top: 60px; left: 56px; right: 56px; height: 2px; background: var(--brand-blue); }
 
   .lbl { font-size: 11px; font-family: ui-monospace, Menlo, monospace; color: var(--brand-blue); letter-spacing: 0.08em; font-weight: 700; }
-  .top-msg { margin: 6px 0 18px; font-size: 26px; font-weight: 800; color: #E5573A; line-height: 1.22; letter-spacing: -0.02em; }
+  .top-msg { margin: 6px 0 18px; font-size: 26px; font-weight: 800; color: var(--brand-deep); line-height: 1.22; letter-spacing: -0.02em; }
   .top-msg .a { color: var(--brand-blue); }
 
   .grid { display: grid; grid-template-columns: 1fr 40px 1fr; gap: 0; align-items: stretch; }
   .col { padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 12px; min-height: 290px; border: 1px solid var(--light-border); border-radius: 0; }
-  .asis { background: #F6F8FB; }
+  .asis { background: var(--light-bg); }
   .tobe { background: var(--white); border-top: 3px solid var(--brand-blue); }
   .col h3 { margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; font-family: ui-monospace, Menlo, monospace; }
-  .asis h3 { color: #B7B7B5; }
+  .asis h3 { color: var(--mid-gray); }
   .tobe h3 { color: var(--brand-blue); }
   .col h4 { margin: 0; font-size: 16px; font-weight: 700; color: var(--black); line-height: 1.3; }
   .col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
   .col li { font-size: 12.5px; color: var(--label-gray); line-height: 1.55; padding-left: 14px; position: relative; }
-  .col li:before { content: "·"; position: absolute; left: 4px; color: #B7B7B5; font-weight: 800; font-size: 16px; line-height: 1; }
+  .col li:before { content: "·"; position: absolute; left: 4px; color: var(--mid-gray); font-weight: 800; font-size: 16px; line-height: 1; }
   .tobe li:before { content: "▸"; color: var(--brand-blue); font-size: 11px; top: 2px; }
   .arrow { display: flex; align-items: center; justify-content: center; }
   .arrow svg { width: 32px; height: 32px; }
   .effect { margin-top: auto; font-size: 12px; color: var(--brand-blue); font-weight: 700; padding-top: 10px; border-top: 1px dashed var(--light-border); }
-  .note { font-size: 11px; color: #B7B7B5; font-family: ui-monospace, Menlo, monospace; margin-top: auto; }
+  .note { font-size: 11px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin-top: auto; }
 
-  .footer { position: absolute; bottom: 22px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace; color: #B7B7B5; letter-spacing: 0.04em; }
+  .footer { position: absolute; bottom: 22px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace; color: var(--mid-gray); letter-spacing: 0.04em; }
 </style>
 </head>
 <body>
@@ -81,7 +81,7 @@
       <div class="note">{{ASIS_NOTE}}</div>
     </div>
     <div class="arrow" data-pptx-image="true">
-      <svg viewBox="0 0 32 32" fill="none" stroke="#FF7E5F" stroke-width="2" stroke-linecap="round">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--brand-orange)">
         <path d="M5 16 L27 16 M19 8 L27 16 L19 24"/>
       </svg>
     </div>
@@ -97,7 +97,7 @@
 
   <div class="footer">
     <p style="margin:0;display:inline-block">{{FOOTER_LABEL}}</p>
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

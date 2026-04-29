@@ -1,35 +1,19 @@
 /* =========================================================================
    bluelaps-templates — 공용 스타일시트
    모든 신규 템플릿과 Level 3 커스텀 레이아웃이 반드시 import 해야 하는 베이스.
-   브랜드 팔레트 / 헤더 / 로고 / 이미지 슬롯(aspect-ratio 고정) / 리듬 클래스 정의.
+   헤더 / 로고 / 이미지 슬롯(aspect-ratio 고정) / 리듬 클래스 정의.
+
+   색·폰트·타입 토큰은 SSoT 인 ../tokens/colors_and_type.css 에서 정의한다.
+   이 파일은 슬라이드 전용 spacing/layout 토큰만 추가한다.
    ========================================================================= */
 
+@import url("../tokens/colors_and_type.css");
+
 :root {
-  /* CHATdaeri 브랜드 팔레트 (이 변수만 사용. 새 컬러 도입 금지) */
-  --brand-orange: #FF7E5F;     /* 메인 포인트 — 구분선, 강조, KPI */
-  --brand-deep:   #E5573A;     /* 짙은 변형 — 헤드라인 강조 */
-  --brand-tint:   rgba(255, 126, 95, 0.10);  /* 연한 배경 — hi 행 / 카드 배경 */
-  --brand-tint-solid: #FFF1EC; /* 투명도 안 먹는 환경 폴백 (SVG 등) */
-
-  /* backward-compat aliases — 기존 layouts 호환 */
-  --brand-blue:  var(--brand-orange);
-  --brand-soft:  var(--brand-tint-solid);
-
-  --white:        #FFFFFF;
-  --light-bg:     #F8F8F8;
-  --black:        #000000;
-  --dark-gray:    #333333;
-  --mid-gray:     #676765;
-  --label-gray:   #4A4A48;
-  --light-border: #E0E0E0;
-
-  /* 폰트 */
-  --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
-
-  /* 간격 (960×540 기준) */
-  --pad-x: 60px;      /* 좌우 공통 패딩 */
-  --pad-top: 32px;    /* 헤더 상단 */
-  --pad-bottom: 30px; /* 하단 여백 */
+  /* 슬라이드 전용 spacing (960×540 기준) — colors_and_type.css 와 중복되지 않는 부분만 */
+  --pad-x: 60px;        /* 좌우 공통 패딩 */
+  --pad-top: 32px;      /* 헤더 상단 */
+  --pad-bottom: 30px;   /* 하단 여백 */
   --header-total: 66px; /* 헤더 전체 높이 (pad-top + text + line-gap + line) */
   --gap-sm: 10px;
   --gap-md: 16px;
@@ -118,7 +102,7 @@ body {
 }
 .img-slot-inner p {
   font-size: 12px;
-  color: #bbb;
+  color: var(--mid-gray);
   text-align: center;
   letter-spacing: 1px;
   line-height: 1.5;

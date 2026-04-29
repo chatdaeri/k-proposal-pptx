@@ -42,7 +42,7 @@
   .source { font-size: 10.5px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0; }
 
   .layout { display: grid; grid-template-columns: 0.95fr 1.1fr; gap: 24px; align-items: center; margin-top: 18px; height: 280px; }
-  .donut-box { background: #fff; height: 100%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--light-border); }
+  .donut-box { background: var(--white); height: 100%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--light-border); }
   .donut-box svg { display: block; width: 240px; height: 240px; }
 
   /* 우측 범례 표 */
@@ -54,16 +54,16 @@
   .th p { margin: 0; font-size: 11px; font-weight: 700; color: var(--dark-gray); letter-spacing: 0.02em; }
   .td p { margin: 0; color: var(--label-gray); }
   .td .swatch { display: block; width: 10px; height: 10px; }
-  .swatch.s1 { background: #FF7E5F; }
-  .swatch.s2 { background: #3E4A5E; }
-  .swatch.s3 { background: #A0A8B3; }
-  .swatch.s4 { background: #D6D6D2; }
+  .swatch.s1 { background: var(--brand-orange); }
+  .swatch.s2 { background: var(--dark-gray); }
+  .swatch.s3 { background: var(--mid-gray); }
+  .swatch.s4 { background: var(--light-border); }
   .num { text-align: right; }
   .num p { font-family: ui-monospace, Menlo, monospace; color: var(--black); font-weight: 600; }
-  .tr.hi { background: #FFF1EC; }
+  .tr.hi { background: var(--brand-tint-solid); }
   .tr.hi .num p { color: var(--brand-blue); font-weight: 700; }
 
-  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 11px 14px; margin-top: 12px; }
+  .insight { background: var(--brand-tint-solid); border-left: 4px solid var(--brand-blue); padding: 11px 14px; margin-top: 12px; }
   .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 5px; display: block; }
   .insight .ins-body { font-size: 12.5px; color: var(--black); line-height: 1.5; margin: 0; font-weight: 600; letter-spacing: -.005em; }
   .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
@@ -89,14 +89,14 @@
       <div class="donut-box" data-pptx-image="true">
         <svg viewBox="0 0 200 200">
           <g transform="rotate(-90 100 100)">
-            <circle cx="100" cy="100" r="60" fill="none" stroke="#FF7E5F" stroke-width="22" stroke-dasharray="197.5 376.99"/>
-            <circle cx="100" cy="100" r="60" fill="none" stroke="#3E4A5E" stroke-width="22" stroke-dasharray="83.3 376.99"  stroke-dashoffset="-197.5"/>
-            <circle cx="100" cy="100" r="60" fill="none" stroke="#A0A8B3" stroke-width="22" stroke-dasharray="59.6 376.99"  stroke-dashoffset="-280.8"/>
-            <circle cx="100" cy="100" r="60" fill="none" stroke="#D6D6D2" stroke-width="22" stroke-dasharray="36.6 376.99"  stroke-dashoffset="-340.4"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="var(--brand-orange)" stroke-width="22" stroke-dasharray="197.5 376.99"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="var(--dark-gray)" stroke-width="22" stroke-dasharray="83.3 376.99"  stroke-dashoffset="-197.5"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="var(--mid-gray)" stroke-width="22" stroke-dasharray="59.6 376.99"  stroke-dashoffset="-280.8"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="var(--light-border)" stroke-width="22" stroke-dasharray="36.6 376.99"  stroke-dashoffset="-340.4"/>
           </g>
-          <text x="100" y="92"  text-anchor="middle" font-size="11" font-weight="600" fill="#676765" font-family="Pretendard Variable, sans-serif">총 신규 가입자</text>
-          <text x="100" y="116" text-anchor="middle" font-size="26" font-weight="900" fill="#000" font-family="ui-monospace,Menlo,monospace">12,840</text>
-          <text x="100" y="134" text-anchor="middle" font-size="10" fill="#676765" font-family="Pretendard Variable, sans-serif">'25년 누적</text>
+          <text x="100" y="92"  text-anchor="middle" font-size="11" font-weight="600" fill="var(--mid-gray)" font-family="var(--font-family)">총 신규 가입자</text>
+          <text x="100" y="116" text-anchor="middle" font-size="26" font-weight="900" fill="var(--black)" font-family="ui-monospace,Menlo,monospace">12,840</text>
+          <text x="100" y="134" text-anchor="middle" font-size="10" fill="var(--mid-gray)" font-family="var(--font-family)">'25년 누적</text>
         </svg>
       </div>
 
@@ -119,7 +119,7 @@
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

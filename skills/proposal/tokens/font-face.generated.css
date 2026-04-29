@@ -1,0 +1,10 @@
+/* AUTO-GENERATED — fonts/ 안의 .ttf 를 반영. 수동 수정 금지. */
+/* 갱신: node skills/proposal/scripts/sync-font-face.cjs */
+@font-face {
+  font-family: 'Proposal Deck Body';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('../fonts/body.ttf') format('truetype-variations'),
+       url('../fonts/body.ttf') format('truetype');
+}

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=960, height=540">
 <title>Numbered Steps Split Slide</title>
+<link rel="stylesheet" href="../primitives/_shared.css">
 <!--
   USAGE:
   상단 대제목 + 중앙 좌/우 분할 레이아웃.
@@ -25,15 +26,6 @@
   CARD 개수 조정: .left-sub-steps 안의 .sub-box 개수를 2~3개로 조정
 -->
 <style>
-  :root {
-    --brand-blue: #FF7E5F;
-    --white: #FFFFFF;
-    --light-bg: #F8F8F8;
-    --black: #000000;
-    --dark-gray: #333333;
-    --light-border: #E0E0E0;
-    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: var(--font-family);
@@ -134,7 +126,7 @@
   }
   .right-image p {
     font-size: 13px;
-    color: #bbb;
+    color: var(--mid-gray);
     text-align: center;
     letter-spacing: 1px;
     line-height: 1.6;
@@ -190,7 +182,7 @@
   </div>
 
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

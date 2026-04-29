@@ -72,7 +72,7 @@ node skills/proposal/scripts/build.cjs examples/02-dx-proposal/deck.cjs --no-lin
 3. **border-radius 금지** — 카드·버튼·태그 모두 직각 (원형 데이터 마커 예외)
 4. **브랜드 컬러 단일** — `#FF7E5F` / `#E5573A` 외 임의 컬러 추가 금지
 5. **표 데이터 1:1 보존** — 축약·반올림·생략 금지
-6. **폰트 고정** — Pretendard Variable 만. Inter·Roboto 단독 사용 금지
+6. **폰트 SSoT** — 본문은 `skills/proposal/fonts/`의 `.ttf` + `tokens/font-face.generated.css`(자동)·`colors_and_type.css`만. Inter·Roboto 등으로 본문 단독 대체 금지
 7. **한국어 전용** — 본문·제목 모두 한글. 영어는 기술 용어·제품명만
 8. **이모지 금지** — 프로덕션 슬라이드에 이모지 삽입 불가
 9. **슬라이드 사이즈 고정** — 960×540 (PPTX: 720pt×405pt)

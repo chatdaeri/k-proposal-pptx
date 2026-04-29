@@ -39,12 +39,18 @@ check('html2pptx.cjs vendor', () => {
   const p = path.join(PLUGIN_ROOT, 'skills/proposal/scripts/html2pptx.cjs');
   if (!fs.existsSync(p)) throw new Error('파일 없음');
 });
-check('PretendardVariable.ttf', () => {
-  const p = path.join(PLUGIN_ROOT, 'skills/proposal/fonts/PretendardVariable.ttf');
-  if (!fs.existsSync(p)) throw new Error('파일 없음');
+check('fonts/*.ttf (본문 폰트 ≥1)', () => {
+  const d = path.join(PLUGIN_ROOT, 'skills/proposal/fonts');
+  if (!fs.existsSync(d)) throw new Error('fonts 폴더 없음');
+  const n = fs.readdirSync(d).filter((f) => /\.ttf$/i.test(f)).length;
+  if (n < 1) throw new Error('.ttf 파일 없음');
 });
-check('chatdaeri-logo.png', () => {
-  const p = path.join(PLUGIN_ROOT, 'skills/proposal/assets/chatdaeri-logo.png');
+check('font-face.generated.css', () => {
+  const p = path.join(PLUGIN_ROOT, 'skills/proposal/tokens/font-face.generated.css');
+  if (!fs.existsSync(p)) throw new Error('먼저: node skills/proposal/scripts/sync-font-face.cjs');
+});
+check('logo.png', () => {
+  const p = path.join(PLUGIN_ROOT, 'skills/proposal/assets/logo.png');
   if (!fs.existsSync(p)) throw new Error('파일 없음');
 });
 check('layouts: 23개', () => {

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('font-face.generated.css');
 
 /* =========================================================================
    CHATdaeri Design System — colors + type tokens
@@ -13,17 +14,15 @@
 
    Usage:
      <link rel="stylesheet" href="tokens/colors_and_type.css">
-   Pretendard Variable is loaded via @font-face below from fonts/.
-   ========================================================================= */
 
-@font-face {
-  font-family: 'Pretendard Variable';
-  font-weight: 45 920;   /* variable */
-  font-style: normal;
-  font-display: swap;
-  src: url('../fonts/PretendardVariable.ttf') format('truetype-variations'),
-       url('../fonts/PretendardVariable.ttf') format('truetype');
-}
+   Font SSoT (본문 전역):
+     · fonts/ 폴더의 .ttf(1개 권장). 파일명은 자유 — @font-face URL은
+       font-face.generated.css 에 자동 반영된다.
+     · 다중 .ttf 시: body.ttf 가 있으면 그것을 쓰고, 없으면 이름순 첫 파일(경고).
+     · 갱신: node skills/proposal/scripts/sync-font-face.cjs (postinstall 에서도 실행)
+     · @font-face 의 font-family 는 --font-face-family 와 동일 문자열.
+       글꼴 교체 시 실제 글꼴 메타와 맞게 논리명을 바꿀 수 있음(토큰·SVG 일괄).
+   ========================================================================= */
 
 :root {
   /* ---- Base Colors (the entire palette — do not add more) ---- */
@@ -64,8 +63,9 @@
   --rule-accent:   2px solid var(--brand-orange);
   --rule-accent-thick: 3px solid var(--brand-orange);
 
-  /* ---- Fonts ---- */
-  --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont,
+  /* ---- Fonts (@font-face 와 동일한 첫 번째 패밀리명) ---- */
+  --font-face-family: 'Proposal Deck Body';
+  --font-family: var(--font-face-family), -apple-system, BlinkMacSystemFont,
                  'Noto Sans KR', 'Malgun Gothic', sans-serif;
 
   /* ---- Type scale (web, 1440px reference) ---- */

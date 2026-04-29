@@ -20,7 +20,7 @@
   reference. deck.cjs `{ html: '<...>' }` 자유 모드:
     1) <body> 통째 복사
     2) SVG <rect> height = val/maxY * 200, y = 220 - height
-    3) 강조 막대: fill="#FF7E5F", 일반: fill="#C8C8C8"
+    3) 강조 막대: fill="var(--brand-orange)", 일반: fill="var(--mid-gray)"
     4) 카테고리 6개 미만이면 사용 안 하는 요소 삭제
 
   TOKENS:
@@ -38,11 +38,11 @@
   .lede { font-size: 14px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
 
   .chart-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 22px; align-items: start; margin-top: 12px; }
-  .chart-box { background: #fff; height: 254px; }
+  .chart-box { background: var(--white); height: 254px; }
   .chart-box svg { display: block; width: 100%; height: 100%; }
 
   .side-panel { padding-top: 4px; }
-  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight { background: var(--brand-tint-solid); border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
   .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
   .insight .ins-body { font-size: 13px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
   .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
@@ -67,43 +67,43 @@
            x 시작 55. bar x = 55 + i*60 + 9 (i=0~5)
            Y: maxY 600 → 4단 (0/200/400/600) → y 220/165/110/55
            height = val/600 * 200. y = 220 - height
-           강조 막대 fill="#FF7E5F", 일반 fill="#C8C8C8" -->
+           강조 막대 fill="var(--brand-orange)", 일반 fill="var(--mid-gray)" -->
       <div class="chart-box" data-pptx-image="true">
         <svg viewBox="0 0 420 254" preserveAspectRatio="xMidYMid meet">
-          <g font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+          <g font-size="10" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace">
             <text x="46" y="28" text-anchor="end">600</text>
             <text x="46" y="83" text-anchor="end">400</text>
             <text x="46" y="138" text-anchor="end">200</text>
             <text x="46" y="224" text-anchor="end">0</text>
           </g>
-          <g stroke="#F0F0F0" stroke-width="1">
+          <g stroke="var(--light-border)" stroke-width="1">
             <line x1="55" y1="24"  x2="412" y2="24"/>
             <line x1="55" y1="79"  x2="412" y2="79"/>
             <line x1="55" y1="134" x2="412" y2="134"/>
           </g>
-          <line x1="55" y1="220" x2="412" y2="220" stroke="#000" stroke-width="1"/>
-          <text x="55" y="14" font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">단위 · 건</text>
+          <line x1="55" y1="220" x2="412" y2="220" stroke="var(--black)" stroke-width="1"/>
+          <text x="55" y="14" font-size="10" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace">단위 · 건</text>
           <!-- 6 막대 예시 (강조: 466, 343) -->
           <g>
-            <rect x="64"  y="160" width="42" height="60"  fill="#C8C8C8"/>
-            <rect x="124" y="64"  width="42" height="156" fill="#FF7E5F"/>
-            <rect x="184" y="106" width="42" height="114" fill="#FF7E5F"/>
-            <rect x="244" y="46"  width="42" height="174" fill="#C8C8C8"/>
-            <rect x="304" y="140" width="42" height="80"  fill="#C8C8C8"/>
-            <rect x="364" y="190" width="42" height="30"  fill="#C8C8C8"/>
+            <rect x="64"  y="160" width="42" height="60"  fill="var(--mid-gray)"/>
+            <rect x="124" y="64"  width="42" height="156" fill="var(--brand-orange)"/>
+            <rect x="184" y="106" width="42" height="114" fill="var(--brand-orange)"/>
+            <rect x="244" y="46"  width="42" height="174" fill="var(--mid-gray)"/>
+            <rect x="304" y="140" width="42" height="80"  fill="var(--mid-gray)"/>
+            <rect x="364" y="190" width="42" height="30"  fill="var(--mid-gray)"/>
           </g>
-          <g font-size="10" fill="#000" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
+          <g font-size="10" fill="var(--black)" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
             <text x="85"  y="153">180</text>
-            <text x="145" y="57"  fill="#FF7E5F">466</text>
-            <text x="205" y="99"  fill="#FF7E5F">343</text>
+            <text x="145" y="57"  fill="var(--brand-orange)">466</text>
+            <text x="205" y="99"  fill="var(--brand-orange)">343</text>
             <text x="265" y="39">520</text>
             <text x="325" y="133">240</text>
             <text x="385" y="183">90</text>
           </g>
-          <g font-size="10" fill="#676765" font-family="Pretendard Variable, sans-serif" text-anchor="middle">
+          <g font-size="10" fill="var(--mid-gray)" font-family="var(--font-family)" text-anchor="middle">
             <text x="85"  y="240">A사</text>
-            <text x="145" y="240" fill="#FF7E5F" font-weight="800">B사</text>
-            <text x="205" y="240" fill="#FF7E5F" font-weight="800">C사</text>
+            <text x="145" y="240" fill="var(--brand-orange)" font-weight="800">B사</text>
+            <text x="205" y="240" fill="var(--brand-orange)" font-weight="800">C사</text>
             <text x="265" y="240">D사</text>
             <text x="325" y="240">E사</text>
             <text x="385" y="240">F사</text>
@@ -121,7 +121,7 @@
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

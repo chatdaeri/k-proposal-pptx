@@ -13,7 +13,6 @@ module.exports = {
         HERO_LINE_3: 'GCON 브랜드 전략',
         CONTACT_LABEL: '제출처',
         CONTACT_DETAIL: 'G러닝 GCON 운영팀',
-        LOGO_PATH: '',
       },
     },
 
@@ -138,7 +137,7 @@ module.exports = {
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>`,
@@ -240,7 +239,7 @@ module.exports = {
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>`,
@@ -369,7 +368,7 @@ module.exports = {
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>`,

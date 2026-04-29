@@ -19,7 +19,7 @@
 
 - **GitHub:** `proposal/brand-system` (private) — 브랜드 가이드라인 PPT/HTML 자동 생성 스킬. 이 레포의 `references/` 폴더(`brand-guidelines.md`, `WEB-GUIDELINE.md`, `layout-principles.md`, `image-placement-rules.md`)가 디자인 시스템의 원본 소스입니다.
 - **관련 레포 (같은 조직):** `proposal/proposal-skill`, `proposal/pptx-skill`, `proposal/onboarding-materials`
-- **로고:** Pretendard 800 텍스트 워드마크 — `CHATdaeri` (브랜드 블루 `#FF7E5F`). PNG/SVG 자산 없이 텍스트로 직접 렌더.
+- **로고:** **`assets/logo.png`** 단일 원본(SSoT). 제안서 슬라이드·`pages/` 샘플 모두 이 파일을 `<img src="../assets/logo.png" …>` 로 참조한다.
 
 ---
 
@@ -87,7 +87,7 @@ CHATdaeri 의 콘텐츠는 **한국어 전용** (UI 레이블·기술 용어만 
 
 ### 타이포그래피
 
-- **폰트 패밀리**: **Pretendard Variable** (`orioncactus/pretendard` 기반, CDN 사용). Inter 금지, 시스템 폰트 fallback 허용.
+- **폰트 패밀리**: 논리명 **`Proposal Deck Body`**(`tokens/colors_and_type.css` 의 `--font-face-family`·`--font-family`) — 바이너리는 `fonts/*.ttf`(파일명 자유, `npm run sync-font` 로 `font-face.generated.css` 갱신). Inter 금지, 토큰에 정의된 시스템 폰트 fallback만 허용.
 - **웹 사이즈 체계** (1440px 기준):
   - Cover hero: 64px / ExtraBold 800 / 딥 오렌지
   - Section divider: 48px / ExtraBold 800 / 딥 오렌지
@@ -136,7 +136,7 @@ CHATdaeri 의 콘텐츠는 **한국어 전용** (UI 레이블·기술 용어만 
 
 - 섹션명 / 페이지번호: 13px Medium `#333`
 - 구분선: 2px solid `#FF7E5F`
-- 로고: 우측 하단 (`bottom: 20px; right: 60px`), Pretendard 800 텍스트 `CHATdaeri` (높이 ≈ 12px, 색 `--brand-orange`)
+- 로고: 우측 하단 (`bottom: 20px; right: 60px`), 이미지 `../assets/logo.png` (표지 상·하단 및 공통 푸터에서 height 약 12~18px 권장)
 - 페이지번호는 `01, 02, ...` 2자리 zero-pad
 
 ### 레이아웃
@@ -204,20 +204,9 @@ Planner가 슬라이드마다 `reading_flow` 명시. 3가지 패턴만 사용:
 
 ## 폰트 파일
 
-**원본 Pretendard Variable (`PretendardVariable.ttf`)** 가 `fonts/` 에 포함되어 있습니다. Google Fonts 대체 없이 그대로 사용합니다.
+**본문 바이너리** 는 `fonts/` 에 두는 **임의 이름의 `.ttf` 한 개를 권장**한다. 여러 개 두면 `body.ttf` 가 있으면 그것을 쓰고, 없으면 이름순 첫 파일(경고). 바꾼 뒤 **`npm run sync-font`** 또는 `node skills/proposal/scripts/sync-font-face.cjs` 로 `tokens/font-face.generated.css` 를 갱신한다. 실제 글꼴 패밀리명이 `Proposal Deck Body` 가 아니면 `@font-face` 의 `font-family`, `:root` 의 `--font-face-family`, SVG 등 논리명을 **같은 문자열**로 맞춘다.
 
-`colors_and_type.css` 상단에서 `@font-face` 로 로드되므로 추가 link 태그 불필요.
-
-```css
-@font-face {
-  font-family: 'Pretendard Variable';
-  src: url('fonts/PretendardVariable.ttf') format('truetype-variations'),
-       url('fonts/PretendardVariable.ttf') format('truetype');
-  font-weight: 45 920;
-}
-```
-
-Bold 700 / SemiBold 600 / Medium 500 / Regular 400 / ExtraBold 800 등 모든 weight 가변 지원.
+`colors_and_type.css` 상단에서 `@font-face` 로 로드되므로, 템플릿·`_shared.css` 체인에서는 추가 `@font-face` 를 두지 않는다.
 
 ---
 
@@ -245,7 +234,8 @@ Bold 700 / SemiBold 600 / Medium 500 / Regular 400 / ExtraBold 800 등 모든 we
 | 폴더 / 파일 | 계층 | 역할 |
 |---|---|---|
 | `tokens/colors_and_type.css` | [1] Tokens | **단일 진실 원천**. 모든 색·타이포 변수가 여기에서만 정의됨. |
-| `fonts/PretendardVariable.ttf` | [1] | 공식 원본 폰트 (Google Fonts 대체 없이 사용) |
+| `fonts/*.ttf` + `tokens/font-face.generated.css` | [1] | 본문 폰트(SSoT). `.ttf` 추가·교체 후 `sync-font` 실행 |
+| `assets/logo.png` | [1] | **브랜드 로고 SSoT** — 슬라이드·샘플 페이지에서 `../assets/logo.png` 로만 참조 |
 | `primitives/_shared.css` | [2] Primitives | 헤더·로고·이미지 슬롯·리듬 클래스. `components/`·`layouts/` 가 모두 import |
 | `components/*.html` | [3] Components | **단위 데이터-시각화 컴포넌트** (gantt, matrix, timeline, org, tree, bubble, numbered list — 7종) |
 | `layouts/*.html` | [4] Layouts | **슬라이드 1장 단위 완성본** (cover, divider, toc, content-* — 17종). 새 슬라이드 만들 때 여기서 복사 |
@@ -262,7 +252,7 @@ Bold 700 / SemiBold 600 / Medium 500 / Regular 400 / ExtraBold 800 등 모든 we
 - **`pages/` 가 `components/`·`layouts/` 의 패턴을 그대로 import** — 인라인 CSS로 다시 그리지 않음
 - **`preview/` 는 카탈로그**. 실제 슬라이드 만들 땐 항상 `components/` 또는 `layouts/` 에서 복사
 
-> **로고 자산** — CHATdaeri 워드마크는 PNG/SVG 파일이 아닌 **Pretendard 800 + 브랜드 블루 인라인 텍스트**로 렌더. `assets/` 폴더 없음.
+> **로고 SSoT** — `skills/proposal/assets/logo.png` 만 유지하고, 템플릿·예시·`pages/` 전부 슬라이드 기준 `../assets/logo.png` 로 참조한다.
 
 ### components/ 목록 (7종)
 

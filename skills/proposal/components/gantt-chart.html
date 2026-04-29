@@ -35,7 +35,7 @@
   .gantt-row { display: grid; grid-template-columns: 150px repeat(12, 1fr); align-items: center; min-height: 30px; border-bottom: 1px solid var(--light-border); }
 
   .side-panel { padding-top: 2px; }
-  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 12px 14px; }
+  .insight { background: var(--brand-tint-solid); border-left: 4px solid var(--brand-blue); padding: 12px 14px; }
   .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
   .insight .ins-body { font-size: 12.5px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
   .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
@@ -49,17 +49,17 @@
   .gantt-row .cell.label .phase { font-size: 10.5px; color: var(--brand-blue); font-weight: 800; font-family: ui-monospace, Menlo, monospace; min-width: 26px; }
   .bar { height: 14px; align-self: center; position: relative; }
   .bar.brand { background: var(--brand-blue); }
-  .bar.soft { background: #FFF1EC; border: 1.5px solid var(--brand-blue); height: 11px; }
-  .bar.deep { background: #E5573A; }
-  .bar-label { position: absolute; right: 7px; top: 50%; transform: translateY(-50%); font-size: 9.5px; color: #fff; font-weight: 700; font-family: ui-monospace, Menlo, monospace; }
+  .bar.soft { background: var(--brand-tint-solid); border: 1.5px solid var(--brand-blue); height: 11px; }
+  .bar.deep { background: var(--brand-deep); }
+  .bar-label { position: absolute; right: 7px; top: 50%; transform: translateY(-50%); font-size: 9.5px; color: var(--white); font-weight: 700; font-family: ui-monospace, Menlo, monospace; }
   .milestone { width: 12px; height: 12px; background: var(--brand-blue); transform: rotate(45deg); align-self: center; justify-self: center; }
 
   .legend-row { display: flex; gap: 18px; margin-top: 14px; align-items: center; }
   .legend-row .item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--label-gray); }
   .legend-row .swatch { width: 18px; height: 11px; }
   .legend-row .swatch.brand { background: var(--brand-blue); }
-  .legend-row .swatch.soft { background: #FFF1EC; border: 1.5px solid var(--brand-blue); height: 9px; }
-  .legend-row .swatch.deep { background: #E5573A; }
+  .legend-row .swatch.soft { background: var(--brand-tint-solid); border: 1.5px solid var(--brand-blue); height: 9px; }
+  .legend-row .swatch.deep { background: var(--brand-deep); }
   .legend-row .swatch.diamond { width: 11px; height: 11px; background: var(--brand-blue); transform: rotate(45deg); }
   .today-cap { margin-left: auto; font-size: 11px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; }
 </style>
@@ -134,7 +134,7 @@
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

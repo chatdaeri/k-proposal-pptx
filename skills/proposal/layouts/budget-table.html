@@ -48,23 +48,23 @@
   .h-rule { position: absolute; top: 60px; left: 56px; right: 56px; height: 2px; background: var(--brand-blue); }
 
   .lbl { margin: 0 0 4px; font-size: 11px; font-family: ui-monospace, Menlo, monospace; color: var(--brand-blue); letter-spacing: 0.08em; font-weight: 700; }
-  .top-msg { margin: 6px 0 16px; font-size: 26px; font-weight: 800; color: #E5573A; line-height: 1.22; letter-spacing: -0.02em; }
+  .top-msg { margin: 6px 0 16px; font-size: 26px; font-weight: 800; color: var(--brand-deep); line-height: 1.22; letter-spacing: -0.02em; }
   .top-msg .a { color: var(--brand-blue); }
 
   /* table 미지원 → div grid 로 표 구현 (html2pptx 호환) */
   .t { display: flex; flex-direction: column; border-top: 2px solid var(--brand-blue); border-bottom: 2px solid var(--brand-blue); font-size: 12px; }
-  .tr { display: grid; grid-template-columns: var(--tr-cols, 2fr 1fr 1fr 1fr 1fr 1fr); border-bottom: 1px solid #F0F0F0; }
+  .tr { display: grid; grid-template-columns: var(--tr-cols, 2fr 1fr 1fr 1fr 1fr 1fr); border-bottom: 1px solid var(--light-border); }
   .tr:last-child { border-bottom: none; }
-  .thead .tr { background: #F6F8FB; border-bottom: 1px solid var(--light-border); }
+  .thead .tr { background: var(--light-bg); border-bottom: 1px solid var(--light-border); }
   .th, .td { padding: 7px 10px; }
   .thead .th { padding: 8px 10px; }
   .th p { margin: 0; font-size: 11px; font-weight: 700; color: var(--black); letter-spacing: 0.02em; }
   .td p { margin: 0; font-size: 12px; color: var(--label-gray); }
   .num { text-align: right; }
   .num p { font-family: ui-monospace, Menlo, monospace; color: var(--black); font-weight: 600; }
-  .tr.hi { background: #FFF1EC; }
+  .tr.hi { background: var(--brand-tint-solid); }
   .tr.hi .num p { color: var(--brand-blue); font-weight: 700; }
-  .tr.total { background: #EAEAE8; }
+  .tr.total { background: var(--light-border); }
   .tr.total .td p { color: var(--black); font-weight: 800; }
   .tr.total .num p { color: var(--black); }
   .span2 { grid-column: span 2; }
@@ -77,7 +77,7 @@
   .plan p { margin: 0; font-size: 12px; color: var(--label-gray); line-height: 1.55; }
   .plan strong { color: var(--black); }
 
-  .footer { position: absolute; bottom: 22px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace; color: #B7B7B5; letter-spacing: 0.04em; }
+  .footer { position: absolute; bottom: 22px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace; color: var(--mid-gray); letter-spacing: 0.04em; }
 </style>
 </head>
 <body>
@@ -110,7 +110,7 @@
 
   <div class="footer">
     <p>{{FOOTER_LABEL}}</p>
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

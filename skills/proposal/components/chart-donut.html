@@ -53,17 +53,17 @@
 
   /* 3 donuts grid — PNG 캡처 대상 */
   .donut-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: center;
-               border: 1px solid var(--light-border); padding: 18px 10px 14px; background: #fff; }
+               border: 1px solid var(--light-border); padding: 18px 10px 14px; background: var(--white); }
   .donut-item { display: flex; flex-direction: column; align-items: center; }
   .donut-item svg { display: block; }
   .d-lbl { font-size: 11.5px; font-weight: 700; color: var(--black); text-align: center; margin: 7px 0 2px;
-            font-family: 'Pretendard Variable', sans-serif; }
+            font-family: var(--font-family); }
   .d-cap { font-size: 10px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace;
            text-align: center; margin: 0; letter-spacing: .02em; }
 
   /* 우측 패널 */
   .side-panel { padding-top: 4px; }
-  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight { background: var(--brand-tint-solid); border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
   .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue);
                         letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace;
                         text-transform: uppercase; margin: 0 0 6px; display: block; }
@@ -96,14 +96,14 @@
         <!-- 도넛 1: 단일 비율 (#FF7E5F) -->
         <div class="donut-item">
           <svg viewBox="0 0 140 140" width="108" height="108">
-            <circle cx="70" cy="70" r="50" fill="none" stroke="#E0E0E0" stroke-width="14"/>
-            <circle cx="70" cy="70" r="50" fill="none" stroke="#FF7E5F" stroke-width="14"
+            <circle cx="70" cy="70" r="50" fill="none" stroke="var(--light-border)" stroke-width="14"/>
+            <circle cx="70" cy="70" r="50" fill="none" stroke="var(--brand-orange)" stroke-width="14"
                     stroke-dasharray="245.04 314.16" stroke-dashoffset="78.54"
                     transform="rotate(-90 70 70)"/>
-            <text x="70" y="67" text-anchor="middle" font-size="22" font-weight="800" fill="#000"
+            <text x="70" y="67" text-anchor="middle" font-size="22" font-weight="800" fill="var(--black)"
                   font-family="ui-monospace, Menlo, monospace">{{D1_VALUE}}</text>
-            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="#676765"
-                  font-family="Pretendard Variable, sans-serif">{{D1_LABEL}}</text>
+            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="var(--mid-gray)"
+                  font-family="var(--font-family)">{{D1_LABEL}}</text>
           </svg>
           <p class="d-lbl">{{D1_CAPTION}}</p>
           <p class="d-cap">단일 비율</p>
@@ -112,14 +112,14 @@
         <!-- 도넛 2: 딥 강조 (#E5573A 값+arc) -->
         <div class="donut-item">
           <svg viewBox="0 0 140 140" width="108" height="108">
-            <circle cx="70" cy="70" r="50" fill="none" stroke="#E0E0E0" stroke-width="14"/>
-            <circle cx="70" cy="70" r="50" fill="none" stroke="#E5573A" stroke-width="14"
+            <circle cx="70" cy="70" r="50" fill="none" stroke="var(--light-border)" stroke-width="14"/>
+            <circle cx="70" cy="70" r="50" fill="none" stroke="var(--brand-deep)" stroke-width="14"
                     stroke-dasharray="267.5 314.16" stroke-dashoffset="46.66"
                     transform="rotate(-90 70 70)"/>
-            <text x="70" y="67" text-anchor="middle" font-size="20" font-weight="800" fill="#E5573A"
+            <text x="70" y="67" text-anchor="middle" font-size="20" font-weight="800" fill="var(--brand-deep)"
                   font-family="ui-monospace, Menlo, monospace">{{D2_VALUE}}</text>
-            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="#676765"
-                  font-family="Pretendard Variable, sans-serif">{{D2_LABEL}}</text>
+            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="var(--mid-gray)"
+                  font-family="var(--font-family)">{{D2_LABEL}}</text>
           </svg>
           <p class="d-lbl">{{D2_CAPTION}}</p>
           <p class="d-cap">딥 강조</p>
@@ -129,19 +129,19 @@
         <div class="donut-item">
           <svg viewBox="0 0 140 140" width="108" height="108">
             <g transform="rotate(-90 70 70)">
-              <circle cx="70" cy="70" r="50" fill="none" stroke="#FF7E5F" stroke-width="14"
+              <circle cx="70" cy="70" r="50" fill="none" stroke="var(--brand-orange)" stroke-width="14"
                       stroke-dasharray="185.4 128.76"/>
-              <circle cx="70" cy="70" r="50" fill="none" stroke="#E5573A" stroke-width="14"
+              <circle cx="70" cy="70" r="50" fill="none" stroke="var(--brand-deep)" stroke-width="14"
                       stroke-dasharray="88 226.16" stroke-dashoffset="-185.4"/>
-              <circle cx="70" cy="70" r="50" fill="none" stroke="#C8C8C8" stroke-width="14"
+              <circle cx="70" cy="70" r="50" fill="none" stroke="var(--mid-gray)" stroke-width="14"
                       stroke-dasharray="31.4 282.76" stroke-dashoffset="-273.4"/>
-              <circle cx="70" cy="70" r="50" fill="none" stroke="#E0E0E0" stroke-width="14"
+              <circle cx="70" cy="70" r="50" fill="none" stroke="var(--light-border)" stroke-width="14"
                       stroke-dasharray="9.4 304.76" stroke-dashoffset="-304.8"/>
             </g>
-            <text x="70" y="67" text-anchor="middle" font-size="14" font-weight="800" fill="#000"
+            <text x="70" y="67" text-anchor="middle" font-size="14" font-weight="800" fill="var(--black)"
                   font-family="ui-monospace, Menlo, monospace">{{D3_VALUE}}</text>
-            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="#676765"
-                  font-family="Pretendard Variable, sans-serif">{{D3_LABEL}}</text>
+            <text x="70" y="82" text-anchor="middle" font-size="9.5" fill="var(--mid-gray)"
+                  font-family="var(--font-family)">{{D3_LABEL}}</text>
           </svg>
           <p class="d-lbl">{{D3_CAPTION}}</p>
           <p class="d-cap">다중 세그먼트</p>
@@ -159,7 +159,7 @@
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

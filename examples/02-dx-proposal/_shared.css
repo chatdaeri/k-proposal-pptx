@@ -4,6 +4,8 @@
    브랜드 팔레트 / 헤더 / 로고 / 이미지 슬롯(aspect-ratio 고정) / 리듬 클래스 정의.
    ========================================================================= */
 
+@import url('../../../skills/proposal/tokens/font-face.generated.css');
+
 :root {
   /* CHATdaeri 브랜드 팔레트 (이 변수만 사용. 새 컬러 도입 금지) */
   --brand-orange: #FF7E5F;     /* 메인 포인트 — 구분선, 강조, KPI */
@@ -23,8 +25,9 @@
   --label-gray:   #4A4A48;
   --light-border: #E0E0E0;
 
-  /* 폰트 */
-  --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* 폰트 — skills/proposal/tokens/colors_and_type.css 의 @font-face·--font-family 와 동기화 */
+  --font-face-family: 'Proposal Deck Body';
+  --font-family: var(--font-face-family), -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* 간격 (960×540 기준) */
   --pad-x: 60px;      /* 좌우 공통 패딩 */

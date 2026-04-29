@@ -18,7 +18,7 @@
     1) <body> 통째 복사
     2) 양수 막대: height = val*8 (±10 단위 → 80px), y = 120 - height
        음수 막대: height = |val|*8, y = 120
-    3) 강조: fill="#FF7E5F"(양수), fill="#C8C8C8"(음수)
+    3) 강조: fill="var(--brand-orange)"(양수), fill="var(--mid-gray)"(음수)
     4) 카테고리 9개 미만이면 사용 안 하는 요소 삭제
 
   TOKENS:
@@ -36,11 +36,11 @@
   .lede { font-size: 13px; font-weight: 500; color: var(--label-gray); line-height: 1.45; margin: 0; }
 
   .chart-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 22px; align-items: start; margin-top: 12px; }
-  .chart-box { background: #fff; height: 254px; border: 1px solid var(--light-border); }
+  .chart-box { background: var(--white); height: 254px; border: 1px solid var(--light-border); }
   .chart-box svg { display: block; width: 100%; height: 100%; }
 
   .side-panel { padding-top: 4px; }
-  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight { background: var(--brand-tint-solid); border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
   .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
   .insight .ins-body { font-size: 13px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
   .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
@@ -67,42 +67,42 @@
            9 카테고리, bar x = 50,90,130,170,210,250,290,330,370, width=22 -->
       <div class="chart-box" data-pptx-image="true">
         <svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid meet">
-          <g font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+          <g font-size="9" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace">
             <text x="36" y="22" text-anchor="end">+10</text>
             <text x="36" y="62" text-anchor="end">+5</text>
             <text x="36" y="112" text-anchor="end">0</text>
             <text x="36" y="152" text-anchor="end">-5</text>
           </g>
-          <g stroke="#F0F0F0" stroke-width="1">
+          <g stroke="var(--light-border)" stroke-width="1">
             <line x1="40" y1="20"  x2="395" y2="20"/>
             <line x1="40" y1="60"  x2="395" y2="60"/>
             <line x1="40" y1="150" x2="395" y2="150"/>
           </g>
-          <line x1="40" y1="110" x2="395" y2="110" stroke="#000" stroke-width="1"/>
+          <line x1="40" y1="110" x2="395" y2="110" stroke="var(--black)" stroke-width="1"/>
           <!-- 9 막대 (양수 4, 음수 5) -->
           <g>
-            <rect x="50"  y="36"  width="22" height="74" fill="#FF7E5F"/>
-            <rect x="90"  y="45"  width="22" height="65" fill="#FF7E5F"/>
-            <rect x="130" y="82"  width="22" height="28" fill="#FF7E5F"/>
-            <rect x="170" y="90"  width="22" height="20" fill="#FF7E5F"/>
-            <rect x="210" y="110" width="22" height="6"  fill="#C8C8C8"/>
-            <rect x="250" y="110" width="22" height="14" fill="#C8C8C8"/>
-            <rect x="290" y="110" width="22" height="20" fill="#C8C8C8"/>
-            <rect x="330" y="110" width="22" height="34" fill="#C8C8C8"/>
-            <rect x="370" y="110" width="22" height="42" fill="#C8C8C8"/>
+            <rect x="50"  y="36"  width="22" height="74" fill="var(--brand-orange)"/>
+            <rect x="90"  y="45"  width="22" height="65" fill="var(--brand-orange)"/>
+            <rect x="130" y="82"  width="22" height="28" fill="var(--brand-orange)"/>
+            <rect x="170" y="90"  width="22" height="20" fill="var(--brand-orange)"/>
+            <rect x="210" y="110" width="22" height="6"  fill="var(--mid-gray)"/>
+            <rect x="250" y="110" width="22" height="14" fill="var(--mid-gray)"/>
+            <rect x="290" y="110" width="22" height="20" fill="var(--mid-gray)"/>
+            <rect x="330" y="110" width="22" height="34" fill="var(--mid-gray)"/>
+            <rect x="370" y="110" width="22" height="42" fill="var(--mid-gray)"/>
           </g>
-          <g font-size="9" fill="#000" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
+          <g font-size="9" fill="var(--black)" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
             <text x="61"  y="30">+9.2</text>
             <text x="101" y="39">+8.1</text>
             <text x="141" y="76">+3.5</text>
             <text x="181" y="84">+2.5</text>
-            <text x="221" y="128" fill="#676765">-0.8</text>
-            <text x="261" y="136" fill="#676765">-1.7</text>
-            <text x="301" y="142" fill="#676765">-2.5</text>
-            <text x="341" y="156" fill="#676765">-4.3</text>
-            <text x="381" y="164" fill="#676765">-5.2</text>
+            <text x="221" y="128" fill="var(--mid-gray)">-0.8</text>
+            <text x="261" y="136" fill="var(--mid-gray)">-1.7</text>
+            <text x="301" y="142" fill="var(--mid-gray)">-2.5</text>
+            <text x="341" y="156" fill="var(--mid-gray)">-4.3</text>
+            <text x="381" y="164" fill="var(--mid-gray)">-5.2</text>
           </g>
-          <g font-size="9" fill="#676765" font-family="Pretendard Variable, sans-serif" text-anchor="middle">
+          <g font-size="9" fill="var(--mid-gray)" font-family="var(--font-family)" text-anchor="middle">
             <text x="61"  y="186">엔터</text>
             <text x="101" y="186">B2B</text>
             <text x="141" y="186">금융</text>
@@ -126,7 +126,7 @@
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

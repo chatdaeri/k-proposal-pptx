@@ -4,16 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=960, height=540">
 <title>Cover Slide</title>
+<link rel="stylesheet" href="../primitives/_shared.css">
 <style>
-  :root {
-    --brand-blue: #FF7E5F;
-    --brand-deep: #E5573A;
-    --brand-blue: #FF7E5F; /* legacy alias */
-    --white: #FFFFFF;
-    --light-bg: #F8F8F8;
-    --black: #000000;
-    --dark-gray: #333333;
-  }
   * {
     margin: 0;
     padding: 0;
@@ -22,7 +14,7 @@
   body {
     width: 960px;
     height: 540px;
-    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-family);
     background-color: var(--white);
     overflow: hidden;
     position: relative;
@@ -102,7 +94,7 @@
 <body>
   <div class="slide-container">
     <div class="top-bar">
-      <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+      <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
       <p class="separator">|</p>
       <p>{{TOP_TYPE}}</p>
       <p class="separator">|</p>
@@ -118,7 +110,7 @@
         <p class="detail">{{CONTACT_DETAIL}}</p>
       </div>
       <div class="logo-area">
-        <img src="{{LOGO_PATH}}" alt="CHATdaeri">
+        <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
       </div>
     </div>
   </div>

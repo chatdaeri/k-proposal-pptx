@@ -49,7 +49,8 @@
  * 출력:
  *   output/<slug>/slides/slide-NN.html
  *   output/<slug>/_shared.css
- *   output/<slug>/fonts/PretendardVariable.ttf (선택)
+ *   output/<slug>/fonts/*.ttf (스킬 fonts/ 전부 복사)
+ *   output/<slug>/tokens/font-face.generated.css (복사된 .ttf 이름에 맞게 재생성)
  *   output/<slug>/deck.config.cjs (convert.cjs 가 읽는 SLIDES 배열)
  */
 
@@ -145,6 +146,17 @@ function findUnsubstituted(html) {
   return (html.match(/\{\{[A-Z0-9_]+\}\}/g) || []);
 }
 
+function copyDirRecursive(src, dst) {
+  if (!fs.existsSync(src)) return;
+  fs.mkdirSync(dst, { recursive: true });
+  for (const ent of fs.readdirSync(src, { withFileTypes: true })) {
+    const s = path.join(src, ent.name);
+    const d = path.join(dst, ent.name);
+    if (ent.isDirectory()) copyDirRecursive(s, d);
+    else fs.copyFileSync(s, d);
+  }
+}
+
 // ─── 메인 ──────────────────────────────────────────────────────────
 function main() {
   const args = process.argv.slice(2);
@@ -159,13 +171,37 @@ function main() {
   const slidesDir = path.join(outDir, 'slides');
   fs.mkdirSync(slidesDir, { recursive: true });
 
-  // _shared.css 자동 복사
+  // _shared.css 자동 복사 (+ 빌드 산출물 기준 @import 경로 보정)
   const sharedCss = path.join(SKILL_ROOT, 'primitives/_shared.css');
   if (fs.existsSync(sharedCss)) {
-    fs.copyFileSync(sharedCss, path.join(outDir, '_shared.css'));
+    let sharedText = fs.readFileSync(sharedCss, 'utf8');
+    sharedText = sharedText.replace(
+      /@import url\("\.\.\/tokens\/colors_and_type\.css"\);/,
+      '@import url("tokens/colors_and_type.css");'
+    );
+    fs.writeFileSync(path.join(outDir, '_shared.css'), sharedText, 'utf8');
   }
 
-  // assets/ 자동 복사 (로고 이미지 등 — layouts 에서 ../assets/ 경로로 참조)
+  // tokens/ 복사 후, 출력 폴더의 fonts/*.ttf 에 맞춰 @font-face URL 갱신
+  copyDirRecursive(path.join(SKILL_ROOT, 'tokens'), path.join(outDir, 'tokens'));
+  const outFonts = path.join(outDir, 'fonts');
+  fs.mkdirSync(outFonts, { recursive: true });
+  const skillFonts = path.join(SKILL_ROOT, 'fonts');
+  if (fs.existsSync(skillFonts)) {
+    for (const ent of fs.readdirSync(skillFonts, { withFileTypes: true })) {
+      if (ent.isFile() && /\.ttf$/i.test(ent.name)) {
+        fs.copyFileSync(path.join(skillFonts, ent.name), path.join(outFonts, ent.name));
+      }
+    }
+  }
+  const { writeFontFaceGenerated } = require(path.join(__dirname, 'resolve-body-font.cjs'));
+  try {
+    writeFontFaceGenerated(path.join(outDir, 'tokens'), outFonts, { warn: (m) => console.warn(m) });
+  } catch (e) {
+    console.warn(`⚠️ font-face.generated.css 갱신 실패: ${e.message}`);
+  }
+
+  // assets/ 자동 복사 — 브랜드 로고 SSoT: skills/proposal/assets/logo.png (슬라이드에서는 ../assets/logo.png)
   const srcAssets = path.join(SKILL_ROOT, 'assets');
   const dstAssets = path.join(outDir, 'assets');
   if (fs.existsSync(srcAssets) && !fs.existsSync(dstAssets)) {

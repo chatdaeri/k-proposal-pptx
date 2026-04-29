@@ -4,14 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=960, height=540">
 <title>Content Grid Slide</title>
+<link rel="stylesheet" href="../primitives/_shared.css">
 <style>
-  :root {
-    --brand-blue: #FF7E5F;
-    --white: #FFFFFF;
-    --light-bg: #F8F8F8;
-    --black: #000000;
-    --dark-gray: #333333;
-  }
   * {
     margin: 0;
     padding: 0;
@@ -20,7 +14,7 @@
   body {
     width: 960px;
     height: 540px;
-    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-family);
     background-color: var(--white);
     overflow: hidden;
     position: relative;
@@ -71,7 +65,7 @@
   .title-area .lede {
     font-size: 14px;
     font-weight: 500;
-    color: var(--label-gray, #4A4A48);
+    color: var(--label-gray);
     line-height: 1.45;
     margin: 0;
   }
@@ -185,7 +179,7 @@
     </div>
   </div>
   <div class="bottom-logo">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

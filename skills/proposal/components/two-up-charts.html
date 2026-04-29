@@ -40,7 +40,7 @@
   .col-box { border: 1px solid var(--light-border); padding: 14px; }
   .chart-title { font-size: 14px; font-weight: 700; color: var(--black); margin: 0 0 2px; }
   .chart-sub { font-size: 11px; color: var(--mid-gray); font-family: ui-monospace, Menlo, monospace; margin: 0 0 8px; }
-  .chart-svg-box { background: #fff; height: 200px; }
+  .chart-svg-box { background: var(--white); height: 200px; }
   .chart-svg-box svg { display: block; width: 100%; height: 100%; }
 
   .insight { margin-top: 14px; background: var(--light-bg); border-left: 3px solid var(--brand-blue); padding: 10px 14px; font-size: 12px; color: var(--dark-gray); line-height: 1.5; }
@@ -69,48 +69,48 @@
         <div class="chart-svg-box" data-pptx-image="true">
           <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
             <!-- Y axis -->
-            <g font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+            <g font-size="9" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace">
               <text x="36" y="22" text-anchor="end">+10</text>
               <text x="36" y="62" text-anchor="end">+5</text>
               <text x="36" y="102" text-anchor="end">0</text>
               <text x="36" y="142" text-anchor="end">-5</text>
             </g>
             <!-- Gridlines -->
-            <g stroke="#F0F0F0" stroke-width="1">
+            <g stroke="var(--light-border)" stroke-width="1">
               <line x1="40" y1="20"  x2="395" y2="20"/>
               <line x1="40" y1="60"  x2="395" y2="60"/>
               <line x1="40" y1="140" x2="395" y2="140"/>
             </g>
             <!-- 0 baseline -->
-            <line x1="40" y1="100" x2="395" y2="100" stroke="#000" stroke-width="1"/>
+            <line x1="40" y1="100" x2="395" y2="100" stroke="var(--black)" stroke-width="1"/>
             <!-- Bars: 9 카테고리 (양수 4 + 음수 5). x=50,90,130,170,210,250,290,330,370 (col=40, bar w=22)
                  양수 height = val*8 (per +10), y = 100 - height
                  음수 height = abs(val)*8, y = 100 -->
             <g>
-              <rect x="50"  y="26"  width="22" height="74" fill="#FF7E5F"/>
-              <rect x="90"  y="35"  width="22" height="65" fill="#FF7E5F"/>
-              <rect x="130" y="72"  width="22" height="28" fill="#FF7E5F"/>
-              <rect x="170" y="80"  width="22" height="20" fill="#FF7E5F"/>
-              <rect x="210" y="100" width="22" height="6"  fill="#C8C8C8"/>
-              <rect x="250" y="100" width="22" height="14" fill="#C8C8C8"/>
-              <rect x="290" y="100" width="22" height="20" fill="#C8C8C8"/>
-              <rect x="330" y="100" width="22" height="34" fill="#C8C8C8"/>
-              <rect x="370" y="100" width="22" height="42" fill="#C8C8C8"/>
+              <rect x="50"  y="26"  width="22" height="74" fill="var(--brand-orange)"/>
+              <rect x="90"  y="35"  width="22" height="65" fill="var(--brand-orange)"/>
+              <rect x="130" y="72"  width="22" height="28" fill="var(--brand-orange)"/>
+              <rect x="170" y="80"  width="22" height="20" fill="var(--brand-orange)"/>
+              <rect x="210" y="100" width="22" height="6"  fill="var(--mid-gray)"/>
+              <rect x="250" y="100" width="22" height="14" fill="var(--mid-gray)"/>
+              <rect x="290" y="100" width="22" height="20" fill="var(--mid-gray)"/>
+              <rect x="330" y="100" width="22" height="34" fill="var(--mid-gray)"/>
+              <rect x="370" y="100" width="22" height="42" fill="var(--mid-gray)"/>
             </g>
             <!-- 값 라벨 -->
-            <g font-size="9" fill="#000" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
+            <g font-size="9" fill="var(--black)" font-family="ui-monospace,Menlo,monospace" font-weight="700" text-anchor="middle">
               <text x="61"  y="20">+9.2</text>
               <text x="101" y="29">+8.1</text>
               <text x="141" y="66">+3.5</text>
               <text x="181" y="74">+2.5</text>
-              <text x="221" y="118" fill="#676765">-0.8</text>
-              <text x="261" y="126" fill="#676765">-1.7</text>
-              <text x="301" y="132" fill="#676765">-2.5</text>
-              <text x="341" y="146" fill="#676765">-4.3</text>
-              <text x="381" y="154" fill="#676765">-5.2</text>
+              <text x="221" y="118" fill="var(--mid-gray)">-0.8</text>
+              <text x="261" y="126" fill="var(--mid-gray)">-1.7</text>
+              <text x="301" y="132" fill="var(--mid-gray)">-2.5</text>
+              <text x="341" y="146" fill="var(--mid-gray)">-4.3</text>
+              <text x="381" y="154" fill="var(--mid-gray)">-5.2</text>
             </g>
             <!-- X 카테고리 -->
-            <g font-size="9" fill="#676765" font-family="Pretendard Variable, sans-serif" text-anchor="middle">
+            <g font-size="9" fill="var(--mid-gray)" font-family="var(--font-family)" text-anchor="middle">
               <text x="61"  y="170">엔터</text>
               <text x="101" y="170">B2B</text>
               <text x="141" y="170">금융</text>
@@ -131,25 +131,25 @@
         <p class="chart-sub">{{RIGHT_CHART_SUB}}</p>
         <div class="chart-svg-box" data-pptx-image="true">
           <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
-            <g font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+            <g font-size="9" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace">
               <text x="36" y="22"  text-anchor="end">30,000</text>
               <text x="36" y="62"  text-anchor="end">22,500</text>
               <text x="36" y="102" text-anchor="end">15,000</text>
               <text x="36" y="142" text-anchor="end">7,500</text>
               <text x="36" y="182" text-anchor="end">0</text>
             </g>
-            <g stroke="#F0F0F0" stroke-width="1">
+            <g stroke="var(--light-border)" stroke-width="1">
               <line x1="40" y1="20"  x2="395" y2="20"/>
               <line x1="40" y1="60"  x2="395" y2="60"/>
               <line x1="40" y1="100" x2="395" y2="100"/>
               <line x1="40" y1="140" x2="395" y2="140"/>
             </g>
-            <line x1="40" y1="180" x2="395" y2="180" stroke="#000" stroke-width="1"/>
+            <line x1="40" y1="180" x2="395" y2="180" stroke="var(--black)" stroke-width="1"/>
             <!-- 14 점 polyline. x = 50 + i*25, cy = 180 - (val/30000)*160
                  예시값 7200,7000,6400,5500,4900,5800,7500,7000,8500,14000,19500,22000,25500,28000 -->
             <polyline points="50,141.6 75,142.7 100,145.9 125,150.7 150,153.9 175,149.1 200,140.0 225,142.7 250,134.7 275,105.3 300,76.0 325,62.7 350,44.0 375,30.7"
-                      fill="none" stroke="#FF7E5F" stroke-width="2" stroke-linejoin="round"/>
-            <g fill="#FF7E5F" stroke="#fff" stroke-width="1.5">
+                      fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linejoin="round"/>
+            <g fill="var(--brand-orange)" stroke="var(--white)" stroke-width="1.5">
               <circle cx="50"  cy="141.6" r="3.5"/>
               <circle cx="75"  cy="142.7" r="3.5"/>
               <circle cx="100" cy="145.9" r="3.5"/>
@@ -166,10 +166,10 @@
               <circle cx="375" cy="30.7"  r="4"/>
             </g>
             <!-- 마지막 값 라벨 -->
-            <text x="375" y="22" font-size="10" fill="#FF7E5F" font-weight="800" text-anchor="middle" font-family="ui-monospace,Menlo,monospace">28,000</text>
+            <text x="375" y="22" font-size="10" fill="var(--brand-orange)" font-weight="800" text-anchor="middle" font-family="ui-monospace,Menlo,monospace">28,000</text>
             <!-- 평균 점선 -->
-            <line x1="40" y1="119" x2="395" y2="119" stroke="#676765" stroke-width="1" stroke-dasharray="3 2"/>
-            <text x="392" y="116" font-size="9" fill="#676765" font-family="ui-monospace,Menlo,monospace" text-anchor="end">평균 11,400</text>
+            <line x1="40" y1="119" x2="395" y2="119" stroke="var(--mid-gray)" stroke-width="1" stroke-dasharray="3 2"/>
+            <text x="392" y="116" font-size="9" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace" text-anchor="end">평균 11,400</text>
           </svg>
         </div>
       </div>
@@ -178,7 +178,7 @@
     <div class="insight">{{INSIGHT_BOX_HTML}}</div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

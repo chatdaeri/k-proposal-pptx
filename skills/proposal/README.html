@@ -48,7 +48,7 @@
 <ul>
   <li><strong>GitHub:</strong> <code>proposal/brand-system</code> (private) — 브랜드 가이드라인 PPT/HTML 자동 생성 스킬. 이 레포의 <code>references/</code> 폴더(<code>brand-guidelines.md</code>, <code>WEB-GUIDELINE.md</code>, <code>layout-principles.md</code>, <code>image-placement-rules.md</code>)가 디자인 시스템의 원본 소스입니다.</li>
   <li><strong>관련 레포 (같은 조직):</strong> <code>proposal/proposal-skill</code>, <code>proposal/pptx-skill</code>, <code>proposal/onboarding-materials</code></li>
-  <li><strong>로고:</strong> Pretendard 800 + 브랜드 블루 텍스트 워드마크 <code>CHATdaeri</code>. PNG/SVG 자산 없이 인라인 텍스트로 직접 렌더.</li>
+  <li><strong>로고:</strong> 단일 PNG <code>assets/logo.png</code> (SSoT). 제안 슬라이드·샘플 페이지에서 <code>&lt;img src="../assets/logo.png" …&gt;</code> 로 참조.</li>
 </ul>
 
 <h2>Content Fundamentals</h2>
@@ -120,7 +120,7 @@
 
 <h3>타이포그래피</h3>
 <ul>
-  <li><strong>폰트 패밀리</strong>: <strong>Pretendard Variable</strong> — <code>fonts/PretendardVariable.ttf</code> (이 프로젝트에 포함). Inter 금지, 시스템 폰트 fallback 허용.</li>
+  <li><strong>폰트 패밀리</strong>: 논리명 <strong><code>Proposal Deck Body</code></strong> — 바이너리는 <code>fonts/*.ttf</code> (파일명 자유, <code>npm run sync-font</code> 로 <code>font-face.generated.css</code> 갱신). Inter 금지.</li>
   <li><strong>웹 사이즈 체계</strong> (1440px 기준):
     <ul>
       <li>Cover hero: 64px / ExtraBold 800 / 블루</li>
@@ -178,7 +178,7 @@
 <ul>
   <li>섹션명 / 페이지번호: 13px Medium <code>#333</code></li>
   <li>구분선: 2px solid <code>#FF7E5F</code></li>
-  <li>로고: 우측 하단 (<code>bottom: 20px; right: 60px</code>), Pretendard 800 텍스트 <code>CHATdaeri</code> (높이 ≈ 12px, 색 <code>--brand-orange</code>)</li>
+  <li>로고: 우측 하단 (<code>bottom: 20px; right: 60px</code>), 이미지 <code>../assets/logo.png</code> (height 약 12~18px 권장)</li>
   <li>페이지번호는 <code>01, 02, ...</code> 2자리 zero-pad</li>
 </ul>
 
@@ -241,15 +241,11 @@
 <div class="callout"><strong>플래그:</strong> Lucide 는 이 디자인 시스템에 공식 포함된 것이 아니라 "가장 가까운 매칭" 으로 제안하는 것입니다. 실제 프로젝트에서 아이콘이 필요해지면 사용자 확인이 필요합니다.</div>
 
 <h2>폰트 파일</h2>
-<p><strong>원본 Pretendard Variable</strong> (<code>PretendardVariable.ttf</code>) 가 <code>fonts/</code> 에 포함되어 있습니다. 사용자가 직접 업로드한 공식 파일 — Google Fonts 대체 없이 그대로 사용합니다.</p>
-<p><code>colors_and_type.css</code> 상단에서 <code>@font-face</code> 로 로드되므로 추가 link 태그 불필요.</p>
-<pre><code>@font-face {
-  font-family: 'Pretendard Variable';
-  src: url('fonts/PretendardVariable.ttf') format('truetype-variations'),
-       url('fonts/PretendardVariable.ttf') format('truetype');
-  font-weight: 45 920;
-}</code></pre>
-<p>Bold 700 / SemiBold 600 / Medium 500 / Regular 400 / ExtraBold 800 등 모든 weight 가변 지원.</p>
+<p><strong>본문 바이너리</strong> 는 <code>fonts/</code> 안의 <strong>이름 무관한 <code>.ttf</code></strong> 로 둔다. 교체 후 <code>npm run sync-font</code> 로 <code>tokens/font-face.generated.css</code> 를 갱신한다. 논리 패밀리명은 <code>colors_and_type.css</code> 의 <code>--font-face-family</code> 와 실제 글꼴 메타를 맞출 것.</p>
+<p><code>colors_and_type.css</code> 가 <code>font-face.generated.css</code> 를 <code>@import</code> 한다.</p>
+<pre><code>/* tokens/font-face.generated.css — 자동 생성 */
+@font-face { font-family: 'Proposal Deck Body'; src: url('../fonts/실제파일명.ttf') ... }</code></pre>
+<p>가변 글꼴이면 브라우저·PPTX 파이프라인이 지원하는 weight 범위 안에서만 굵기를 씁니다.</p>
 
 <h2>Index — 이 디자인 시스템의 구성</h2>
 <pre>├── README.html                 (이 파일)
@@ -257,13 +253,13 @@
 ├── SKILL.md                    (Claude Code 스킬 호환)
 ├── colors_and_type.css         CSS 토큰 + semantic 스타일
 ├── fonts/
-│   └── PretendardVariable.ttf  공식 원본 폰트
+│   └── *.ttf (+ sync-font)     본문 폰트 / 자동 @font-face
 ├── templates/                  원본 HTML 템플릿 25 개
 ├── preview/                    디자인 시스템 탭 카드들
 ├── slides/                     샘플 슬라이드 (마케팅 제안서, 차트)
 └── ui_kits/
     └── web-proposal/           웹 기반 제안서 UI 키트</pre>
-<div class="callout"><strong>로고 자산 없음</strong> — CHATdaeri 워드마크는 PNG/SVG 파일이 아닌 <strong>Pretendard 800 + 브랜드 블루 인라인 텍스트</strong>로 렌더합니다.</div>
+<div class="callout"><strong>로고 SSoT</strong> — <code>skills/proposal/assets/logo.png</code> 단일 파일만 두고, HTML에서는 <code>../assets/logo.png</code> 로만 참조합니다.</div>
 
 <h2>렌더링 가이드 — 무엇을 언제 쓰는가</h2>
 <table>

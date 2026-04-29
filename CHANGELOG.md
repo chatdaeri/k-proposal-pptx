@@ -12,8 +12,12 @@
 - SVG 차트 캡처 파이프라인 (`data-pptx-image`)
 - `scripts/doctor.cjs` — 설치 환경 진단 도구
 - `html2pptx.cjs` vendor 내장 (외부 의존 제거)
-- Pretendard Variable 폰트 내장 (OFL 1.1)
+- Pretendard Variable 폰트 내장 (OFL 1.1), `fonts/*.ttf` + 자동 `font-face.generated.css`
 - `LICENSE-FONTS` — 폰트 라이선스 명시
+
+### Changed
+
+- 본문 폰트: `skills/proposal/fonts/*.ttf` 및 `tokens/font-face.generated.css` 로 URL 자동화 (`npm run sync-font`)
 
 ### License
 

@@ -6,6 +6,22 @@ const path = require('path');
 
 console.log('🎨 k-proposal-pptx postinstall 시작');
 
+try {
+  const { writeFontFaceGenerated } = require(path.join(
+    __dirname,
+    '..',
+    'skills',
+    'proposal',
+    'scripts',
+    'resolve-body-font.cjs'
+  ));
+  const skillRoot = path.join(__dirname, '..', 'skills', 'proposal');
+  writeFontFaceGenerated(path.join(skillRoot, 'tokens'), path.join(skillRoot, 'fonts'));
+  console.log('✅ font-face.generated.css 동기화됨');
+} catch (e) {
+  console.warn('⚠️ font-face 동기화 실패 (fonts/.ttf 확인):', e.message);
+}
+
 // 1. Playwright Chromium 다운로드
 console.log('\n📦 Playwright Chromium 다운로드 중...');
 try {

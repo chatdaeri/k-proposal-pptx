@@ -93,7 +93,7 @@ CONTACT_DETAIL: 'G회사 디지털혁신본부',  // → 실제 고객사
   </div>
   <!-- 본문 -->
   <div class="logo-area">
-    <img src="../../skills/proposal/assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../../skills/proposal/assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>`,

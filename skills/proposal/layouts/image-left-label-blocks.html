@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=960, height=540">
 <title>Image Left + Label Blocks Right Slide</title>
+<link rel="stylesheet" href="../primitives/_shared.css">
 <!--
   USAGE:
   좌측에 큰 이미지(캐릭터·다이어그램·프로필 등) + 우측에 타이틀 + 3개 "블루 라벨 박스".
@@ -22,15 +23,6 @@
   - {{BLOCK_N_BODY}} : 본문 설명
 -->
 <style>
-  :root {
-    --brand-blue: #FF7E5F;
-    --white: #FFFFFF;
-    --light-bg: #F8F8F8;
-    --black: #000000;
-    --dark-gray: #333333;
-    --light-border: #E0E0E0;
-    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: var(--font-family);
@@ -66,7 +58,7 @@
   }
   .left-image p {
     font-size: 13px;
-    color: #bbb;
+    color: var(--mid-gray);
     text-align: center;
     letter-spacing: 1px;
     line-height: 1.6;
@@ -143,7 +135,7 @@
   </div>
 
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

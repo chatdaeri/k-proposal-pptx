@@ -42,18 +42,18 @@
   .legend { display: flex; gap: 14px; margin-top: 14px; justify-content: flex-end; }
   .legend .item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--label-gray); font-weight: 500; }
   .legend .item p { margin: 0; }
-  .swatch-blue { width: 14px; height: 10px; background: #FF7E5F; }
-  .swatch-line { width: 14px; height: 2px; background: #000; }
+  .swatch-blue { width: 14px; height: 10px; background: var(--brand-orange); }
+  .swatch-line { width: 14px; height: 2px; background: var(--black); }
 
   .chart-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 22px; align-items: start; margin-top: 8px; }
   .chart-panel { display: flex; flex-direction: column; }
-  .chart-box { background: #fff; height: 240px; }
+  .chart-box { background: var(--white); height: 240px; }
   .chart-box svg { display: block; width: 100%; height: 100%; }
-  .forecast-tag { display: inline-block; margin-top: 8px; padding: 4px 10px; background: #FFF1EC; border-left: 3px solid var(--brand-blue); font-size: 11px; color: var(--brand-blue); font-weight: 700; }
+  .forecast-tag { display: inline-block; margin-top: 8px; padding: 4px 10px; background: var(--brand-tint-solid); border-left: 3px solid var(--brand-blue); font-size: 11px; color: var(--brand-blue); font-weight: 700; }
   .forecast-tag p { margin: 0; }
 
   .side-panel { padding-top: 4px; }
-  .insight { background: #FFF1EC; border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
+  .insight { background: var(--brand-tint-solid); border-left: 4px solid var(--brand-blue); padding: 14px 16px; }
   .insight .ins-label { font-size: 10.5px; font-weight: 800; color: var(--brand-blue); letter-spacing: .1em; font-family: ui-monospace, Menlo, monospace; text-transform: uppercase; margin: 0 0 6px; display: block; }
   .insight .ins-body { font-size: 13px; color: var(--black); line-height: 1.55; margin: 0; font-weight: 600; letter-spacing: -.005em; }
   .insight .ins-body strong { color: var(--brand-blue); font-weight: 800; }
@@ -85,22 +85,22 @@
          라인 max 5000 → cy = 228 - (val/5000)*200 -->
     <div class="chart-box" data-pptx-image="true">
       <svg viewBox="0 0 880 260" preserveAspectRatio="xMidYMid meet">
-        <g font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">
+        <g font-size="10" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace">
           <text x="46" y="32" text-anchor="end">15,000</text>
           <text x="46" y="92" text-anchor="end">10,000</text>
           <text x="46" y="152" text-anchor="end">5,000</text>
           <text x="46" y="232" text-anchor="end">0</text>
         </g>
-        <g stroke="#F0F0F0" stroke-width="1">
+        <g stroke="var(--light-border)" stroke-width="1">
           <line x1="55" y1="28"  x2="870" y2="28"/>
           <line x1="55" y1="88"  x2="870" y2="88"/>
           <line x1="55" y1="148" x2="870" y2="148"/>
         </g>
-        <line x1="55" y1="228" x2="870" y2="228" stroke="#000" stroke-width="1"/>
-        <text x="55" y="14" font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace">단위 · 명</text>
+        <line x1="55" y1="228" x2="870" y2="228" stroke="var(--black)" stroke-width="1"/>
+        <text x="55" y="14" font-size="10" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace">단위 · 명</text>
 
         <!-- 12 막대 (예시: 5200,11000,4400,2300,3300,5100,6100,3500,1900,1200,3100,6800) -->
-        <g fill="#FF7E5F">
+        <g fill="var(--brand-orange)">
           <rect x="77"  y="158.7" width="24" height="69.3"/>
           <rect x="145" y="81.3"  width="24" height="146.7"/>
           <rect x="213" y="169.3" width="24" height="58.7"/>
@@ -117,8 +117,8 @@
 
         <!-- 라인 시리즈 (이탈자, 예시: 1500,2200,1800,2400,3100,2700,2300,2900,3500,4200,3800,4600) -->
         <polyline points="89,168 157,140 225,156 292,132 360,104 428,120 496,136 564,112 631,88 699,60 767,76 835,44"
-                  fill="none" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
-        <g fill="#000">
+                  fill="none" stroke="var(--black)" stroke-width="1.5" stroke-linejoin="round"/>
+        <g fill="var(--black)">
           <circle cx="89"  cy="168" r="3"/>
           <circle cx="157" cy="140" r="3"/>
           <circle cx="225" cy="156" r="3"/>
@@ -134,7 +134,7 @@
         </g>
 
         <!-- X 라벨 (12 시점) -->
-        <g font-size="10" fill="#676765" font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
+        <g font-size="10" fill="var(--mid-gray)" font-family="ui-monospace,Menlo,monospace" text-anchor="middle">
           <text x="89"  y="248">'15</text>
           <text x="157" y="248">'16</text>
           <text x="225" y="248">'17</text>
@@ -146,7 +146,7 @@
           <text x="631" y="248">'23</text>
           <text x="699" y="248">'24</text>
           <text x="767" y="248">'25</text>
-          <text x="835" y="248" fill="#FF7E5F" font-weight="800">'26F</text>
+          <text x="835" y="248" fill="var(--brand-orange)" font-weight="800">'26F</text>
         </g>
       </svg>
     </div>
@@ -167,7 +167,7 @@
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

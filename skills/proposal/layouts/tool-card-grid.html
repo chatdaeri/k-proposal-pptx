@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=960, height=540">
 <title>Tool Card Grid Slide</title>
+<link rel="stylesheet" href="../primitives/_shared.css">
 <!--
   USAGE:
   여러 개의 도구/항목을 로고와 함께 카드 그리드로 한눈에 보여주는 레이아웃.
@@ -23,15 +24,6 @@
   - 각 .card 내용을 실제 도구 데이터로 교체
 -->
 <style>
-  :root {
-    --brand-blue: #FF7E5F;
-    --white: #FFFFFF;
-    --light-bg: #F8F8F8;
-    --black: #000000;
-    --dark-gray: #333333;
-    --light-border: #E0E0E0;
-    --font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: var(--font-family);
@@ -90,7 +82,7 @@
     justify-content: center;
     margin-top: 2px;
   }
-  .card .logo-box p { font-size: 7px; color: #bbb; letter-spacing: 1px; }
+  .card .logo-box p { font-size: 7px; color: var(--mid-gray); letter-spacing: 1px; }
   .card .tool-name {
     font-size: 13px;
     font-weight: 700;
@@ -197,7 +189,7 @@
   </div>
 
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>

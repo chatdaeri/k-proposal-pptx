@@ -5,6 +5,7 @@
   "scripts": {
     "postinstall": "node scripts/postinstall.cjs",
     "doctor": "node scripts/doctor.cjs",
+    "sync-font": "node skills/proposal/scripts/sync-font-face.cjs",
     "build:examples": "for d in examples/*/; do node skills/proposal/scripts/build.cjs \"$d/deck.cjs\" --no-lint; done"
   },
   "dependencies": {

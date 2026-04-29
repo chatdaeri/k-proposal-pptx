@@ -13,7 +13,6 @@ module.exports = {
         HERO_LINE_3: '사업 제안서',
         CONTACT_LABEL: '제출처',
         CONTACT_DETAIL: 'G회사 디지털혁신본부',
-        LOGO_PATH: '',
       },
     },
 
@@ -155,7 +154,7 @@ module.exports = {
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>`,
@@ -244,7 +243,7 @@ module.exports = {
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>`,
@@ -435,7 +434,7 @@ module.exports = {
     </div>
   </div>
   <div class="logo-area">
-    <img src="../assets/chatdaeri-logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
+    <img src="../assets/logo.png" alt="CHATdaeri" style="height:18px;width:auto;display:block">
   </div>
 </body>
 </html>`,
